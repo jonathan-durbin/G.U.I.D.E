@@ -8,5 +8,6 @@ This lists the currently open to do items in no particular order.
 - [ ] Add functionality for runtime re-binding.
 - [ ] Add a C# API (https://github.com/DmitriySalnikov/godot_debug_draw_3d/issues/2#issuecomment-1406989099).
 - [ ] Decide whether to convert into C++ after the prototyping phase is done
+- [ ] Documentation
 
 ## Done
