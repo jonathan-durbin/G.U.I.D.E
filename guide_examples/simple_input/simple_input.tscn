@@ -1,0 +1,31 @@
+[gd_scene load_steps=8 format=3 uid="uid://cchyatnt0wl5x"]
+
+[ext_resource type="Texture2D" uid="uid://byjxtsekdl8t2" path="res://guide_examples/godot_logo.svg" id="1_t8vwd"]
+[ext_resource type="Script" path="res://guide_examples/simple_input/player.gd" id="2_o6vg3"]
+[ext_resource type="Resource" uid="uid://c161ru5ubsvm5" path="res://guide_examples/simple_input/simple_input.tres" id="3_2b24x"]
+[ext_resource type="Resource" uid="uid://b7rcj2usvx7iu" path="res://guide_examples/simple_input/move_left.tres" id="4_50on6"]
+[ext_resource type="Resource" uid="uid://cn4nypfrnusrn" path="res://guide_examples/simple_input/move_right.tres" id="5_47yin"]
+[ext_resource type="Resource" uid="uid://cjohgt5cdoxvd" path="res://guide_examples/simple_input/move_up.tres" id="6_b7h5t"]
+[ext_resource type="Resource" uid="uid://cjfdsja54wtus" path="res://guide_examples/simple_input/move_down.tres" id="7_4pdc5"]
+
+[node name="SimpleInput" type="Node"]
+
+[node name="Player" type="Sprite2D" parent="."]
+position = Vector2(546, 317)
+texture = ExtResource("1_t8vwd")
+script = ExtResource("2_o6vg3")
+mapping_context = ExtResource("3_2b24x")
+left_action = ExtResource("4_50on6")
+right_action = ExtResource("5_47yin")
+up_action = ExtResource("6_b7h5t")
+down_action = ExtResource("7_4pdc5")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "Press WASD to move the player."
+horizontal_alignment = 1

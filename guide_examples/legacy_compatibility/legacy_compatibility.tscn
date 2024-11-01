@@ -1,0 +1,75 @@
+[gd_scene load_steps=3 format=3 uid="uid://c3meja448orgo"]
+
+[ext_resource type="Script" path="res://guide_examples/legacy_compatibility/legacy_compatibility.gd" id="1_bhuai"]
+[ext_resource type="Resource" uid="uid://ddp821cmhdkt4" path="res://guide_examples/legacy_compatibility/ui_actions.tres" id="2_k8h23"]
+
+[node name="LegacyCompatibility" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bhuai")
+mapping_context = ExtResource("2_k8h23")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Use WASD to navigate the UI up/down/left/right. Q for previous, E for next. R to select."
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+focus_neighbor_right = NodePath("../Button2")
+focus_neighbor_bottom = NodePath("../../HSlider")
+focus_next = NodePath("../Button2")
+focus_previous = NodePath("../../OptionButton")
+text = "Some button"
+
+[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+focus_neighbor_left = NodePath("../Button")
+focus_neighbor_bottom = NodePath("../../HSlider")
+focus_next = NodePath("../../HSlider")
+focus_previous = NodePath("../Button")
+text = "Another button"
+
+[node name="HSlider" type="HSlider" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../HBoxContainer/Button2")
+focus_neighbor_bottom = NodePath("../OptionButton")
+focus_next = NodePath("../OptionButton")
+focus_previous = NodePath("../HBoxContainer/Button2")
+
+[node name="OptionButton" type="OptionButton" parent="PanelContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+focus_neighbor_top = NodePath("../HSlider")
+focus_next = NodePath("../HBoxContainer/Button")
+focus_previous = NodePath("../HSlider")
+item_count = 2
+popup/item_0/text = "Option 1"
+popup/item_0/id = 0
+popup/item_1/text = "Option 2"
+popup/item_1/id = 1
