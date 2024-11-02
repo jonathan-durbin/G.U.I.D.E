@@ -1,3 +1,4 @@
+@tool
 class_name GUIDEModifierDeadzone
 extends GUIDEModifier
 
@@ -32,6 +33,8 @@ func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 			push_error("Unsupported value type. This is a bug. Please report it.")
 			return input
 					
-			
+		
+func _editor_name() -> String:
+	return "Deadzone"	
 		
 			

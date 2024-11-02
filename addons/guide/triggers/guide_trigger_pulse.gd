@@ -78,4 +78,5 @@ func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 	return GUIDETriggerState.NONE
 		
 		
-		
+func _editor_name() -> String:
+	return "Pulse"		

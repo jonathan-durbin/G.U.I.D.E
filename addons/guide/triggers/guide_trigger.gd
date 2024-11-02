@@ -1,3 +1,4 @@
+@tool
 class_name GUIDETrigger
 extends Resource
 
@@ -42,3 +43,5 @@ func _is_axis2d_actuated(input:Vector3) -> bool:
 func _is_axis3d_actuated(input:Vector3) -> bool:
 	return input.length_squared() > actuation_threshold * actuation_threshold
 	
+func _editor_name() -> String:
+	return "GUIDETrigger"

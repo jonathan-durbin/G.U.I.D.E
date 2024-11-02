@@ -1,33 +1,41 @@
-[gd_scene load_steps=6 format=3 uid="uid://gjweqc0stfqh"]
+[gd_scene load_steps=9 format=3 uid="uid://gjweqc0stfqh"]
 
+[ext_resource type="Script" path="res://guide_examples/remapping/remapping.gd" id="1_3d1tp"]
 [ext_resource type="Texture2D" uid="uid://byjxtsekdl8t2" path="res://guide_examples/godot_logo.svg" id="1_gkmxq"]
+[ext_resource type="Resource" uid="uid://cu0dhstc00cj5" path="res://guide_examples/remapping/game_controls.tres" id="2_issuo"]
 [ext_resource type="Script" path="res://guide_examples/remapping/player.gd" id="2_n3drv"]
-[ext_resource type="Resource" uid="uid://cu0dhstc00cj5" path="res://guide_examples/remapping/remapping_context.tres" id="3_wagnt"]
-[ext_resource type="Resource" uid="uid://chhw5umkd1j2p" path="res://guide_examples/remapping/player_actions/player_movement_2d.tres" id="4_07jn1"]
+[ext_resource type="Resource" uid="uid://c65tsmp268vdq" path="res://guide_examples/remapping/game_actions/open_menu.tres" id="3_g1dlj"]
+[ext_resource type="Resource" uid="uid://chhw5umkd1j2p" path="res://guide_examples/remapping/game_actions/player_movement_2d.tres" id="4_07jn1"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="5_kdgir"]
+[ext_resource type="Script" path="res://addons/guide/remapping/guide_input_detector.gd" id="7_f5klp"]
 
 [node name="Remapping" type="Node"]
+script = ExtResource("1_3d1tp")
+game_controls = ExtResource("2_issuo")
+open_menu_action = ExtResource("3_g1dlj")
 
 [node name="Player" type="Sprite2D" parent="."]
 position = Vector2(546, 317)
 texture = ExtResource("1_gkmxq")
 script = ExtResource("2_n3drv")
-mapping_context = ExtResource("3_wagnt")
 move_action = ExtResource("4_07jn1")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
-anchors_preset = 15
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_top = -23.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "Test"
+fit_content = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
-layout_mode = 2
+[node name="HUD Layer" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="CanvasLayer"]
+[node name="Label" type="Label" parent="HUD Layer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -37,4 +45,33 @@ theme_override_font_sizes/font_size = 20
 text = "Press ESC to remap input"
 horizontal_alignment = 1
 
-[node name="GuideDebugger" parent="CanvasLayer" instance=ExtResource("5_kdgir")]
+[node name="UI Layer" type="CanvasLayer" parent="."]
+
+[node name="Menu" type="MarginContainer" parent="UI Layer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI Layer/Menu"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI Layer/Menu"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UI Layer/Menu/VBoxContainer"]
+layout_mode = 2
+text = "Detective!"
+
+[node name="GUIDEInputDetector" type="Node" parent="UI Layer"]
+unique_name_in_owner = true
+script = ExtResource("7_f5klp")
+
+[node name="DebugLayer" type="CanvasLayer" parent="."]
+
+[node name="GuideDebugger" parent="DebugLayer" instance=ExtResource("5_kdgir")]
+
+[connection signal="pressed" from="UI Layer/Menu/VBoxContainer/Button" to="." method="_on_button_pressed"]

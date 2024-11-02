@@ -9,4 +9,5 @@ input_mappings = Array[Resource("res://addons/guide/guide_input_mapping.gd")]([]
 
 [resource]
 script = ExtResource("7_c4f0d")
+display_name = ""
 mappings = Array[ExtResource("6_iugj3")]([SubResource("Resource_lomew")])

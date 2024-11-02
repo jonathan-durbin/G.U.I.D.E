@@ -1,3 +1,4 @@
+@tool
 class_name GUIDEModifierInputSwizzle
 extends GUIDEModifier
 
@@ -28,5 +29,6 @@ func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 			push_error("Unknown order ", order , " this is most likely a bug, please report it.")
 			return input
 			
-			
+func _editor_name() -> String:
+	return "Input Swizzle"				
 			

@@ -1,3 +1,4 @@
+@tool
 ## A trigger that activates when the input is tapped and released before the time threshold is reached.
 class_name GUIDETriggerTap
 extends GUIDETrigger
@@ -38,3 +39,6 @@ func _update_state(input: Vector3, delta: float, value_type:GUIDEAction.GUIDEAct
 			
  		# in either case, the trigger is not triggered.
 		return GUIDETriggerState.NONE
+
+func _editor_name() -> String:
+	return "Tap"

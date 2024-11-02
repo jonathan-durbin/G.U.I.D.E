@@ -40,3 +40,6 @@ func _is_same_as(other:GUIDEInput) -> bool:
 			and other.control == control \
 			and other.alt == alt \
 			and other.meta == meta
+
+func _to_string():
+	return "(GUIDEInputKey: key=" + str(key) + ", shift="  + str(shift) + ", alt=" + str(alt) + ", control=" + str(control) + ", meta="+ str(meta) + ")"

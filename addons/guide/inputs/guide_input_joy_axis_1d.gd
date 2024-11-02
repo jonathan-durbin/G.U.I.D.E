@@ -17,3 +17,8 @@ func _input(event:InputEvent):
 		return
 		
 	_value.x = event.axis_value
+
+
+
+func _to_string():
+	return "(GUIDEInputJoyAxis1D: axis=" + str(axis) + ", joy_index="  + str(joy_index) + ")"

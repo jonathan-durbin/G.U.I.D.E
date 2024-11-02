@@ -1,11 +1,12 @@
-﻿# G.U.I.D.E - Godot Unified Input Detection Engine
+# G.U.I.D.E - Godot Unified Input Detection Engine
 
 G.U.I.D.E is an extension for the Godot Engine that allows you to easily use input from multiple sources, such as keyboard, mouse, gamepad, etc. in a unified way. Gone are the days where mouse input was handled differently from joysticks. No matter where the input comes from - your game code stays the same.
 
 ## Features
 
 - Unified input detection from multiple sources (keyboard, mouse, gamepad, etc.).
-- Inputs can be mapped to game specific actions.
+- Multiple mapping contexts (e.g different controls while walking, flying, etc.)
+- Mapping contexts can be easily enabled/disabled at any time, e.g. to lock all input during a cutscene.
 - Inputs from different sources can be combined (e.g. build a 2D axis from 4 buttons or 2 gamepad triggers).
 - Inputs can be modified (e.g. for joystick dead-zones, sensitivity, inversion, etc.).
 - Built-in support for common action patterns (e.g. tap, hold, press, release, etc.).

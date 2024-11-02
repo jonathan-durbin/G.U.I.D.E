@@ -111,9 +111,19 @@ func _emit_godot_action_maybe(pressed:bool) -> void:
 	Input.parse_input_event(godot_action)
 
 func _update_value(value:Vector3):
-	_value_bool = abs(value.x) > 0
-	_value_axis2d = Vector2(value.x, value.y)
-	_value = value
+	match action_value_type:
+		GUIDEActionValueType.BOOL, GUIDEActionValueType.AXIS_1D:
+			_value_bool = abs(value.x) > 0
+			_value_axis2d = Vector2(abs(value.x), 0)
+			_value = Vector3(value.x, 0, 0)
+		GUIDEActionValueType.AXIS_2D:
+			_value_bool = abs(value.x) > 0
+			_value_axis2d = Vector2(value.x, value.y)
+			_value = Vector3(value.x, value.y, 0)
+		GUIDEActionValueType.AXIS_3D:
+			_value_bool = abs(value.x) > 0
+			_value_axis2d = Vector2(value.x, value.y)
+			_value = value
 
 ## Returns whether the action is currently triggered. Can be used for a 
 ## polling style input 

@@ -1,3 +1,4 @@
+@tool
 ## A trigger that activates when the input is held down for a certain amount of time.
 class_name GUIDETriggerHold
 extends GUIDETrigger
@@ -32,3 +33,7 @@ func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 		_accumulated_time = 0
 		_did_shoot = false
 		return GUIDETriggerState.NONE
+
+
+func _editor_name() -> String:
+	return "Hold"

@@ -25,3 +25,6 @@ func _input(event:InputEvent) -> void:
 		
 func _is_same_as(other:GUIDEInput):
 	return other is GUIDEInputMouseAxis1D and other.axis == axis
+
+func _to_string():
+	return "(GUIDEInputMouseAxis1D: axis=" + str(axis) + ")"

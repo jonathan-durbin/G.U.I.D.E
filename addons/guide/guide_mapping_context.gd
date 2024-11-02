@@ -1,3 +1,4 @@
+@tool
 class_name GUIDEMappingContext
 extends Resource
 
@@ -7,3 +8,10 @@ extends Resource
 @export var display_name:String
 
 @export var mappings:Array[GUIDEActionMapping] = []
+
+
+func _editor_name() -> String:
+	if display_name.is_empty():
+		return resource_path.get_file()
+	else:
+		return display_name + "(" + resource_path.get_file() + ")"

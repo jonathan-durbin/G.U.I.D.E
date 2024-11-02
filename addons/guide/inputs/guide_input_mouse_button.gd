@@ -14,3 +14,7 @@ func _input(event:InputEvent):
 
 func _is_same_as(other:GUIDEInput) -> bool:
 	return other is GUIDEInputMouseButton and other.button == button
+
+
+func _to_string():
+	return "(GUIDEInputMouseButton: button=" + str(button) + ")"

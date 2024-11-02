@@ -20,13 +20,20 @@ var _active_inputs:GUIDESet = GUIDESet.new()
 ## before new input is processed at the beginning of the frame.
 var _reset_node:GUIDEReset
 
+var _ui:GUIDEUI
+var UI:GUIDEUI:
+	get: return _ui
+
 func _ready():
 	_reset_node = GUIDEReset.new()
+	_ui = GUIDEUI.new()
+	add_child(_ui)
 	add_child(_reset_node)
 	# attach to the current viewport to get input events
 	GUIDEInputTracker._instrument.call_deferred(get_viewport())
 	
 	get_tree().node_added.connect(_on_node_added)
+	
 
 
 ## Called when a node is added to the tree. If the node is a window
@@ -126,6 +133,14 @@ func _update_caches():
 	for input:GUIDEInput in _active_inputs.values():
 		input._end_usage()
 		
+	# Cancel all actions, so they don't remain in weird states.
+	for mapping:GUIDEActionMapping in _active_action_mappings:
+		match mapping.action._last_state:
+			GUIDEAction.GUIDEActionState.ONGOING:
+				mapping.action._cancelled(Vector3.ZERO)
+			GUIDEAction.GUIDEActionState.TRIGGERED:
+				mapping.action._completed(Vector3.ZERO)
+				
 	_active_inputs.clear()
 	_active_action_mappings.clear()
 	

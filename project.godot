@@ -10,13 +10,20 @@ config_version=5
 
 [application]
 
-config/name="guide"
-config/features=PackedStringArray("4.2", "Forward Plus")
+config/name="G.U.I.D.E"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GUIDE="*res://addons/guide/guide.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [dotnet]
 
@@ -24,7 +31,7 @@ project/assembly_name="guide"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/guide/plugin.cfg")
+enabled=PackedStringArray("res://addons/explore-editor-theme/plugin.cfg", "res://addons/guide/plugin.cfg")
 
 [input]
 

@@ -1,3 +1,4 @@
+@tool
 ## A trigger that activates when the input is pushed down. Will only emit a
 ## trigger event once. Holding the input will not trigger further events.
 class_name GUIDETriggerPressed
@@ -10,3 +11,7 @@ func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 			return GUIDETriggerState.TRIGGERED
 		
 	return GUIDETriggerState.NONE
+
+
+func _editor_name() -> String:
+	return "Pressed"

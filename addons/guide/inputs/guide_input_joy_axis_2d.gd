@@ -24,3 +24,6 @@ func _input(event:InputEvent):
 		
 	if event.axis == y:
 		_value.y = event.axis_value
+
+func _to_string():
+	return "(GUIDEInputJoyAxis2D: x=" + str(x) + ", y=" + str(y) + ", joy_index="  + str(joy_index) + ")"

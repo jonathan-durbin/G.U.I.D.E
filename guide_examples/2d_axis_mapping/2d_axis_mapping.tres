@@ -91,4 +91,5 @@ input_mappings = Array[ExtResource("3_ad6sj")]([SubResource("Resource_6qgwf"), S
 
 [resource]
 script = ExtResource("8_r1avn")
+display_name = ""
 mappings = Array[ExtResource("4_16vkk")]([SubResource("Resource_u0xy6")])

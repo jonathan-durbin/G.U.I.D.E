@@ -1,3 +1,4 @@
+@tool
 class_name GUIDEModifier
 extends Resource
 

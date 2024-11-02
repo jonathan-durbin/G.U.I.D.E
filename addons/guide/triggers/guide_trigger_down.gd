@@ -1,3 +1,4 @@
+@tool
 class_name GUIDETriggerDown
 extends GUIDETrigger
 
@@ -7,3 +8,7 @@ func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 		return GUIDETriggerState.TRIGGERED
 	# otherwise, the trigger is not triggered.
 	return GUIDETriggerState.NONE
+
+
+func _editor_name() -> String:
+	return "Down"
