@@ -7,13 +7,29 @@ var index:int
 
 var action:GUIDEAction:
 	set(value):
+		if is_instance_valid(action):
+			action.changed.disconnect(_refresh)
+		
 		action = value
-		if action == null:
-			text = "<none>"
-		else:
-			text = action.resource_path.get_file()
 	
+		if is_instance_valid(action):
+			action.changed.connect(_refresh)
 	
+		# action_changed can only be emitted by 
+		# dragging an action into this, not when setting
+		# the property
+		_refresh()
+
+		
+func _refresh():
+	if not is_instance_valid(action):
+		text = "<none>"
+		tooltip_text = ""
+	else:
+		text = action._editor_name()	
+		print("Hahaa " + action.resource_path)
+		tooltip_text = action.resource_path
+
 func _can_drop_data(at_position, data) -> bool:
 	if not data is Dictionary:
 		return false
@@ -33,4 +49,10 @@ func _drop_data(at_position, data) -> void:
 		if item is GUIDEAction:
 			action = item
 			action_changed.emit()
+
+func _gui_input(event):
+	if event is InputEventMouseButton:
+		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+			if is_instance_valid(action):
+				EditorInterface.edit_resource(action)
 

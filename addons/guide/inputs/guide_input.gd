@@ -1,3 +1,4 @@
+@tool
 ## A class representing some actuated input.
 class_name GUIDEInput
 extends Resource
@@ -35,3 +36,14 @@ func _begin_usage() -> void :
 ## cleanup.
 func _end_usage() -> void:
 	pass
+	
+	
+func _editor_name() -> String:
+	return ""
+	
+func _editor_description() -> String:
+	return ""
+	
+
+func _native_value_type() -> GUIDEAction.GUIDEActionValueType:
+	return GUIDEAction.GUIDEActionValueType.BOOL

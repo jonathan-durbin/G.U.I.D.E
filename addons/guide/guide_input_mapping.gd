@@ -1,22 +1,40 @@
+@tool
 ## A mapping from actuated input to a trigger result
 class_name GUIDEInputMapping
 extends Resource
 
 ## The input to be actuated
-@export var input:GUIDEInput
+@export var input:GUIDEInput:
+	set(value):
+		if value == input:
+			return
+		input = value
+		emit_changed()
 
 
 ## A list of modifiers that preprocess the actuated input before
 ## it is fed to the triggers.
-@export var modifiers:Array[GUIDEModifier] = []
+@export var modifiers:Array[GUIDEModifier] = []:
+	set(value):
+		if value == modifiers:
+			return
+		modifiers = value
+		emit_changed()
 
 
 ## A list of triggers that could trigger the mapped action.
-@export var triggers:Array[GUIDETrigger] = []
+@export var triggers:Array[GUIDETrigger] = []:
+	set(value):
+		if value == triggers:
+			return
+		triggers = value
+		emit_changed()
+
 
 var _default_trigger:GUIDETrigger
 var _state:GUIDETrigger.GUIDETriggerState = GUIDETrigger.GUIDETriggerState.NONE
 var _value:Vector3 = Vector3.ZERO
+
 
 func _update_state(delta:float, value_type:GUIDEAction.GUIDEActionValueType):
 	# Collect the current input value

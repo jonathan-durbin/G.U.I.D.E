@@ -1,10 +1,16 @@
 ## An input that mirrors the action's value while the action is triggered.
+@tool
 class_name GUIDEInputAction
 extends GUIDEInput
 
 ## The action that this input should mirror. This is live tracked, so any change in
 ## the action will update the input.
-@export var action:GUIDEAction
+@export var action:GUIDEAction:
+	set(value):
+		if value == action:
+			return
+		action = value
+		emit_changed()	
 
 func _begin_usage():
 	if is_instance_valid(action):
@@ -40,3 +46,14 @@ func _is_same_as(other:GUIDEInput) -> bool:
 
 func _to_string():
 	return "(GUIDEInputAction: " + str(action) + ")"
+
+func _editor_name() -> String:
+	return "Action"
+	
+	
+func _editor_description() -> String:
+	return "An input that mirrors the action's value while the action is triggered."
+	
+
+func _native_value_type() -> GUIDEAction.GUIDEActionValueType:
+	return GUIDEAction.GUIDEActionValueType.AXIS_3D

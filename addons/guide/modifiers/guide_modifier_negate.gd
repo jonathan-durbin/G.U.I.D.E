@@ -1,21 +1,34 @@
+## Inverts input per axis.
 @tool
 class_name GUIDEModifierNegate
 extends GUIDEModifier
 
+## Whether the X axis should be inverted.
 @export var x:bool = true:
 	set(value):
+		if x == value:
+			return
 		x = value
 		_update_caches()
+		emit_changed()
 		
+## Whether the Y axis should be inverted.		
 @export var y:bool = true:
 	set(value):
+		if y == value:
+			return
 		y = value
 		_update_caches()
+		emit_changed()
 
+## Whether the Z axis should be inverted.
 @export var z:bool = true:
 	set(value):
+		if z == value:
+			return
 		z = value
 		_update_caches()
+		emit_changed()
 
 var _multiplier:Vector3 = Vector3.ONE * -1
 
@@ -30,3 +43,7 @@ func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 
 func _editor_name() -> String:
 	return "Negate"	
+
+
+func _editor_description() -> String:
+	return "Inverts input per axis."

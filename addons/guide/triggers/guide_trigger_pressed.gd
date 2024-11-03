@@ -15,3 +15,8 @@ func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 
 func _editor_name() -> String:
 	return "Pressed"
+
+
+func _editor_description() -> String:
+	return "Fires once, when the input exceeds actuation threshold. Holding the input\n" + \
+		"will not fire additional triggers."

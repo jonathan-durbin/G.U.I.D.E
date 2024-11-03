@@ -3,15 +3,29 @@ extends RichTextLabel
 
 signal clicked()
 
-
 var _ui:GUIDEUI
 
 var input:GUIDEInput:
 	set(value):
-		input = value
+		if value == input:
+			return
+		
 		if is_instance_valid(input):
-			var text := await _ui.format_input_with_icons("%s", [input], 48)
-			parse_bbcode(text)
+			input.changed.disconnect(_refresh)
+		
+		input = value
+		
+		if is_instance_valid(input):
+			input.changed.connect(_refresh)
+
+		_refresh()
+
+func _refresh():
+	if not is_instance_valid(input):
+		return
+		
+	var text := await _ui.format_input_with_icons("%s", [input], 48)
+	parse_bbcode(text)
 
  
 func initialize(ui:GUIDEUI):

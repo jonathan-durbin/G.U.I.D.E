@@ -1,3 +1,4 @@
+@tool
 class_name GUIDEInputMouseAxis2D
 extends GUIDEInput
 
@@ -20,3 +21,15 @@ func _is_same_as(other:GUIDEInput):
 
 func _to_string():
 	return "(GUIDEInputMouseAxis2D)"
+
+
+func _editor_name() -> String:
+	return "Mouse Axis 2D"
+
+	
+func _editor_description() -> String:
+	return "Relative mouse movement on 2 axes."
+
+
+func _native_value_type() -> GUIDEAction.GUIDEActionValueType:
+	return GUIDEAction.GUIDEActionValueType.AXIS_2D

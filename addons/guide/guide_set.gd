@@ -12,6 +12,18 @@ func remove(value:Variant) -> void:
 func clear() -> void:
 	_values.clear()
 	
+func is_empty() -> bool:
+	return _values.is_empty()
+	
+	
+func pull() -> Variant:
+	if is_empty():
+		return null
+	
+	var key = _values.keys()[0]
+	remove(key)
+	return key
+	
 	
 func has(value:Variant) -> bool:
 	return _values.has(value)

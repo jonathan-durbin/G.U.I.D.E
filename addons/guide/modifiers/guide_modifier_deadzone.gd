@@ -1,9 +1,27 @@
+## Inputs between the lower and upper threshold are mapped 0 -> 1.
+## Values outside the thresholds are clamped.
 @tool
 class_name GUIDEModifierDeadzone
 extends GUIDEModifier
 
-@export_range(0,1) var lower_threshold:float = 0.2
-@export_range(0,1) var upper_threshold:float = 1.0
+## Lower threshold for the deadzone. 
+@export_range(0,1) var lower_threshold:float = 0.2:
+	set(value):
+		if value > upper_threshold:
+			lower_threshold = upper_threshold
+		else:
+			lower_threshold = value
+		emit_changed()
+			
+
+## Upper threshold for the deadzone.
+@export_range(0,1) var upper_threshold:float = 1.0:
+	set(value):
+		if value < lower_threshold:
+			upper_threshold = lower_threshold
+		else:
+			upper_threshold = value
+		emit_changed()
 
 
 func _rescale(value:float) -> float:
@@ -37,4 +55,6 @@ func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 func _editor_name() -> String:
 	return "Deadzone"	
 		
-			
+func _editor_description() -> String:
+	return "Inputs between the lower and upper threshold are mapped 0 -> 1.\n" + \
+			"Values outside the thresholds are clamped."			

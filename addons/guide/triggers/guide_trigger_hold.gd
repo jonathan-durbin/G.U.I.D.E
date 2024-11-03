@@ -37,3 +37,7 @@ func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 
 func _editor_name() -> String:
 	return "Hold"
+
+func _editor_description() -> String:
+	return "Fires, once the input has remained actuated for hold_threshold seconds.\n" + \
+			"My fire once or repeatedly."

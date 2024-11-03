@@ -12,3 +12,6 @@ func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 
 func _editor_name() -> String:
 	return "Down"
+
+func _editor_description() -> String:
+	return "Fires, when the input exceeds the actuation threshold."

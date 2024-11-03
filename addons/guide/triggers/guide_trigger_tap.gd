@@ -42,3 +42,7 @@ func _update_state(input: Vector3, delta: float, value_type:GUIDEAction.GUIDEAct
 
 func _editor_name() -> String:
 	return "Tap"
+
+
+func _editor_description() -> String:
+	return "Fires when the input is actuated and released within the given timeframe."

@@ -80,3 +80,7 @@ func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 		
 func _editor_name() -> String:
 	return "Pulse"		
+
+
+func _editor_description() -> String:
+	return "Fires at an interval while the input is actuated."

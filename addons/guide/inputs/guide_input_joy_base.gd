@@ -1,8 +1,14 @@
+@tool
 class_name GUIDEInputJoyBase
 extends GUIDEInput
 
 ## The index of the connected joy pad to check. If -1 checks all joypads.
-@export var joy_index:int = -1
+@export var joy_index:int = -1:
+	set(value):
+		if value == joy_index:
+			return
+		joy_index = value
+		emit_changed()	
 
 ## Cached joystick ID if we use a joy index.
 var _joy_id:int = -2

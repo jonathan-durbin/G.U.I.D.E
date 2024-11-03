@@ -1,15 +1,22 @@
+## Swizzle the input vector components. Useful to map 1D input to 2D or vice versa.
 @tool
 class_name GUIDEModifierInputSwizzle
 extends GUIDEModifier
 
 enum GUIDEInputSwizzleOperation {
+	## Swap X and Y axes.
 	YXZ,
+	## Swap X and Z axes.
 	ZYX,
+	## Swap Y and Z axes.
 	XZY,
+	## Y to X, Z to Y, X to Z.
 	YZX,
+	## Y to Z, Z to X, X to Y.
 	ZXY
 }
 
+## The new order into which the input should be brought.
 @export var order:GUIDEInputSwizzleOperation = GUIDEInputSwizzleOperation.YXZ
 
 
@@ -32,3 +39,5 @@ func _modify_input(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActio
 func _editor_name() -> String:
 	return "Input Swizzle"				
 			
+func _editor_description() -> String:
+	return "Swizzle the input vector components. Useful to map 1D input to 2D or vice versa."

@@ -1,3 +1,4 @@
+@tool
 class_name GUIDEAction
 extends Resource
 
@@ -16,10 +17,21 @@ enum GUIDEActionState {
 
 ## The name of this action. Required when this action should be used as
 ## Godot action. Also displayed in the debugger.
-@export var name:StringName
+@export var name:StringName:
+	set(value):
+		if name == value:
+			return
+		name = value
+		emit_changed()
+	
 
 ## The action value type.
-@export var action_value_type: GUIDEActionValueType = GUIDEActionValueType.BOOL
+@export var action_value_type: GUIDEActionValueType = GUIDEActionValueType.BOOL:
+	set(value):
+		if action_value_type == value:
+			return
+		action_value_type = value
+		emit_changed()
 
 @export_category("Godot Actions")
 ## If true, then this action will be emitted into Godot's 
@@ -27,20 +39,41 @@ enum GUIDEActionState {
 ## code using this system, like Godot's UI system. Actions
 ## will be emitted on trigger and completion (e.g. button down
 ## and button up).
-@export var emit_as_godot_actions:bool = false
-
+@export var emit_as_godot_actions:bool = false:
+	set(value):
+		if emit_as_godot_actions == value:
+			return
+		emit_as_godot_actions = value
+		emit_changed()
+		
+		
 @export_category("Action Remapping")
 
 ## If true, players can remap this action. To be remappable, make sure
 ## that a name and the action type are properly set.
-@export var is_remappable:bool
-
+@export var is_remappable:bool:
+	set(value):
+		if is_remappable == value:
+			return
+		is_remappable = value
+		emit_changed()
+		
 ## The display name of the action shown to the player.
-@export var display_name:String
+@export var display_name:String:
+	set(value):
+		if display_name == value:
+			return
+		display_name = value
+		emit_changed()
 
 ## The display category of the action shown to the player.
-@export var display_category:String
-
+@export var display_category:String:
+	set(value):
+		if display_category == value:
+			return
+		display_category = value
+		emit_changed()
+		
 ## Emitted every frame while the action is triggered.
 signal triggered()
 
@@ -147,5 +180,14 @@ func get_value_axis_3d() -> Vector3:
 	return _value
 	
 
+func _editor_name() -> String:
+	# Try to give the most user friendly name
+	if display_name != "":
+		return display_name
+		
+	if name != "":
+		return name
+		
+	return resource_path.get_file()
 
 

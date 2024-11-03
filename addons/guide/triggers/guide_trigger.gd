@@ -45,3 +45,6 @@ func _is_axis3d_actuated(input:Vector3) -> bool:
 	
 func _editor_name() -> String:
 	return "GUIDETrigger"
+	
+func _editor_description() -> String:
+	return ""
