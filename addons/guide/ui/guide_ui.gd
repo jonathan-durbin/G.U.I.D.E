@@ -1,16 +1,37 @@
+## Functions to show GUIDE mappings to the end user in the game UI.
 @tool
 class_name GUIDEUI
 extends Node
 
 const IconMaker = preload("icon_maker/icon_maker.gd")
+const KeyRenderer = preload("icon_maker/renderers/key_renderer.tscn")
+const MouseRenderer = preload("icon_maker/renderers/mouse_renderer.tscn")
+const ActionRenderer = preload("icon_maker/renderers/action_renderer.tscn")
 
 var _icon_maker:IconMaker
+
+var _icon_renderers:Array[GUIDEIconRenderer] = []
+
 
 func _ready():
 	_icon_maker = preload("icon_maker/icon_maker.tscn").instantiate()
 	add_child(_icon_maker)
+	add_icon_renderer(KeyRenderer.instantiate())
+	add_icon_renderer(MouseRenderer.instantiate())
+	add_icon_renderer(ActionRenderer.instantiate())
 	
 	
+func add_icon_renderer(renderer:GUIDEIconRenderer) -> void:
+	_icon_renderers.append(renderer)
+	_icon_renderers.sort_custom(func(r1, r2): return r1.priority < r2.priority)
+	
+	
+func remove_icon_renderer(renderer:GUIDEIconRenderer) -> void:
+	_icon_renderers.erase(renderer)
+	
+	
+func format_action_input_with_icons(format:String, action:GUIDEAction, height_px:int = 32) -> String:
+	return format
 	
 ## Formats the given string into a BBCode replacing %s placeholders with icons representing
 ## the input. Can be used to show input in a UI with a RichTextLabel (e.g. "press 'A' to jump").
@@ -56,7 +77,16 @@ func get_input_icons(input:GUIDEInput, height_px:int = 32) -> Array[Texture2D]:
 			meta.key = KEY_META
 			result.append_array(await get_input_icons(meta, height_px))
 			
-	var new_icon := await _icon_maker.make_icon(input, height_px)
+	var new_icon:Texture2D = null
+	for renderer in _icon_renderers:
+		if renderer.supports(input):
+			new_icon = await _icon_maker.make_icon(input, renderer, height_px)
+		
+	if new_icon == null:
+		push_warning("No renderer found for input ", input)
+		new_icon = PlaceholderTexture2D.new()
+		new_icon.size = Vector2(height_px, height_px)
+	
 	result.append(new_icon)
 	return result
 			

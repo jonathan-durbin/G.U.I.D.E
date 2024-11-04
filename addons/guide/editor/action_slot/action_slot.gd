@@ -27,7 +27,6 @@ func _refresh():
 		tooltip_text = ""
 	else:
 		text = action._editor_name()	
-		print("Hahaa " + action.resource_path)
 		tooltip_text = action.resource_path
 
 func _can_drop_data(at_position, data) -> bool:

@@ -44,4 +44,4 @@ func _editor_description() -> String:
 	
 
 func _native_value_type() -> GUIDEAction.GUIDEActionValueType:
-	return GUIDEAction.GUIDEActionValueType.BOOL
+	return GUIDEAction.GUIDEActionValueType.AXIS_1D

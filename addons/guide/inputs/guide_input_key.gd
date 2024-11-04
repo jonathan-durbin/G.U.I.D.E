@@ -2,6 +2,7 @@
 class_name GUIDEInputKey
 extends GUIDEInput
 
+## The physical keycode of the key.
 @export var key:Key:
 	set(value):
 		if value == key:
@@ -11,6 +12,7 @@ extends GUIDEInput
 		
 
 @export_group("Modifiers")
+## Whether shift must be pressed.
 @export var shift:bool = false:
 	set(value):
 		if value == shift:
@@ -18,6 +20,7 @@ extends GUIDEInput
 		shift = value
 		emit_changed()	
 
+## Whether control must be pressed.
 @export var control:bool = false:
 	set(value):
 		if value == control:
@@ -25,7 +28,7 @@ extends GUIDEInput
 		control = value
 		emit_changed()	
 		
-		
+## Whether alt must be pressed.
 @export var alt:bool = false:
 	set(value):
 		if value == alt:
@@ -33,7 +36,8 @@ extends GUIDEInput
 		alt = value
 		emit_changed()		
 	
-	
+		
+## Whether meta/win/cmd must be pressed.
 @export var meta:bool = false:
 	set(value):
 		if value == meta:
@@ -46,7 +50,7 @@ func _input(event:InputEvent):
 	if not event is InputEventKey:
 		return
 	
-	if event.keycode != key:
+	if event.physical_keycode != key:
 		return
 		
 	# Modifiers must look EXACTLY as specified

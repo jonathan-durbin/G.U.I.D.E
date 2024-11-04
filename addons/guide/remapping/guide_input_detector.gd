@@ -1,3 +1,4 @@
+@tool
 ## Helper node for detecting inputs. Detects the next input matching a specification and 
 ## emits a signal with the detected input. 
 class_name GUIDEInputDetector
@@ -38,19 +39,23 @@ var _value_type:GUIDEAction.GUIDEActionValueType
 
 ## Detects a boolean input type.
 func detect_bool() -> void:
-	_detect(GUIDEAction.GUIDEActionValueType.BOOL)
+	detect(GUIDEAction.GUIDEActionValueType.BOOL)
+
 
 ## Detects a 1D axis input type.
 func detect_axis_1d() -> void:
-	_detect(GUIDEAction.GUIDEActionValueType.AXIS_1D)
+	detect(GUIDEAction.GUIDEActionValueType.AXIS_1D)
+
 	
 ## Detects a 2D axis input type.
 func detect_axis_2d() -> void:
-	_detect(GUIDEAction.GUIDEActionValueType.AXIS_2D)
+	detect(GUIDEAction.GUIDEActionValueType.AXIS_2D)
+
 
 ## Detects a 3D axis input type.
 func detect_axis_3d() -> void:
-	_detect(GUIDEAction.GUIDEActionValueType.AXIS_3D)
+	detect(GUIDEAction.GUIDEActionValueType.AXIS_3D)
+
 
 ## Aborts a running detection. If no detection currently runs
 ## does nothing.
@@ -60,8 +65,8 @@ func abort_detection() -> void:
 		_is_detecting = false
 		detection_aborted.emit()
 
-
-func _detect(value_type:GUIDEAction.GUIDEActionValueType) -> void:
+## Detects the given input type.
+func detect(value_type:GUIDEAction.GUIDEActionValueType) -> void:
 	abort_detection()
 	_value_type = value_type
 	_timer.start(detection_countdown_seconds)
@@ -69,6 +74,7 @@ func _detect(value_type:GUIDEAction.GUIDEActionValueType) -> void:
 
 func _begin_detection():
 	_is_detecting = true
+	detection_started.emit()
 
 
 func _input(event:InputEvent) -> void:
@@ -90,7 +96,7 @@ func _input(event:InputEvent) -> void:
 func _try_detect_bool(event:InputEvent) -> void:
 	if event is InputEventKey and event.is_released():
 		var result := GUIDEInputKey.new()
-		result.key = event.key_code
+		result.key = event.physical_keycode
 		result.shift = event.shift_pressed
 		result.control = event.ctrl_pressed
 		result.meta = event.meta_pressed

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dic27bm4pfw3q"]
+[gd_scene load_steps=5 format=3 uid="uid://dic27bm4pfw3q"]
 
 [ext_resource type="Script" path="res://addons/guide/editor/binding_dialog/binding_dialog.gd" id="1_tknjd"]
 [ext_resource type="PackedScene" uid="uid://dsv7s6tfmnsrs" path="res://addons/guide/editor/input_display/input_display.tscn" id="2_83ieu"]
+[ext_resource type="Script" path="res://addons/guide/remapping/guide_input_detector.gd" id="3_c6q6r"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3e874"]
 content_margin_left = 4.0
@@ -20,7 +21,7 @@ corner_detail = 1
 title = "Input Configuration"
 initial_position = 4
 size = Vector2i(1200, 600)
-transient = true
+popup_window = true
 min_size = Vector2i(1200, 600)
 script = ExtResource("1_tknjd")
 
@@ -76,39 +77,46 @@ horizontal_alignment = 1
 layout_mode = 2
 
 [node name="DetectBoolButton" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Boolean"
 
 [node name="Detect1DButton" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "1D"
 
 [node name="Detect2DButton" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "2D"
 
 [node name="Detect3DButton" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "3D"
 
 [node name="InstructionsLabel" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 6
 text = "3..2..1.."
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="InputDisplay" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_83ieu")]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 6
 
 [node name="AcceptDetectionButton" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Accept"
@@ -142,27 +150,35 @@ horizontal_alignment = 1
 layout_mode = 2
 
 [node name="SelectBoolButton" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+toggle_mode = true
 text = "Boolean"
 
 [node name="Select1DButton" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+toggle_mode = true
 text = "1D"
 
 [node name="Select2DButton" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+toggle_mode = true
 text = "2D"
 
 [node name="Select3DButton" type="Button" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+toggle_mode = true
 text = "3D"
 
 [node name="NoneAvailable" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer"]
@@ -172,12 +188,29 @@ size_flags_horizontal = 6
 size_flags_vertical = 6
 text = "No matching inputs available."
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer"]
+[node name="SomeAvailable" type="ScrollContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer/ScrollContainer"]
+[node name="AvailableTypes" type="VBoxContainer" parent="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer/SomeAvailable"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="InputDetector" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_c6q6r")
 
 [connection signal="close_requested" from="." to="." method="_on_close_requested"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/DetectBoolButton" to="." method="_on_detect_bool_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/Detect1DButton" to="." method="_on_detect_1d_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/Detect2DButton" to="." method="_on_detect_2d_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/Detect3DButton" to="." method="_on_detect_3d_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer/MarginContainer/VBoxContainer/AcceptDetectionButton" to="." method="_on_accept_detection_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/SelectBoolButton" to="." method="_on_select_bool_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/Select1DButton" to="." method="_on_select_1d_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/Select2DButton" to="." method="_on_select_2d_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer/HBoxContainer/MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/Select3DButton" to="." method="_on_select_3d_button_pressed"]
+[connection signal="detection_started" from="InputDetector" to="." method="_on_input_detector_detection_started"]
+[connection signal="input_dectected" from="InputDetector" to="." method="_on_input_detector_input_dectected"]

@@ -4,6 +4,7 @@ extends MarginContainer
 signal delete_requested()
 
 const ClassScanner = preload("../class_scanner.gd")
+const Utils = preload("../utils.gd")
 
 @export var modifier_slot_scene:PackedScene
 @export var trigger_slot_scene:PackedScene
@@ -18,6 +19,7 @@ const ClassScanner = preload("../class_scanner.gd")
 @onready var _add_trigger_popup:PopupMenu = %AddTriggerPopup
 @onready var _delete_button:Button = %DeleteButton
 @onready var _edit_input_button:Button = %EditInputButton
+@onready var _clear_input_button:Button = %ClearInputButton
 
 var _plugin:EditorPlugin
 var _ui:GUIDEUI
@@ -31,6 +33,7 @@ func _ready():
 	_add_trigger_button.icon = get_theme_icon("Add", "EditorIcons")
 	_delete_button.icon = get_theme_icon("Remove", "EditorIcons")
 	_edit_input_button.icon = get_theme_icon("Edit", "EditorIcons")
+	_clear_input_button.icon = get_theme_icon("Remove", "EditorIcons")
 	
 	
 func initialize(plugin:EditorPlugin, ui:GUIDEUI, scanner:ClassScanner) -> void:
@@ -42,22 +45,16 @@ func initialize(plugin:EditorPlugin, ui:GUIDEUI, scanner:ClassScanner) -> void:
 	_input_display.clicked.connect(_on_input_display_clicked)
 	
 	
-	
 func edit(mapping:GUIDEInputMapping) -> void:
 	assert(_mapping == null)
 	_mapping = mapping
 	_mapping.changed.connect(_update)
 	_update()
 	
+	
 func _update():
-	for child in _modifiers.get_children():
-		_modifiers.remove_child(child)
-		child.queue_free()
-		
-	for child in _triggers.get_children():
-		_triggers.remove_child(child)
-		child.queue_free()
-		
+	Utils.clear(_modifiers)
+	Utils.clear(_triggers)
 	
 	_input_display.input = _mapping.input
 	for i in _mapping.modifiers.size():
@@ -192,7 +189,30 @@ func _on_input_display_clicked():
 	if is_instance_valid(_mapping.input):
 		EditorInterface.edit_resource(_mapping.input)
 
+func _on_input_changed(input:GUIDEInput):
+	_undo_redo.create_action("Change input")
+	
+	_undo_redo.add_do_property(_mapping, "input", input)
+	_undo_redo.add_undo_property(_mapping, "triggers", _mapping.input)
+	
+	_undo_redo.commit_action()
+	
+	if is_instance_valid(input):
+		EditorInterface.edit_resource(input)
+	
+
 
 func _on_edit_input_button_pressed():
-	var dialog = binding_dialog_scene.instantiate()
-	EditorInterface.popup_dialog_centered(dialog)
+	var dialog:Window = binding_dialog_scene.instantiate()
+	EditorInterface.popup_dialog_centered(dialog)	
+	dialog.initialize(_ui, _scanner)
+	dialog.input_selected.connect(_on_input_changed)
+
+
+func _on_clear_input_button_pressed():
+	_undo_redo.create_action("Delete bound input")
+	
+	_undo_redo.add_do_property(_mapping, "input", null)
+	_undo_redo.add_undo_property(_mapping, "triggers", _mapping.input)
+	
+	_undo_redo.commit_action()

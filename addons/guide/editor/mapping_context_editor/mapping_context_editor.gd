@@ -2,6 +2,7 @@
 extends MarginContainer
 
 const ClassScanner = preload("../class_scanner.gd")
+const Utils = preload("../utils.gd")
 
 @export var action_mapping_editor_scene:PackedScene
 
@@ -10,6 +11,8 @@ const ClassScanner = preload("../class_scanner.gd")
 @onready var _editing_view:Control = %EditingView
 @onready var _empty_view = %EmptyView
 @onready var _add_button:Button = %AddButton
+@onready var _some_mappings:Control = %SomeMappings
+@onready var _no_mappings:Control = %NoMappings
 
 var _plugin:EditorPlugin
 var _current_context:GUIDEMappingContext
@@ -53,14 +56,13 @@ func _refresh():
 	if not is_instance_valid(_current_context):
 		return
 	
+	_some_mappings.visible = not _current_context.mappings.is_empty()
+	_no_mappings.visible = _current_context.mappings.is_empty()
+	
 	_title_label.text = _current_context._editor_name()
 	_title_label.tooltip_text = _current_context.resource_path
 	
-	
-	for child in _action_mappings.get_children():
-		_action_mappings.remove_child(child)
-		child.queue_free()
-		
+	Utils.clear(_action_mappings)
 		
 	for i in _current_context.mappings.size():
 		var mapping = _current_context.mappings[i]

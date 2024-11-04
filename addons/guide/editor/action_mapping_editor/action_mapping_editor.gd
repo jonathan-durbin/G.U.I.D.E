@@ -2,6 +2,7 @@
 extends MarginContainer
 
 const ActionSlot = preload("../action_slot/action_slot.gd")
+const Utils = preload("../utils.gd")
 
 signal delete_requested()
 
@@ -43,9 +44,7 @@ func edit(mapping:GUIDEActionMapping):
 	
 	
 func _update():
-	for child in _input_mappings.get_children():
-		_input_mappings.remove_child(child)
-		child.queue_free()
+	Utils.clear(_input_mappings)
 
 	_action_slot.action = _mapping.action
 	

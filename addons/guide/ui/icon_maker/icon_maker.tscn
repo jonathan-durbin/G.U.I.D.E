@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://8thurteeibtu"]
+[gd_scene load_steps=3 format=3 uid="uid://8thurteeibtu"]
 
 [ext_resource type="Script" path="res://addons/guide/ui/icon_maker/icon_maker.gd" id="1_hdbjk"]
-[ext_resource type="Theme" uid="uid://da0g1tulryodl" path="res://addons/guide/ui/icon_maker/default_icon_theme.tres" id="2_ramhi"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_kra7t"]
 viewport_path = NodePath("SubViewport")
@@ -12,28 +11,12 @@ script = ExtResource("1_hdbjk")
 [node name="SubViewport" type="SubViewport" parent="."]
 unique_name_in_owner = true
 transparent_bg = true
-render_target_update_mode = 0
+gui_disable_input = true
+gui_snap_controls_to_pixels = false
 
 [node name="Root" type="Node2D" parent="SubViewport"]
 unique_name_in_owner = true
-
-[node name="MarginContainer" type="MarginContainer" parent="SubViewport/Root"]
-offset_right = 512.0
-offset_bottom = 512.0
-theme = ExtResource("2_ramhi")
-
-[node name="Background" type="PanelContainer" parent="SubViewport/Root/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-theme_type_variation = &"KeyboardBG"
-
-[node name="Label" type="Label" parent="SubViewport/Root/MarginContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 256
-text = "Enter"
+scale = Vector2(0.1, 0.1)
 
 [node name="SceneHolder" type="Sprite2D" parent="."]
 unique_name_in_owner = true

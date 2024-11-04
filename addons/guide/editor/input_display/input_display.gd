@@ -22,10 +22,13 @@ var input:GUIDEInput:
 
 func _refresh():
 	if not is_instance_valid(input):
+		parse_bbcode("[center][i]<not bound>[/i][/center]")
+		tooltip_text = ""
 		return
 		
-	var text := await _ui.format_input_with_icons("%s", [input], 48)
-	parse_bbcode(text)
+	var text := await _ui.format_input_with_icons("%s", [input], 64)
+	parse_bbcode("[center]" + text + "[/center]")
+	tooltip_text = input.resource_path
 
  
 func initialize(ui:GUIDEUI):
