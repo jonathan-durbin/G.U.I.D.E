@@ -38,7 +38,7 @@ func initialize(content:Control):
 		
 
 func _can_drop_data(at_position:Vector2, data) -> bool:
-	if data is Dictionary and data.parent_array == get_parent() and data.index != get_index():
+	if data is Dictionary and data.has("parent_array") and data.parent_array == get_parent() and data.index != get_index():
 		var height = size.y
 	
 		var is_before = not _is_last_child() or (at_position.y < height/2.0)

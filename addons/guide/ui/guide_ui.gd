@@ -48,6 +48,10 @@ func remove_text_provider(provider:GUIDETextProvider) -> void:
 ## for the given action. Formats this binding into the given string format. Add a `%s` to
 ## the string where the input should be. Only a single %s can be in the string.
 func format_action_as_text(format:String, action:GUIDEAction) -> String:
+	if action == null:
+		push_error("Cannot determine input for null action.")
+		return ""
+		
 	var inputs:Array[GUIDEInput] = GUIDE.get_inputs_bound_to_action(action)
 	var replacements:Array[String] = []
 	for input in inputs:
@@ -61,6 +65,10 @@ func format_action_as_text(format:String, action:GUIDEAction) -> String:
 ## the string where the input should be. Only a single %s can be in the string. Since icons are
 ## built in the background, you need to `await` on this function.
 func format_action_with_icons(format:String, action:GUIDEAction, height_px:int = 32) -> String:
+	if action == null:
+		push_error("Cannot determine input for null action.")
+		return ""
+			
 	var inputs:Array[GUIDEInput] = GUIDE.get_inputs_bound_to_action(action)
 	var replacements:Array[String] = []
 	for input in inputs:

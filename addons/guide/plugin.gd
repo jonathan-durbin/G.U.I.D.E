@@ -24,6 +24,9 @@ func _edit(object):
 func _get_plugin_name() -> String:
 	return "G.U.I.D.E"
 
+func _get_plugin_icon() -> Texture2D:
+	return preload("res://addons/guide/editor/logo_editor_small.svg")
+
 func _has_main_screen() -> bool:
 	return true
 

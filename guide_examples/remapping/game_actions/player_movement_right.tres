@@ -5,8 +5,8 @@
 [resource]
 script = ExtResource("1_v6cs5")
 name = &""
+action_value_type = 0
 emit_as_godot_actions = false
 is_remappable = false
-action_type = 0
-display_name = ""
+display_name = "Right"
 display_category = ""

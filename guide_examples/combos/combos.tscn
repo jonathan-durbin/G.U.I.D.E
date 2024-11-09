@@ -1,0 +1,80 @@
+[gd_scene load_steps=17 format=3 uid="uid://b12bmbtmbuame"]
+
+[ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="1_eyn1y"]
+[ext_resource type="Script" path="res://guide_examples/combos/combos.gd" id="1_kdeb4"]
+[ext_resource type="Resource" uid="uid://c7uloa16ajj5p" path="res://guide_examples/combos/combos.tres" id="2_ahmv3"]
+[ext_resource type="Resource" uid="uid://bqiryilvj5mqv" path="res://guide_examples/combos/actions/basic/move_left.tres" id="3_a84vf"]
+[ext_resource type="Script" path="res://guide_examples/combos/player.gd" id="3_kulxp"]
+[ext_resource type="Resource" uid="uid://b2wemrcnxfbmo" path="res://guide_examples/combos/actions/basic/move_horizontal.tres" id="4_7328w"]
+[ext_resource type="Resource" uid="uid://bk54ofxos3xxg" path="res://guide_examples/combos/actions/basic/move_right.tres" id="4_dsmgc"]
+[ext_resource type="Texture2D" uid="uid://byjxtsekdl8t2" path="res://guide_examples/godot_logo.svg" id="4_uej32"]
+[ext_resource type="Resource" uid="uid://b0761600n8fnb" path="res://guide_examples/combos/actions/combos/fireball_left.tres" id="4_uvwd5"]
+[ext_resource type="Resource" uid="uid://dj83uxjdx6r2c" path="res://guide_examples/combos/actions/combos/dash_left.tres" id="5_s5wpr"]
+[ext_resource type="Resource" uid="uid://cgr4iegvrkebx" path="res://guide_examples/combos/actions/basic/fire.tres" id="5_x8x8m"]
+[ext_resource type="Resource" uid="uid://5ve3hevhhgnw" path="res://guide_examples/combos/actions/combos/dash_right.tres" id="6_vd0bg"]
+[ext_resource type="Resource" uid="uid://wdh7cg7kjul0" path="res://guide_examples/combos/actions/combos/fireball_right.tres" id="11_n707x"]
+[ext_resource type="PackedScene" uid="uid://c36cnvgv2ur60" path="res://guide_examples/combos/fireball/fireball.tscn" id="12_fl88r"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8kkfa"]
+size = Vector2(137, 138)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0s5wn"]
+
+[node name="Combos" type="Node2D"]
+script = ExtResource("1_kdeb4")
+mapping_context = ExtResource("2_ahmv3")
+move_left = ExtResource("3_a84vf")
+move_right = ExtResource("4_dsmgc")
+fire = ExtResource("5_x8x8m")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(902, 841)
+script = ExtResource("3_kulxp")
+dash_speed_bonus = 400.0
+horizontal_movement = ExtResource("4_7328w")
+dash_left = ExtResource("5_s5wpr")
+dash_right = ExtResource("6_vd0bg")
+fireball_left = ExtResource("4_uvwd5")
+fireball_right = ExtResource("11_n707x")
+fireball_scene = ExtResource("12_fl88r")
+
+[node name="Sprite" type="Sprite2D" parent="Player"]
+texture = ExtResource("4_uej32")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(1.5, 1)
+shape = SubResource("RectangleShape2D_8kkfa")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(-44, 954)
+
+[node name="ColorRect" type="ColorRect" parent="Ground"]
+offset_left = -427.0
+offset_right = 2555.0
+offset_bottom = 150.0
+color = Color(0.285871, 0.0915713, 0.0208481, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(869, 1)
+shape = SubResource("WorldBoundaryShape2D_0s5wn")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="InstructionsLabel" type="RichTextLabel" parent="UI"]
+unique_name_in_owner = true
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -482.0
+offset_top = 21.0
+offset_bottom = 205.0
+grow_horizontal = 0
+bbcode_enabled = true
+text = "Lore, ipsum dolor sit amet."
+fit_content = true
+scroll_active = false
+
+[node name="Debugger" type="CanvasLayer" parent="."]
+
+[node name="GuideDebugger" parent="Debugger" instance=ExtResource("1_eyn1y")]
+metadata/_edit_lock_ = true
