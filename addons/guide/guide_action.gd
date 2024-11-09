@@ -188,6 +188,6 @@ func _editor_name() -> String:
 	if name != "":
 		return name
 		
-	return resource_path.get_file()
+	return resource_path.get_file().replace(".tres", "")
 
 

@@ -102,14 +102,28 @@ func _process(delta:float) -> void:
 					GUIDETrigger.GUIDETriggerState.TRIGGERED:
 						action._triggered(consolidated_value)
 							
-	
-	
+## Checks the currently activated mapping contexts and retrieves the highest
+## priority mapping for the given action. Then returns all inputs currently
+## used in this mapping.
+func get_inputs_bound_to_action(action:GUIDEAction) -> Array[GUIDEInput]:	
+	var result:Array[GUIDEInput] = []
+	for mapping in _active_action_mappings:
+		if mapping.action == action:
+			for input_mapping in mapping.input_mappings:
+				result.append(input_mapping.input)
+			break
+			
+	return result
+
+## Applies an input remapping config. This will override all input bindings in the 
+## currently loaded mapping contexts with the bindings from the configuration.	
 func set_remapping_config(config:GUIDERemappingConfig) -> void:
 	if config == _active_remapping_config:
 		return
 	_active_remapping_config = config
 	_update_caches()
 	
+## Enables the given context with the given priority. Lower numbers have higher priority.
 func enable_mapping_context(context:GUIDEMappingContext, priority:int = 0):
 	if not is_instance_valid(context):
 		push_error("Null context given. Ignoring.")
@@ -119,6 +133,7 @@ func enable_mapping_context(context:GUIDEMappingContext, priority:int = 0):
 	_update_caches()
 	
 	
+## Disables the given mapping context.
 func disable_mapping_context(context:GUIDEMappingContext):
 	if not is_instance_valid(context):
 		push_error("Null context given. Ignoring.")
@@ -190,7 +205,8 @@ func _update_caches():
 				# if the action is not remappable, we can use the original mapping and just
 				# collect the inputs
 				for input_mapping in action_mapping.input_mappings:
-					_active_inputs.add(input_mapping.input)
+					if input_mapping.input != null:
+						_active_inputs.add(input_mapping.input)
 				
 			# if any binding remains, add the mapping to the list of active
 			# action mappings

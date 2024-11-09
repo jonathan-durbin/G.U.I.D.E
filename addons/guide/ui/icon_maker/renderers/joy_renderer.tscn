@@ -1,0 +1,76 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6sqf8rur1wss"]
+
+[ext_resource type="Script" path="res://addons/guide/ui/icon_maker/renderers/joy_renderer.gd" id="1_u7brn"]
+[ext_resource type="Texture2D" uid="uid://c6mfwt8rgh3mh" path="res://addons/guide/ui/icon_maker/renderers/textures/joy_left_right.svg" id="2_e5ld3"]
+[ext_resource type="Texture2D" uid="uid://bnj8eh2werc3n" path="res://addons/guide/ui/icon_maker/renderers/textures/joy_up_down.svg" id="3_r1bab"]
+[ext_resource type="Texture2D" uid="uid://by63pnk4bs0lk" path="res://addons/guide/ui/icon_maker/renderers/textures/joy_2d.svg" id="4_rvr6s"]
+[ext_resource type="Texture2D" uid="uid://cghftijc8hxnb" path="res://addons/guide/ui/icon_maker/renderers/textures/joy_stick.svg" id="5_p0c4c"]
+[ext_resource type="Texture2D" uid="uid://bqs4ishhnwmn6" path="res://addons/guide/ui/icon_maker/renderers/textures/joy_button.svg" id="6_23hi6"]
+
+[node name="JoyRenderer" type="MarginContainer"]
+offset_right = 512.0
+offset_bottom = 512.0
+size_flags_horizontal = 0
+script = ExtResource("1_u7brn")
+
+[node name="JoyAxis" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="JoyLeftRight" type="TextureRect" parent="JoyAxis"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("2_e5ld3")
+stretch_mode = 4
+
+[node name="JoyUpDown" type="TextureRect" parent="JoyAxis"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("3_r1bab")
+stretch_mode = 4
+
+[node name="Joy2D" type="TextureRect" parent="JoyAxis"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("4_rvr6s")
+stretch_mode = 4
+
+[node name="JoyStick" type="TextureRect" parent="JoyAxis"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = ExtResource("5_p0c4c")
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="JoyAxis"]
+layout_mode = 2
+theme_override_constants/margin_top = -40
+
+[node name="JoyAxisText" type="Label" parent="JoyAxis/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 320
+text = "AA"
+
+[node name="JoyButton" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="JoyButton" type="TextureRect" parent="JoyButton"]
+layout_mode = 2
+texture = ExtResource("6_23hi6")
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="JoyButton"]
+layout_mode = 2
+theme_override_constants/margin_top = 0
+
+[node name="JoyButtonText" type="Label" parent="JoyButton/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 320
+text = "22"

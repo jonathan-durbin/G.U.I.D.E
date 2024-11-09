@@ -26,9 +26,9 @@ func _refresh():
 		tooltip_text = ""
 		return
 		
-	var text := await _ui.format_input_with_icons("%s", [input], 64)
+	var text := await _ui.format_input_as_icons("%s", [input], 64)
 	parse_bbcode("[center]" + text + "[/center]")
-	tooltip_text = input.resource_path
+	tooltip_text = _ui.format_input_as_text("%s", [input])
 
  
 func initialize(ui:GUIDEUI):

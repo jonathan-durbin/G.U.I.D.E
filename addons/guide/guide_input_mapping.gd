@@ -38,7 +38,7 @@ var _value:Vector3 = Vector3.ZERO
 
 func _update_state(delta:float, value_type:GUIDEAction.GUIDEActionValueType):
 	# Collect the current input value
-	var input_value:Vector3 = input._value
+	var input_value:Vector3 = input._value if input != null else Vector3.ZERO
 	
 	# Run it through all modifiers
 	for modifier:GUIDEModifier in modifiers:

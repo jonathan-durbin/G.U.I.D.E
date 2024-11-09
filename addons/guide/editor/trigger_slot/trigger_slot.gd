@@ -1,15 +1,8 @@
 @tool
 extends Control
 signal trigger_changed()
-signal delete_requested()
 
-@onready var _delete_button:Button = %DeleteButton
 @onready var _line_edit:LineEdit = %LineEdit
-
-func _ready():
-	_delete_button.icon = get_theme_icon("Remove", "EditorIcons")
-
-var index:int
 
 var trigger:GUIDETrigger:
 	set(value):
@@ -42,9 +35,6 @@ func _drop_data(at_position, data) -> void:
 			trigger = item
 			trigger_changed.emit()
 
-
-func _on_delete_button_pressed():
-	delete_requested.emit()
 
 
 func _on_line_edit_gui_input(event):

@@ -1,3 +1,5 @@
+## Fires, when the input exceeds the actuation threshold. This is
+## the default trigger when no trigger is specified.
 @tool
 class_name GUIDETriggerDown
 extends GUIDETrigger
@@ -14,4 +16,5 @@ func _editor_name() -> String:
 	return "Down"
 
 func _editor_description() -> String:
-	return "Fires, when the input exceeds the actuation threshold."
+	return "Fires, when the input exceeds the actuation threshold. This is\n" +\
+			"the default trigger when no trigger is specified."
