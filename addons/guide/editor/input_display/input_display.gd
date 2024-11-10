@@ -1,6 +1,6 @@
 @tool
 extends RichTextLabel
-
+const GUIDEUI = preload("../../ui/guide_ui.gd")
 signal clicked()
 
 var _ui:GUIDEUI

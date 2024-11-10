@@ -4,7 +4,7 @@ extends MarginContainer
 const ArrayEdit = preload("../array_edit/array_edit.gd")
 const ClassScanner = preload("../class_scanner.gd")
 const Utils = preload("../utils.gd")
-
+const GUIDEUI = preload("../../ui/guide_ui.gd")
 @export var modifier_slot_scene:PackedScene
 @export var trigger_slot_scene:PackedScene
 @export var binding_dialog_scene:PackedScene

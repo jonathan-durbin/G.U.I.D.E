@@ -3,6 +3,7 @@ extends Window
 
 const ClassScanner = preload("../class_scanner.gd")
 const Utils = preload("../utils.gd")
+const GUIDEUI = preload("../../ui/guide_ui.gd")
 
 signal input_selected(input:GUIDEInput)
 

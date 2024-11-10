@@ -1,3 +1,4 @@
+@icon("res://addons/guide/guide_internal.svg")
 ## A remapping configuration
 class_name GUIDERemappingConfig
 extends Resource

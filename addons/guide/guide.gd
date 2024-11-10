@@ -3,6 +3,7 @@ extends Node
 const GUIDESet = preload("guide_set.gd")
 const GUIDEReset = preload("guide_reset.gd")
 const GUIDEInputTracker = preload("guide_input_tracker.gd")
+const GUIDEUI = preload("ui/guide_ui.gd")
 
 ## The currently active contexts. Key is the context, value is the priority
 var _active_contexts:Dictionary = {}

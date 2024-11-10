@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/guide/modifiers/guide_modifier.svg")
 class_name GUIDEModifier
 extends Resource
 

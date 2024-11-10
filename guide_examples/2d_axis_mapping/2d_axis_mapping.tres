@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=21 format=3 uid="uid://2hl7iqpondhi"]
 
-[ext_resource type="Resource" uid="uid://cxn2ibe1mn3sb" path="res://guide_examples/one_action_different_inputs/move.tres" id="1_1cctb"]
+[ext_resource type="Resource" uid="uid://cxn2ibe1mn3sb" path="res://guide_examples/input_scheme_switching/actions/move.tres" id="1_0k72t"]
 [ext_resource type="Script" path="res://addons/guide/inputs/guide_input_key.gd" id="2_0yrlp"]
 [ext_resource type="Script" path="res://addons/guide/guide_input_mapping.gd" id="3_ad6sj"]
 [ext_resource type="Script" path="res://addons/guide/modifiers/guide_modifier_negate.gd" id="3_nlxx1"]
@@ -86,7 +86,7 @@ triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
 
 [sub_resource type="Resource" id="Resource_u0xy6"]
 script = ExtResource("4_16vkk")
-action = ExtResource("1_1cctb")
+action = ExtResource("1_0k72t")
 input_mappings = Array[ExtResource("3_ad6sj")]([SubResource("Resource_6qgwf"), SubResource("Resource_v2qov"), SubResource("Resource_yewp7"), SubResource("Resource_bilhe")])
 
 [resource]

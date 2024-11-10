@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c3meja448orgo"]
+[gd_scene load_steps=4 format=3 uid="uid://c3meja448orgo"]
 
 [ext_resource type="Script" path="res://guide_examples/legacy_compatibility/legacy_compatibility.gd" id="1_bhuai"]
 [ext_resource type="Resource" uid="uid://ddp821cmhdkt4" path="res://guide_examples/legacy_compatibility/ui_actions.tres" id="2_k8h23"]
+[ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="3_cnyj8"]
 
 [node name="LegacyCompatibility" type="MarginContainer"]
 anchors_preset = 15
@@ -73,3 +74,13 @@ popup/item_0/text = "Option 1"
 popup/item_0/id = 0
 popup/item_1/text = "Option 2"
 popup/item_1/id = 1
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GuideDebugger" parent="CanvasLayer" instance=ExtResource("3_cnyj8")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 1920.0
+offset_bottom = 1080.0
+metadata/_edit_lock_ = true

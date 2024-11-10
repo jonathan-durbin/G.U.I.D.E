@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://byjxtsekdl8t2" path="res://guide_examples/godot_logo.svg" id="1_4tef3"]
 [ext_resource type="Script" path="res://guide_examples/2d_axis_mapping/player.gd" id="2_54pxx"]
-[ext_resource type="Resource" uid="uid://2hl7iqpondhi" path="res://guide_examples/one_action_different_inputs/simple_mixed_input.tres" id="3_1etxd"]
-[ext_resource type="Resource" uid="uid://cxn2ibe1mn3sb" path="res://guide_examples/one_action_different_inputs/move.tres" id="4_nr3gs"]
+[ext_resource type="Resource" uid="uid://2hl7iqpondhi" path="res://guide_examples/input_scheme_switching/mapping_contexts/keyboard_scheme.tres" id="3_dswrc"]
+[ext_resource type="Resource" uid="uid://cxn2ibe1mn3sb" path="res://guide_examples/input_scheme_switching/actions/move.tres" id="4_dt6ry"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="5_ewox0"]
 
 [node name="2DAxisMapping" type="Node"]
@@ -12,8 +12,8 @@
 position = Vector2(546, 317)
 texture = ExtResource("1_4tef3")
 script = ExtResource("2_54pxx")
-mapping_context = ExtResource("3_1etxd")
-move_action = ExtResource("4_nr3gs")
+mapping_context = ExtResource("3_dswrc")
+move_action = ExtResource("4_dt6ry")
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 15
@@ -28,3 +28,4 @@ horizontal_alignment = 1
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="GuideDebugger" parent="CanvasLayer" instance=ExtResource("5_ewox0")]
+metadata/_edit_lock_ = true

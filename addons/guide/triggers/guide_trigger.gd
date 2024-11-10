@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/guide/triggers/guide_trigger.svg")
 class_name GUIDETrigger
 extends Resource
 

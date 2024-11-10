@@ -149,7 +149,7 @@ func _try_detect_axis_2d(event:InputEvent) -> void:
 			return
 
 		var result := GUIDEInputJoyAxis2D.new()
-		match event.joy_axis:
+		match event.axis:
 			JOY_AXIS_LEFT_X, JOY_AXIS_LEFT_Y:
 				result.x = JOY_AXIS_LEFT_X
 				result.y = JOY_AXIS_LEFT_Y

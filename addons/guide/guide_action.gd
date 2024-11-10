@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/guide/guide_action.svg")
 class_name GUIDEAction
 extends Resource
 

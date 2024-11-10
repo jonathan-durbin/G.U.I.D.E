@@ -13,7 +13,7 @@ func _input(event:InputEvent):
 	if not event is InputEventJoypadButton:
 		return
 	
-	if event.button != button:
+	if event.button_index != button:
 		return
 	
 	

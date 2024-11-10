@@ -29,8 +29,6 @@ func make_icon(input:GUIDEInput, renderer:GUIDEIconRenderer, height_px:int) -> T
 	if ResourceLoader.exists(cache_path):
 		return ResourceLoader.load(cache_path, "Texture2D") 
 	
-	# We use an atlas texture as this allows us to return the texture already with a placeholder
-	# and swap out the real texture once the texture is rendered. 
 	var job = Job.new()
 	job.height = height_px
 	job.input = input

@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/guide/inputs/guide_input.svg")
 ## A class representing some actuated input.
 class_name GUIDEInput
 extends Resource

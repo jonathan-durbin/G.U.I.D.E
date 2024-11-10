@@ -4,6 +4,7 @@ extends MarginContainer
 const ActionSlot = preload("../action_slot/action_slot.gd")
 const Utils = preload("../utils.gd")
 const ArrayEdit = preload("../array_edit/array_edit.gd")
+const GUIDEUI = preload("../../ui/guide_ui.gd")
 
 signal delete_requested()
 signal duplicate_requested()

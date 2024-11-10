@@ -4,8 +4,8 @@
 class_name GUIDEIconRenderer
 extends Control
 
-## The priority of this icon renderer. Built-in renderers use the range of -100 to 100. 
-## The smaller the number the higher the priority.
+## The priority of this icon renderer. Built-in renderers use priority 0. Built-in
+## fallback renderer uses priority 100. The smaller the number the higher the priority.
 @export var priority:int = 0
 
 ## Whether or not this renderer can render an icon for this input.

@@ -4,6 +4,7 @@ extends MarginContainer
 const ClassScanner = preload("../class_scanner.gd")
 const Utils = preload("../utils.gd")
 const ArrayEdit = preload("../array_edit/array_edit.gd")
+const GUIDEUI = preload("../../ui/guide_ui.gd")
 
 @export var action_mapping_editor_scene:PackedScene
 

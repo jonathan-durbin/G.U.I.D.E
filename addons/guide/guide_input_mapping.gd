@@ -1,3 +1,4 @@
+@icon("res://addons/guide/guide_internal.svg")
 @tool
 ## A mapping from actuated input to a trigger result
 class_name GUIDEInputMapping

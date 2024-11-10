@@ -1,4 +1,5 @@
 @tool
+@icon("res://addons/guide/guide_mapping_context.svg")
 class_name GUIDEMappingContext
 extends Resource
 

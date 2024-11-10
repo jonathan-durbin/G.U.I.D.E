@@ -1,3 +1,4 @@
+@icon("res://addons/guide/guide_internal.svg")
 class_name GUIDETriggerComboCancelAction
 extends Resource
 

@@ -1,6 +1,5 @@
 ## Functions to show GUIDE mappings to the end user in the game UI.
 @tool
-class_name GUIDEUI
 extends Node
 
 const IconMaker = preload("icon_maker/icon_maker.gd")
@@ -8,6 +7,7 @@ const KeyRenderer = preload("icon_maker/renderers/key_renderer.tscn")
 const MouseRenderer = preload("icon_maker/renderers/mouse_renderer.tscn")
 const JoyRenderer = preload("icon_maker/renderers/joy_renderer.tscn")
 const ActionRenderer = preload("icon_maker/renderers/action_renderer.tscn")
+const FallbackRenderer = preload("icon_maker/renderers/fallback_renderer.tscn")
 const DefaultTextProvider = preload("default_text_provider.gd")
 
 var _icon_maker:IconMaker
@@ -22,6 +22,7 @@ func _ready():
 	add_icon_renderer(MouseRenderer.instantiate())
 	add_icon_renderer(ActionRenderer.instantiate())
 	add_icon_renderer(JoyRenderer.instantiate())
+	add_icon_renderer(FallbackRenderer.instantiate())
 	
 	add_text_provider(DefaultTextProvider.new())
 	
@@ -145,6 +146,8 @@ func get_input_icons(input:GUIDEInput, height_px:int = 32) -> Array[Texture2D]:
 	for renderer in _icon_renderers:
 		if renderer.supports(input):
 			new_icon = await _icon_maker.make_icon(input, renderer, height_px)
+			# first renderer wins
+			break
 		
 	if new_icon == null:
 		push_warning("No renderer found for input ", input)

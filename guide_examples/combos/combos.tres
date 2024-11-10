@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=54 format=3 uid="uid://c7uloa16ajj5p"]
+[gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=57 format=3 uid="uid://c7uloa16ajj5p"]
 
 [ext_resource type="Script" path="res://addons/guide/guide_mapping_context.gd" id="1_bycs2"]
 [ext_resource type="Resource" uid="uid://bqiryilvj5mqv" path="res://guide_examples/combos/actions/basic/move_left.tres" id="1_pb347"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://addons/guide/modifiers/guide_modifier_negate.gd" id="3_ji605"]
 [ext_resource type="Resource" uid="uid://bk54ofxos3xxg" path="res://guide_examples/combos/actions/basic/move_right.tres" id="5_jksbs"]
 [ext_resource type="Script" path="res://addons/guide/inputs/guide_input_action.gd" id="8_04uuh"]
+[ext_resource type="Script" path="res://addons/guide/triggers/guide_trigger_combo_cancel_action.gd" id="8_ewrgg"]
 [ext_resource type="Resource" uid="uid://5ve3hevhhgnw" path="res://guide_examples/combos/actions/combos/dash_right.tres" id="9_ciqk8"]
 [ext_resource type="Resource" uid="uid://b0761600n8fnb" path="res://guide_examples/combos/actions/combos/fireball_left.tres" id="9_lvx6c"]
 [ext_resource type="Resource" uid="uid://wdh7cg7kjul0" path="res://guide_examples/combos/actions/combos/fireball_right.tres" id="12_icm8e"]
@@ -78,6 +79,11 @@ action = ExtResource("17_yw71c")
 input_mappings = Array[ExtResource("3_dnh2v")]([SubResource("Resource_wf4jl")])
 metadata/_guide_input_mappings_collapsed = true
 
+[sub_resource type="Resource" id="Resource_ai4v6"]
+script = ExtResource("8_ewrgg")
+action = ExtResource("5_jksbs")
+completion_events = 1
+
 [sub_resource type="Resource" id="Resource_22wmg"]
 script = ExtResource("20_226av")
 action = ExtResource("1_pb347")
@@ -94,7 +100,7 @@ time_to_actuate = 0.5
 script = ExtResource("19_kw0e0")
 enable_debug_print = false
 steps = Array[ExtResource("20_226av")]([SubResource("Resource_22wmg"), SubResource("Resource_m5xce")])
-cancellation_actions = Array[Resource("res://addons/guide/triggers/guide_trigger_combo_cancel_action.gd")]([])
+cancellation_actions = Array[ExtResource("8_ewrgg")]([SubResource("Resource_ai4v6")])
 actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_00r0g"]
@@ -107,6 +113,11 @@ script = ExtResource("2_o8ffe")
 action = ExtResource("21_wfbjl")
 input_mappings = Array[ExtResource("3_dnh2v")]([SubResource("Resource_00r0g")])
 metadata/_guide_input_mappings_collapsed = false
+
+[sub_resource type="Resource" id="Resource_w3it8"]
+script = ExtResource("8_ewrgg")
+action = ExtResource("1_pb347")
+completion_events = 1
 
 [sub_resource type="Resource" id="Resource_o1r17"]
 script = ExtResource("20_226av")
@@ -124,7 +135,7 @@ time_to_actuate = 0.5
 script = ExtResource("19_kw0e0")
 enable_debug_print = false
 steps = Array[ExtResource("20_226av")]([SubResource("Resource_o1r17"), SubResource("Resource_y7323")])
-cancellation_actions = Array[Resource("res://addons/guide/triggers/guide_trigger_combo_cancel_action.gd")]([])
+cancellation_actions = Array[ExtResource("8_ewrgg")]([SubResource("Resource_w3it8")])
 actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_wnc21"]
@@ -160,7 +171,7 @@ time_to_actuate = 0.5
 script = ExtResource("19_kw0e0")
 enable_debug_print = false
 steps = Array[ExtResource("20_226av")]([SubResource("Resource_cbc1w"), SubResource("Resource_k4x1t"), SubResource("Resource_ryygs")])
-cancellation_actions = Array[Resource("res://addons/guide/triggers/guide_trigger_combo_cancel_action.gd")]([])
+cancellation_actions = Array[ExtResource("8_ewrgg")]([])
 actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_v7om3"]
@@ -172,7 +183,7 @@ triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubR
 script = ExtResource("2_o8ffe")
 action = ExtResource("9_lvx6c")
 input_mappings = Array[ExtResource("3_dnh2v")]([SubResource("Resource_v7om3")])
-metadata/_guide_input_mappings_collapsed = true
+metadata/_guide_input_mappings_collapsed = false
 
 [sub_resource type="Resource" id="Resource_2ivmb"]
 script = ExtResource("20_226av")
@@ -196,7 +207,7 @@ time_to_actuate = 0.5
 script = ExtResource("19_kw0e0")
 enable_debug_print = false
 steps = Array[ExtResource("20_226av")]([SubResource("Resource_2ivmb"), SubResource("Resource_o88yx"), SubResource("Resource_j6a01")])
-cancellation_actions = Array[Resource("res://addons/guide/triggers/guide_trigger_combo_cancel_action.gd")]([])
+cancellation_actions = Array[ExtResource("8_ewrgg")]([])
 actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_do51u"]

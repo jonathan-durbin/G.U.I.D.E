@@ -1,3 +1,4 @@
+@icon("res://addons/guide/guide_internal.svg")
 @tool
 ## An action to input mapping
 class_name GUIDEActionMapping

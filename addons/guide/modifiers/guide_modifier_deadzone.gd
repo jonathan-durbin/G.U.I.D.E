@@ -1,6 +1,6 @@
+@tool
 ## Inputs between the lower and upper threshold are mapped 0 -> 1.
 ## Values outside the thresholds are clamped.
-@tool
 class_name GUIDEModifierDeadzone
 extends GUIDEModifier
 
