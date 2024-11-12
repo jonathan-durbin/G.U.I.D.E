@@ -33,6 +33,17 @@ enum GUIDEActionState {
 			return
 		action_value_type = value
 		emit_changed()
+		
+## If this action triggers, lower-priority actions cannot trigger 
+## if they share input with this action unless these actions are
+## chorded with this action.		
+@export var block_lower_priority_actions:bool = true:
+	set(value):
+		if block_lower_priority_actions == value:
+			return
+		block_lower_priority_actions = value
+		emit_changed()	
+
 
 @export_category("Godot Actions")
 ## If true, then this action will be emitted into Godot's 

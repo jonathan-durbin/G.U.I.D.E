@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://1nfi2geprmpv"]
+
+[sub_resource type="GDScript" id="GDScript_uy6w8"]
+script/source = "extends Node2D
+
+var narf:int = 7
+
+func get_narf() -> int:
+	return 7
+
+func _ready():
+	var start = Time.get_ticks_usec()
+	for i in 1000000:
+		var foo = narf
+		foo += 2
+	var end = Time.get_ticks_usec()
+	print((end -  start) / 1000000.0)
+	
+	start = Time.get_ticks_usec()
+	for i in 1000000:
+		var foo = get_narf()
+		foo += 2
+	end = Time.get_ticks_usec()
+	print((end -  start) / 1000000.0)
+		
+		
+		
+		
+"
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_uy6w8")

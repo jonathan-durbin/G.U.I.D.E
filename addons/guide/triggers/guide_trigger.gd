@@ -3,7 +3,6 @@
 class_name GUIDETrigger
 extends Resource
 
-
 enum GUIDETriggerState {
 	## The trigger did not fire.
 	NONE,
@@ -13,8 +12,23 @@ enum GUIDETriggerState {
 	TRIGGERED
 }
 
+enum GUIDETriggerType {
+	# If there are more than one explicit triggers at least one must trigger
+	# for the action to trigger.
+	EXPLICIT = 1,
+	# All implicit triggers must trigger for the action to triger.
+	IMPLICIT = 2,
+	# All blocking triggers prevent the action from triggering.
+	BLOCKING = 3
+}
+
+
 @export var actuation_threshold:float = 0.5
 var _last_value:Vector3
+
+## Returns the trigger type of this trigger.
+func _get_trigger_type() -> GUIDETriggerType: 
+	return GUIDETriggerType.EXPLICIT
 
 
 func _update_state(input:Vector3, delta:float, value_type:GUIDEAction.GUIDEActionValueType) -> GUIDETriggerState:

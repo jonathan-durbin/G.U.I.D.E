@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://c03o20jchp7kb"]
+
+[ext_resource type="Script" path="res://guide_examples/action_priority/action_priority.gd" id="1_segid"]
+[ext_resource type="Resource" uid="uid://ragqbe7yjfwe" path="res://guide_examples/action_priority/action_priority.tres" id="2_spx2e"]
+[ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="3_ocaq1"]
+
+[node name="ActionPriority" type="Node2D"]
+script = ExtResource("1_segid")
+mapping_context = ExtResource("2_spx2e")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GuideDebugger" parent="CanvasLayer" instance=ExtResource("3_ocaq1")]

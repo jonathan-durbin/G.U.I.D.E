@@ -16,6 +16,11 @@ var _active_remapping_config:GUIDERemappingConfig
 ## All currently active inputs as collected from the active input mappings
 var _active_inputs:Array[GUIDEInput] = []
 
+## A dictionary of actions sharing input. Key is the action, value
+## is an array of lower-priority actions that share input with the 
+## key action.
+var _actions_sharing_input:Dictionary = {}
+
 ## A reference to the reset node which resets inputs that need a reset per frame
 ## This is an extra node because the reset should run at the end of the frame
 ## before new input is processed at the beginning of the frame.
@@ -58,6 +63,8 @@ func inject_input(event:InputEvent) -> void:
 	
 ## Processes all currently active actions
 func _process(delta:float) -> void:
+	var blocked_actions:GUIDESet = GUIDESet.new()
+	
 	for action_mapping:GUIDEActionMapping in _active_action_mappings:
 		
 		var action:GUIDEAction = action_mapping.action
@@ -72,6 +79,17 @@ func _process(delta:float) -> void:
 			consolidated_value += input_mapping._value
 			consolidated_trigger_state = max(consolidated_trigger_state, input_mapping._state)
 		
+		# we do the blocking check only here because triggers may need to run anyways
+		# (e.g. to collect hold times).
+		if blocked_actions.has(action):
+			consolidated_trigger_state = GUIDETrigger.GUIDETriggerState.NONE
+		
+		if action.block_lower_priority_actions and \
+			consolidated_trigger_state == GUIDETrigger.GUIDETriggerState.TRIGGERED and \
+			_actions_sharing_input.has(action):
+			for blocked_action in _actions_sharing_input[action]:
+				blocked_actions.add(blocked_action)
+			
 		
 		# Now state change events.
 		match(action._last_state):
@@ -159,6 +177,7 @@ func _update_caches():
 		
 	_active_inputs.clear()
 	_active_action_mappings.clear()
+	_actions_sharing_input.clear()
 	
 	var sorted_contexts:Array[Dictionary] = []
 	
@@ -204,28 +223,28 @@ func _update_caches():
 				if _active_remapping_config != null and \
 						_active_remapping_config._has(context, action, index):
 					bound_input = _active_remapping_config._get_bound_input_or_null(context, action, index)
-			
-				if bound_input == null:
-					# this is unbound, so skip the whole input mapping
-					continue
-					
+
 				# make a new input mapping
 				var new_input_mapping := GUIDEInputMapping.new()
-				
-				# check if we already have this kind of input
-				var existing = consolidated_inputs.first_match(func(it:GUIDEInput): it._is_same_as(bound_input))
-				if existing != null:
-					# if we have this already, use the instance we have
-					bound_input = existing
-				else:
-					# otherwise register this input into the consolidated input
-					consolidated_inputs.add(bound_input)
+
+				# can be null for combo mappings, so check that
+				if bound_input != null:
+					# check if we already have this kind of input
+					var existing = consolidated_inputs.first_match(func(it:GUIDEInput): return it._is_same_as(bound_input))
+					if existing != null:
+						# if we have this already, use the instance we have
+						bound_input = existing
+					else:
+						# otherwise register this input into the consolidated input
+						consolidated_inputs.add(bound_input)
 					
 				new_input_mapping.input = bound_input
 				# triggers and modifiers cannot be re-bound so we can just use the one
 				# from the original configuration
 				new_input_mapping.modifiers = action_mapping.input_mappings[index].modifiers
 				new_input_mapping.triggers = action_mapping.input_mappings[index].triggers
+				
+				new_input_mapping._initialize()
 				
 				# and add it to the new mapping
 				effective_mapping.input_mappings.append(new_input_mapping)
@@ -240,6 +259,45 @@ func _update_caches():
 	for input:GUIDEInput in consolidated_inputs.values():
 		_active_inputs.append(input)
 		
+	# prepare the action input share lookup table
+	for i:int in _active_action_mappings.size():
+		
+		var mapping = _active_action_mappings[i]
+		
+		if mapping.action.block_lower_priority_actions:
+			# first find out if the action uses any chorded actions and 
+			# collect all inputs that this action uses
+			var chorded_actions:GUIDESet = GUIDESet.new()
+			var inputs:GUIDESet = GUIDESet.new()
+			var blocked_actions:GUIDESet = GUIDESet.new()
+			for input_mapping:GUIDEInputMapping in mapping.input_mappings:
+				if input_mapping.input != null:
+					inputs.add(input_mapping.input)		
+						
+				for trigger:GUIDETrigger in input_mapping.triggers:
+					if trigger is GUIDETriggerChordedAction and trigger.action != null:
+						chorded_actions.add(trigger.action)
+			
+			# now find lower priority actions that share input
+			for j:int in range(i+1, _active_action_mappings.size()):
+				var inner_mapping = _active_action_mappings[j]
+				if chorded_actions.has(inner_mapping.action):
+					continue
+					
+				for input_mapping:GUIDEInputMapping in inner_mapping.input_mappings:
+					if input_mapping.input == null:
+						continue
+					
+					# because we consolidated input, we can now do an == comparison
+					# to find equal input.
+					if inputs.has(input_mapping.input):
+						blocked_actions.add(inner_mapping.action)
+						# we can continue to the next action
+						break 
+										
+			if not blocked_actions.is_empty():
+				_actions_sharing_input[mapping.action] = blocked_actions.values()
+				
 	# finally collect which inputs we need to reset per frame
 	_reset_node._inputs_to_reset.clear()
 	for input:GUIDEInput in _active_inputs:

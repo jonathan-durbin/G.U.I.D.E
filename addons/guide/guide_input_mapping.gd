@@ -32,10 +32,38 @@ extends Resource
 		emit_changed()
 
 
-var _default_trigger:GUIDETrigger
 var _state:GUIDETrigger.GUIDETriggerState = GUIDETrigger.GUIDETriggerState.NONE
 var _value:Vector3 = Vector3.ZERO
 
+var _trigger_list:Array[GUIDETrigger] = []
+var _implicit_count:int = 0
+var _explicit_count:int = 0
+
+## Called when the mapping is started to be used by GUIDE. Calculates 
+## the number of implicit and explicit triggers so we don't need to do this
+## per frame. Also creates a default trigger when none is set.
+func _initialize() -> void :
+	_trigger_list.clear()
+	
+	_implicit_count = 0
+	_explicit_count = 0
+	
+	if triggers.is_empty():
+		# make a default trigger and use that
+		var default_trigger = GUIDETriggerDown.new()
+		default_trigger.actuation_threshold = 0
+		_explicit_count = 1
+		_trigger_list.append(default_trigger)
+		return
+	
+	for trigger in triggers:
+		match trigger._get_trigger_type():
+			GUIDETrigger.GUIDETriggerType.EXPLICIT:
+				_explicit_count += 1
+			GUIDETrigger.GUIDETriggerType.IMPLICIT:
+				_implicit_count += 1
+		_trigger_list.append(trigger)
+		
 
 func _update_state(delta:float, value_type:GUIDEAction.GUIDEActionValueType):
 	# Collect the current input value
@@ -47,22 +75,51 @@ func _update_state(delta:float, value_type:GUIDEAction.GUIDEActionValueType):
 		
 	_value = input_value
 	
+	var triggered_implicits:int = 0
+	var triggered_explicits:int = 0
+	var triggered_blocked:int = 0
+	
 	# Run over all triggers
 	var result:int = GUIDETrigger.GUIDETriggerState.NONE
-	if triggers.is_empty():
-		if _default_trigger == null:
-			_default_trigger = GUIDETriggerDown.new()
-			_default_trigger.actuation_threshold = 0
-			
-		result = _default_trigger._update_state(_value, delta, value_type)
-	else:
-		for trigger:GUIDETrigger in triggers:
-			var trigger_result:GUIDETrigger.GUIDETriggerState = trigger._update_state(_value, delta, value_type)
-			trigger._last_value = _value
+	for trigger:GUIDETrigger in _trigger_list:
+		var trigger_result:GUIDETrigger.GUIDETriggerState = trigger._update_state(_value, delta, value_type)
+		trigger._last_value = _value
 		
+		var trigger_type = trigger._get_trigger_type()
+		if trigger_result == GUIDETrigger.GUIDETriggerState.TRIGGERED:
+			match trigger_type:
+				GUIDETrigger.GUIDETriggerType.EXPLICIT:
+					triggered_explicits += 1
+				GUIDETrigger.GUIDETriggerType.IMPLICIT:
+					triggered_implicits += 1
+				GUIDETrigger.GUIDETriggerType.BLOCKING:
+					triggered_blocked += 1
+			
+		# we only care about the nuances of explicit triggers. implicits and blocking
+		# can only really return yes or no, so they have no nuance		
+		if trigger_type == GUIDETrigger.GUIDETriggerType.EXPLICIT: 
 			# Higher value results take precedence over lower value results
 			result = max(result, trigger_result)
+	
+	# final collection
+	if triggered_blocked > 0:
+		# some blocker triggered which means that this cannot succeed
+		_state = GUIDETrigger.GUIDETriggerState.NONE
+		_value = Vector3.ZERO
+		return
+	
+	if triggered_implicits < _implicit_count:
+		# not all implicits triggered, which also fails this binding
+		_state = GUIDETrigger.GUIDETriggerState.NONE
+		_value = Vector3.ZERO
+		return
+	
+	if _explicit_count == 0 and _implicit_count > 0:
+		# if no explicits exist, its enough when all implicits trigger
+		_state = GUIDETrigger.GUIDETriggerState.TRIGGERED
+		return
 		
+	# return the best result
 	_state = result
 
 	

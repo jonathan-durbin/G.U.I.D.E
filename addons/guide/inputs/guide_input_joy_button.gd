@@ -22,8 +22,12 @@ func _input(event:InputEvent):
 		
 	_value.x = 1.0 if event.pressed else 0.0
 
+
 func _is_same_as(other:GUIDEInput) -> bool:
-	return other is GUIDEInputJoyButton and other.button == button
+	return other is GUIDEInputJoyButton and \
+		 other.button == button and \
+		 other.joy_index == joy_index
+
 
 func _to_string():
 	return "(GUIDEInputJoyButton: button=" + str(button) + ", joy_index="  + str(joy_index) + ")"

@@ -87,7 +87,7 @@ func get_text(input:GUIDEInput) -> String:
 				return _format(tr("Right Stick"))
 				
 	if input is GUIDEInputJoyButton:
-		return _format(tr("Joy %") % [input.button])
+		return _format(tr("Joy %s") % [input.button])
 		
 		
 	if input is GUIDEInputAction:
