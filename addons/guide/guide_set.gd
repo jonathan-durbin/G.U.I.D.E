@@ -28,5 +28,13 @@ func pull() -> Variant:
 func has(value:Variant) -> bool:
 	return _values.has(value)
 
+## Returns the first item for which the given matcher function returns
+## a true value.
+func first_match(matcher:Callable) -> Variant:
+	for key in _values.keys():
+		if matcher.call(key):
+			return key
+	return null
+
 func values() -> Array:
 	return _values.keys()

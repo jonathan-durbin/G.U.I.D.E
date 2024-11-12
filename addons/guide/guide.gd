@@ -14,7 +14,7 @@ var _active_action_mappings:Array[GUIDEActionMapping] = []
 var _active_remapping_config:GUIDERemappingConfig
 
 ## All currently active inputs as collected from the active input mappings
-var _active_inputs:GUIDESet = GUIDESet.new()
+var _active_inputs:Array[GUIDEInput] = []
 
 ## A reference to the reset node which resets inputs that need a reset per frame
 ## This is an extra node because the reset should run at the end of the frame
@@ -52,7 +52,7 @@ func inject_input(event:InputEvent) -> void:
 	if event is InputEventAction:
 		return  # we don't react to Godot's built-in events
 	
-	for input:GUIDEInput in _active_inputs.values():
+	for input:GUIDEInput in _active_inputs:
 		input._input(event)
 	
 	
@@ -71,7 +71,7 @@ func _process(delta:float) -> void:
 			input_mapping._update_state(delta, action.action_value_type)
 			consolidated_value += input_mapping._value
 			consolidated_trigger_state = max(consolidated_trigger_state, input_mapping._state)
-			
+		
 		
 		# Now state change events.
 		match(action._last_state):
@@ -80,28 +80,28 @@ func _process(delta:float) -> void:
 					GUIDETrigger.GUIDETriggerState.NONE:
 						action._completed(consolidated_value)
 					GUIDETrigger.GUIDETriggerState.ONGOING:
-						action._ongoing(consolidated_value)
+						action._ongoing(consolidated_value, delta)
 					GUIDETrigger.GUIDETriggerState.TRIGGERED:
-						action._triggered(consolidated_value)
+						action._triggered(consolidated_value, delta)
 						
 			GUIDEAction.GUIDEActionState.ONGOING:
 				match(consolidated_trigger_state):
 					GUIDETrigger.GUIDETriggerState.NONE:
 						action._cancelled(consolidated_value)
 					GUIDETrigger.GUIDETriggerState.ONGOING:
-						action._ongoing(consolidated_value)
+						action._ongoing(consolidated_value, delta)
 					GUIDETrigger.GUIDETriggerState.TRIGGERED:
-						action._triggered(consolidated_value)
+						action._triggered(consolidated_value, delta)
 						
 			GUIDEAction.GUIDEActionState.COMPLETED:
 				match(consolidated_trigger_state):
 					GUIDETrigger.GUIDETriggerState.NONE:
-						# nothing happens.
-						pass
+						# make sure the value is zero but don't emit any other events
+						action._update_value(Vector3.ZERO)
 					GUIDETrigger.GUIDETriggerState.ONGOING:
 						action._started(consolidated_value)
 					GUIDETrigger.GUIDETriggerState.TRIGGERED:
-						action._triggered(consolidated_value)
+						action._triggered(consolidated_value, delta)
 							
 ## Checks the currently activated mapping contexts and retrieves the highest
 ## priority mapping for the given action. Then returns all inputs currently
@@ -146,7 +146,7 @@ func disable_mapping_context(context:GUIDEMappingContext):
 	
 func _update_caches():
 	# Notify existing inputs that they aren no longer required
-	for input:GUIDEInput in _active_inputs.values():
+	for input:GUIDEInput in _active_inputs:
 		input._end_usage()
 		
 	# Cancel all actions, so they don't remain in weird states.
@@ -156,7 +156,7 @@ func _update_caches():
 				mapping.action._cancelled(Vector3.ZERO)
 			GUIDEAction.GUIDEActionState.TRIGGERED:
 				mapping.action._completed(Vector3.ZERO)
-				
+		
 	_active_inputs.clear()
 	_active_action_mappings.clear()
 	
@@ -170,6 +170,7 @@ func _update_caches():
 	# The actions we already have processed. Same action may appear in different
 	# contexts, so if we find the same action twice, only the first instance wins.
 	var processed_actions:GUIDESet = GUIDESet.new()
+	var consolidated_inputs:GUIDESet = GUIDESet.new()
 
 	for entry:Dictionary in sorted_contexts:
 		var context:GUIDEMappingContext = entry.context
@@ -180,45 +181,68 @@ func _update_caches():
 			if processed_actions.has(action):
 				# skip
 				continue
+				
 			processed_actions.add(action)
 			
-			var effective_mapping := action_mapping
-			# if we have a remapping configuration, then all remappable actions
-			# will need to be updated
-			if is_instance_valid(_active_remapping_config) and action.is_remappable:
-				effective_mapping = GUIDEActionMapping.new()
-				effective_mapping.action = action
+			# We consolidate the inputs here, so we'll internally build a new
+			# action mapping that uses consolidated inputs rather than the
+			# original ones. This achieves multiple things:
+			# - if two actions check for the same input, we only need to
+			#   process the input once instead of twice.
+			# - it allows us to prioritize input, if two actions check for  
+			#   the same input. This way the first action can consume the
+			#   input and not have it affect further actions.
+			
+			var effective_mapping  = GUIDEActionMapping.new()
+			effective_mapping.action = action
+
+			# now update the input mappings
+			for index in action_mapping.input_mappings.size():
+				var bound_input:GUIDEInput = action_mapping.input_mappings[index].input
 				
-				# now update the input mappings
-				for index in action_mapping.input_mappings.size():
-					var bound_input = _active_remapping_config._get_bound_input_or_null(context, action, index)
-					if bound_input == null:
-						continue # not bound in remapping config, so don't bind it here either 
-					# collect the input
-					_active_inputs.add(bound_input)
-					var new_input_mapping := GUIDEInputMapping.new()
-					new_input_mapping.input = bound_input
-					# triggers and modifiers cannot be re-bound so we can just use the one
-					# from the original configuration
-					new_input_mapping.modifiers = action_mapping.input_mappings[index].modifiers
-					new_input_mapping.triggers = action_mapping.input_mappings[index].triggers
-			else:
-				# if the action is not remappable, we can use the original mapping and just
-				# collect the inputs
-				for input_mapping in action_mapping.input_mappings:
-					if input_mapping.input != null:
-						_active_inputs.add(input_mapping.input)
+				# if the mapping has an override for the input, apply it.
+				if _active_remapping_config != null and \
+						_active_remapping_config._has(context, action, index):
+					bound_input = _active_remapping_config._get_bound_input_or_null(context, action, index)
+			
+				if bound_input == null:
+					# this is unbound, so skip the whole input mapping
+					continue
+					
+				# make a new input mapping
+				var new_input_mapping := GUIDEInputMapping.new()
+				
+				# check if we already have this kind of input
+				var existing = consolidated_inputs.first_match(func(it:GUIDEInput): it._is_same_as(bound_input))
+				if existing != null:
+					# if we have this already, use the instance we have
+					bound_input = existing
+				else:
+					# otherwise register this input into the consolidated input
+					consolidated_inputs.add(bound_input)
+					
+				new_input_mapping.input = bound_input
+				# triggers and modifiers cannot be re-bound so we can just use the one
+				# from the original configuration
+				new_input_mapping.modifiers = action_mapping.input_mappings[index].modifiers
+				new_input_mapping.triggers = action_mapping.input_mappings[index].triggers
+				
+				# and add it to the new mapping
+				effective_mapping.input_mappings.append(new_input_mapping)
+
 				
 			# if any binding remains, add the mapping to the list of active
 			# action mappings
 			if not effective_mapping.input_mappings.is_empty():
 				_active_action_mappings.append(effective_mapping)
-				
-	# TODO, consolidate inputs, so we don't check for the same key in multiple places
-	
+
+	# now we have a new set of active inputs		
+	for input:GUIDEInput in consolidated_inputs.values():
+		_active_inputs.append(input)
+		
 	# finally collect which inputs we need to reset per frame
 	_reset_node._inputs_to_reset.clear()
-	for input:GUIDEInput in _active_inputs.values():
+	for input:GUIDEInput in _active_inputs:
 		if input._needs_reset():
 			_reset_node._inputs_to_reset.append(input)
 		# Notify inputs that GUIDE is about to use them

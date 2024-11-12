@@ -1,7 +1,7 @@
 extends Node2D
 
 @export var speed:float = 600
-var direction:float = 1.0
+var direction:Vector2 = Vector2.ZERO
 
 
 func _ready():
@@ -10,4 +10,4 @@ func _ready():
 
 
 func _process(delta):
-	position.x += speed * direction * delta
+	position += speed * direction * delta

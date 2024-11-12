@@ -34,12 +34,14 @@ func _switch_input_scheme():
 		   # or being the joystick scheme
 			GUIDE.enable_mapping_context(keyboard_scheme)
 			_current_input_scheme = keyboard_scheme
+			
+	assert(switch_input_scheme_action.get_value_bool() == false)
 	
 	_refresh_instructions()				
 			
 	
 func _refresh_instructions():
-	var move_input = await GUIDE.UI.format_action_with_icons("%s", move_action)
-	var shoot_input = await GUIDE.UI.format_action_with_icons("%s", shoot_action)
+	var move_input = await GUIDE.UI.format_action_as_icons("%s", move_action)
+	var shoot_input = await GUIDE.UI.format_action_as_icons("%s", shoot_action)
 	var instruction_text = "Use %s to move, %s to shoot." % [move_input, shoot_input]
 	_instructions_label.parse_bbcode(instruction_text)

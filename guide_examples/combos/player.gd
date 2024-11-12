@@ -15,10 +15,13 @@ extends CharacterBody2D
 var _dash_bonus:float 
 
 func _ready():
+	# We can use the event system to get notified whenever
+	# the combo actions trigger. This way we don't need to check them
+	# in _physics_process every frame.
 	dash_left.triggered.connect(func(): _dash_bonus = -1)
 	dash_right.triggered.connect(func(): _dash_bonus = 1)
-	fireball_left.triggered.connect(_spawn_fireball.bind(-1))
-	fireball_right.triggered.connect(_spawn_fireball.bind(1))
+	fireball_left.triggered.connect(_spawn_fireball.bind(Vector2.LEFT))
+	fireball_right.triggered.connect(_spawn_fireball.bind(Vector2.RIGHT))
 
 
 func _physics_process(delta):
@@ -34,7 +37,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	
-func _spawn_fireball(direction:float) -> void:
+func _spawn_fireball(direction:Vector2) -> void:
 	# spawn a new fireball
 	var fireball:Node2D = fireball_scene.instantiate()
 	# add it to the tree

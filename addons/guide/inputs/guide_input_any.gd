@@ -13,22 +13,24 @@ extends GUIDEInput
 ## Should input from the keyboard be considered?
 @export var keyboard:bool = false
 
+
+func _needs_reset() -> bool:
+	# Needs reset because we cannot detect the absence of input.
+	return true
+
 func _input(event:InputEvent):
 	if mouse and event is InputEventMouse:
-		print("Any - MOUSE")	
 		_value = Vector3.RIGHT
 		return
 			
 	if joy and (event is InputEventJoypadButton or event is InputEventJoypadMotion):
-		print("Any - JOY")	
 		_value = Vector3.RIGHT
 		return 
 			
 	if keyboard and (event is InputEventKey):
-		print("Any - KEY")	
 		_value = Vector3.RIGHT
 		return
-			
+		
 	_value = Vector3.ZERO		
 
 

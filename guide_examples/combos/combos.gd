@@ -26,4 +26,4 @@ func _ready():
 
 
 func _key_for_action(action:GUIDEAction):
-	return await GUIDE.UI.format_action_with_icons("%s", action)
+	return await GUIDE.UI.format_action_as_icons("%s", action)

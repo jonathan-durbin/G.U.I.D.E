@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bq1y86drsbsgc"]
+[gd_scene load_steps=11 format=3 uid="uid://bq1y86drsbsgc"]
 
 [ext_resource type="Texture2D" uid="uid://byjxtsekdl8t2" path="res://guide_examples/godot_logo.svg" id="1_segxn"]
 [ext_resource type="Script" path="res://guide_examples/tap_and_hold/player.gd" id="2_gpfh8"]
 [ext_resource type="Resource" uid="uid://dkorp45s6fjqk" path="res://guide_examples/tap_and_hold/tap_and_hold.tres" id="3_u8e88"]
 [ext_resource type="Resource" uid="uid://djow080f02fos" path="res://guide_examples/tap_and_hold/jump.tres" id="4_8qeav"]
 [ext_resource type="Resource" uid="uid://dcdlaiw50k4t3" path="res://guide_examples/tap_and_hold/somersault.tres" id="5_wp1cr"]
+[ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="6_vjlt4"]
 
 [sub_resource type="Animation" id="Animation_j3lvc"]
 length = 0.001
@@ -93,18 +94,38 @@ mapping_context = ExtResource("3_u8e88")
 jump_action = ExtResource("4_8qeav")
 somersault_action = ExtResource("5_wp1cr")
 
+[node name="ProgressBar" type="ProgressBar" parent="Player"]
+unique_name_in_owner = true
+visible = false
+offset_left = -58.0
+offset_top = 64.0
+offset_right = 57.0
+offset_bottom = 91.0
+max_value = 0.5
+show_percentage = false
+
 [node name="Label" type="Label" parent="."]
-anchors_preset = 15
+anchors_preset = 1
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -660.0
+offset_top = 71.0
+offset_right = -57.0
+offset_bottom = 161.0
+grow_horizontal = 0
 theme_override_font_sizes/font_size = 20
-text = "Tap Space to Jump. Hold Space to Somersault."
-horizontal_alignment = 1
+text = "This demonstrates using the hold and tap triggers to bind multiple actions to the same key. Tap SPACE to jump, hold SPACE to somersault. This also uses the hold action's elapsed_seconds property to drive a hold progress bar to indicate how long the key needs to be held."
+autowrap_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_8sm1c")
 }
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GuideDebugger" parent="CanvasLayer" instance=ExtResource("6_vjlt4")]
+metadata/_edit_lock_ = true
+
+[node name="Node2D" type="Node2D" parent="."]

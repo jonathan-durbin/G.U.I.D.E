@@ -37,7 +37,10 @@ func get_categories(context:GUIDEMappingContext) -> Array[String]:
 	return result.values()
 
 
-## Returns a list of all collisions when this new input would be applied
+## Returns a list of all collisions when this new input would be applied. 
+## The returned array contains dictionaries, each dictionary has the entries
+## "context", "action" and "index" which point to the mapping context, action and 
+## input mapping index of the collision.
 func get_input_collisions(context:GUIDEMappingContext, action:GUIDEAction, input:GUIDEInput, index:int = 0) -> Array[Dictionary]:
 	var potential_collisions := _remapping_config._get_mappings_using_input(input)
 	var result:Array[Dictionary] = [] 
@@ -48,7 +51,7 @@ func get_input_collisions(context:GUIDEMappingContext, action:GUIDEAction, input
 			
 	return result
 
-## Gets the list of rebindable actions for the given sect
+## Gets the list of remappable actions for the given context and category.
 func get_remappable_actions(context:GUIDEMappingContext, category:String) -> Array[GUIDEAction]:
 	var result:GUIDESet = GUIDESet.new()
 	for mapping in context.mappings:
@@ -66,8 +69,8 @@ func get_bound_input_or_null(context:GUIDEMappingContext, action:GUIDEAction, in
 
 	return _remapping_config._get_bound_input_or_null(context, action, index)
 	
-## Sets the bound input to the new value. Removes all colliding bindings automatically.	Returns a list 
-## with all changed items, which can be used to update the UI.
+## Sets the bound input to the new value. Removes all colliding bindings in this context 
+## automatically. Returns a list with all changed items, which can be used to update the UI.
 func set_bound_input(context:GUIDEMappingContext, action:GUIDEAction, input:GUIDEInput, index:int = 0) -> Array[Dictionary]:
 	if not _check_action(context, action):
 		return []
@@ -76,6 +79,11 @@ func set_bound_input(context:GUIDEMappingContext, action:GUIDEAction, input:GUID
 	var collisions := _remapping_config._get_mappings_using_input(input)
 	var has_target:bool = false
 	for collision in collisions:
+		## Collisions in other contexts are OK, we just shouldn't have the same 
+		## 
+		if collision.context != context:
+			continue
+		
 		if collision.context == context and collision.action == action and collision.index == index:
 			has_target = true
 		_remapping_config._unbind(collision.context, collision.action, collision.index)

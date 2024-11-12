@@ -65,7 +65,7 @@ func format_action_as_text(format:String, action:GUIDEAction) -> String:
 ## for the given action. Formats this binding into icons using the given string format. Add a `%s` to
 ## the string where the input should be. Only a single %s can be in the string. Since icons are
 ## built in the background, you need to `await` on this function.
-func format_action_with_icons(format:String, action:GUIDEAction, height_px:int = 32) -> String:
+func format_action_as_icons(format:String, action:GUIDEAction, height_px:int = 32) -> String:
 	if action == null:
 		push_error("Cannot determine input for null action.")
 		return ""
@@ -82,7 +82,7 @@ func format_action_with_icons(format:String, action:GUIDEAction, height_px:int =
 ## Formats the given string by replacing the placeholders with a textual description of the 
 ## given inputs. Can be used to show input in a UI (e.g. "press [A] to jump"). This is a bit
 ## more lightweight than rendering inputs to icons. If you want icons instead of text, use
-## format_input_with_icons. Add a `%s` into the string where the input should be (e.g. "press %s to jump").
+## format_input_as_icons. Add a `%s` into the string where the input should be (e.g. "press %s to jump").
 func format_input_as_text(format:String, inputs:Array[GUIDEInput]) -> String:
 	var replacements:Array[String] = []
 	for input in inputs:

@@ -31,7 +31,7 @@ var _timer:Timer
 func _ready():
 	_timer = Timer.new()
 	_timer.one_shot = true
-	add_child(_timer)
+	add_child(_timer, false, Node.INTERNAL_MODE_FRONT)
 	_timer.timeout.connect(_begin_detection)
 
 var _is_detecting:bool

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=30 format=3 uid="uid://2hl7iqpondhi"]
+[gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=32 format=3 uid="uid://2hl7iqpondhi"]
 
 [ext_resource type="Resource" uid="uid://cxn2ibe1mn3sb" path="res://guide_examples/input_scheme_switching/actions/move.tres" id="1_f2kq7"]
 [ext_resource type="Script" path="res://addons/guide/inputs/guide_input_key.gd" id="2_10ro5"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://addons/guide/guide_input_mapping.gd" id="5_v5abd"]
 [ext_resource type="Script" path="res://addons/guide/guide_action_mapping.gd" id="6_5qe2r"]
 [ext_resource type="Resource" uid="uid://c7htf8h44vbwi" path="res://guide_examples/input_scheme_switching/actions/shoot.tres" id="7_oiyil"]
+[ext_resource type="Script" path="res://addons/guide/triggers/guide_trigger_pressed.gd" id="8_enquy"]
 [ext_resource type="Resource" uid="uid://vctiwgvnl0ba" path="res://guide_examples/input_scheme_switching/actions/switch_input_scheme.tres" id="8_j0ura"]
 [ext_resource type="Script" path="res://addons/guide/inputs/guide_input_any.gd" id="9_j1ko4"]
 [ext_resource type="Script" path="res://addons/guide/guide_mapping_context.gd" id="11_rkw8m"]
@@ -18,6 +19,7 @@ shift = false
 control = false
 alt = false
 meta = false
+allow_additional_modifiers = false
 
 [sub_resource type="Resource" id="Resource_8rr5k"]
 script = ExtResource("3_uaw8o")
@@ -42,6 +44,7 @@ shift = false
 control = false
 alt = false
 meta = false
+allow_additional_modifiers = false
 
 [sub_resource type="Resource" id="Resource_tu604"]
 script = ExtResource("4_hv31f")
@@ -62,6 +65,7 @@ shift = false
 control = false
 alt = false
 meta = false
+allow_additional_modifiers = false
 
 [sub_resource type="Resource" id="Resource_x4ewt"]
 script = ExtResource("3_uaw8o")
@@ -80,6 +84,7 @@ shift = false
 control = false
 alt = false
 meta = false
+allow_additional_modifiers = false
 
 [sub_resource type="Resource" id="Resource_ggp85"]
 script = ExtResource("5_v5abd")
@@ -99,12 +104,17 @@ shift = false
 control = false
 alt = false
 meta = false
+allow_additional_modifiers = false
+
+[sub_resource type="Resource" id="Resource_a515r"]
+script = ExtResource("8_enquy")
+actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_u0geb"]
 script = ExtResource("5_v5abd")
 input = SubResource("Resource_wxbv3")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
-triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
+triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_a515r")])
 
 [sub_resource type="Resource" id="Resource_f8tqv"]
 script = ExtResource("6_5qe2r")

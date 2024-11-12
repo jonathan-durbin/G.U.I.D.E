@@ -45,6 +45,16 @@ extends GUIDEInput
 		meta = value
 		emit_changed()	
 
+## Whether this input should fire if additional
+## modifier keys are currently pressed.		
+@export var allow_additional_modifiers:bool = false:
+	set(value):
+		if value == allow_additional_modifiers:
+			return
+		allow_additional_modifiers = value
+		emit_changed()
+					
+
 
 func _input(event:InputEvent):
 	if not event is InputEventKey:
@@ -52,20 +62,33 @@ func _input(event:InputEvent):
 	
 	if event.physical_keycode != key:
 		return
-		
-	# Modifiers must look EXACTLY as specified
 	
-	if event.shift_pressed != shift:
-		return
+	if allow_additional_modifiers:
+		# At least the modifiers that are true, must match
+		if shift and not event.shift_pressed:
+			return
+			
+		if control and not event.ctrl_pressed:
+			return
+		
+		if alt and not event.alt_pressed:
+			return
+			
+		if meta and not event.meta_pressed:
+			return
+	else:		
+		# Modifiers must look EXACTLY as specified
+		if event.shift_pressed != shift:
+			return
 
-	if event.ctrl_pressed != control:
-		return
+		if event.ctrl_pressed != control:
+			return
 
-	if event.alt_pressed != alt:
-		return
+		if event.alt_pressed != alt:
+			return
 
-	if event.meta_pressed != meta:
-		return
+		if event.meta_pressed != meta:
+			return
 		
 	_value.x = 1.0 if event.pressed else 0.0
 
@@ -75,7 +98,8 @@ func _is_same_as(other:GUIDEInput) -> bool:
 			and other.shift == shift \
 			and other.control == control \
 			and other.alt == alt \
-			and other.meta == meta
+			and other.meta == meta \
+			and other.allow_additional_modifiers == allow_additional_modifiers
 
 func _to_string():
 	return "(GUIDEInputKey: key=" + str(key) + ", shift="  + str(shift) + ", alt=" + str(alt) + ", control=" + str(control) + ", meta="+ str(meta) + ")"

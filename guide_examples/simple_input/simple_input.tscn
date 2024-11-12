@@ -3,10 +3,10 @@
 [ext_resource type="Texture2D" uid="uid://byjxtsekdl8t2" path="res://guide_examples/godot_logo.svg" id="1_t8vwd"]
 [ext_resource type="Script" path="res://guide_examples/simple_input/player.gd" id="2_o6vg3"]
 [ext_resource type="Resource" uid="uid://c161ru5ubsvm5" path="res://guide_examples/simple_input/simple_input.tres" id="3_2b24x"]
-[ext_resource type="Resource" uid="uid://b7rcj2usvx7iu" path="res://guide_examples/simple_input/move_left.tres" id="4_50on6"]
-[ext_resource type="Resource" uid="uid://cn4nypfrnusrn" path="res://guide_examples/simple_input/move_right.tres" id="5_47yin"]
-[ext_resource type="Resource" uid="uid://cjohgt5cdoxvd" path="res://guide_examples/simple_input/move_up.tres" id="6_b7h5t"]
-[ext_resource type="Resource" uid="uid://cjfdsja54wtus" path="res://guide_examples/simple_input/move_down.tres" id="7_4pdc5"]
+[ext_resource type="Resource" uid="uid://b7rcj2usvx7iu" path="res://guide_examples/simple_input/actions/move_left.tres" id="4_50on6"]
+[ext_resource type="Resource" uid="uid://cn4nypfrnusrn" path="res://guide_examples/simple_input/actions/move_right.tres" id="5_47yin"]
+[ext_resource type="Resource" uid="uid://cjohgt5cdoxvd" path="res://guide_examples/simple_input/actions/move_up.tres" id="6_b7h5t"]
+[ext_resource type="Resource" uid="uid://cjfdsja54wtus" path="res://guide_examples/simple_input/actions/move_down.tres" id="7_4pdc5"]
 
 [node name="SimpleInput" type="Node"]
 

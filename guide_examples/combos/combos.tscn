@@ -13,7 +13,7 @@
 [ext_resource type="Resource" uid="uid://cgr4iegvrkebx" path="res://guide_examples/combos/actions/basic/fire.tres" id="5_x8x8m"]
 [ext_resource type="Resource" uid="uid://5ve3hevhhgnw" path="res://guide_examples/combos/actions/combos/dash_right.tres" id="6_vd0bg"]
 [ext_resource type="Resource" uid="uid://wdh7cg7kjul0" path="res://guide_examples/combos/actions/combos/fireball_right.tres" id="11_n707x"]
-[ext_resource type="PackedScene" uid="uid://c36cnvgv2ur60" path="res://guide_examples/combos/fireball/fireball.tscn" id="12_fl88r"]
+[ext_resource type="PackedScene" uid="uid://c36cnvgv2ur60" path="res://guide_examples/shared/fireball/fireball.tscn" id="12_fl88r"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8kkfa"]
 size = Vector2(137, 138)

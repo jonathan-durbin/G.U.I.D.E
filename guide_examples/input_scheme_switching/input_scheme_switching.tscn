@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvbxt8jyo8okp"]
+[gd_scene load_steps=11 format=3 uid="uid://dvbxt8jyo8okp"]
 
 [ext_resource type="Script" path="res://guide_examples/input_scheme_switching/input_scheme_switching.gd" id="1_7l2n1"]
 [ext_resource type="Texture2D" uid="uid://byjxtsekdl8t2" path="res://guide_examples/godot_logo.svg" id="1_t4jeg"]
@@ -7,7 +7,9 @@
 [ext_resource type="Resource" uid="uid://cxn2ibe1mn3sb" path="res://guide_examples/input_scheme_switching/actions/move.tres" id="4_3bnea"]
 [ext_resource type="Resource" uid="uid://c7htf8h44vbwi" path="res://guide_examples/input_scheme_switching/actions/shoot.tres" id="5_4yg1b"]
 [ext_resource type="Resource" uid="uid://vctiwgvnl0ba" path="res://guide_examples/input_scheme_switching/actions/switch_input_scheme.tres" id="6_b05vw"]
+[ext_resource type="Script" path="res://guide_examples/input_scheme_switching/player.gd" id="7_2r4ev"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="8_nv6u5"]
+[ext_resource type="PackedScene" uid="uid://c36cnvgv2ur60" path="res://guide_examples/shared/fireball/fireball.tscn" id="8_t3npb"]
 
 [node name="InputSchemeSwitching" type="Node2D"]
 script = ExtResource("1_7l2n1")
@@ -19,6 +21,11 @@ switch_input_scheme_action = ExtResource("6_b05vw")
 
 [node name="Player" type="Node2D" parent="."]
 position = Vector2(929, 695)
+script = ExtResource("7_2r4ev")
+speed = 300.0
+move_action = ExtResource("4_3bnea")
+shoot_action = ExtResource("5_4yg1b")
+fireball_scene = ExtResource("8_t3npb")
 
 [node name="GodotLogo" type="Sprite2D" parent="Player"]
 texture = ExtResource("1_t4jeg")

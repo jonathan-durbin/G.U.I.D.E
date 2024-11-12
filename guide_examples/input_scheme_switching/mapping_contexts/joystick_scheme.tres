@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=19 format=3 uid="uid://x33fk5wo7l2r"]
+[gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=21 format=3 uid="uid://x33fk5wo7l2r"]
 
 [ext_resource type="Resource" uid="uid://cxn2ibe1mn3sb" path="res://guide_examples/input_scheme_switching/actions/move.tres" id="1_tfp2u"]
 [ext_resource type="Script" path="res://addons/guide/inputs/guide_input_joy_axis_2d.gd" id="2_t6p7a"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://addons/guide/guide_action_mapping.gd" id="4_ssubt"]
 [ext_resource type="Resource" uid="uid://c7htf8h44vbwi" path="res://guide_examples/input_scheme_switching/actions/shoot.tres" id="5_diext"]
 [ext_resource type="Script" path="res://addons/guide/inputs/guide_input_joy_button.gd" id="6_eieuy"]
+[ext_resource type="Script" path="res://addons/guide/triggers/guide_trigger_pressed.gd" id="7_0nn3e"]
 [ext_resource type="Resource" uid="uid://vctiwgvnl0ba" path="res://guide_examples/input_scheme_switching/actions/switch_input_scheme.tres" id="7_mvd0x"]
 [ext_resource type="Script" path="res://addons/guide/inputs/guide_input_any.gd" id="8_hdd7g"]
 [ext_resource type="Script" path="res://addons/guide/guide_mapping_context.gd" id="9_1vdw8"]
@@ -33,11 +34,15 @@ script = ExtResource("6_eieuy")
 button = 0
 joy_index = 0
 
+[sub_resource type="Resource" id="Resource_ws3e0"]
+script = ExtResource("7_0nn3e")
+actuation_threshold = 0.5
+
 [sub_resource type="Resource" id="Resource_b21ub"]
 script = ExtResource("3_6jy3p")
 input = SubResource("Resource_guotu")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
-triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
+triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_ws3e0")])
 
 [sub_resource type="Resource" id="Resource_tmt5r"]
 script = ExtResource("4_ssubt")

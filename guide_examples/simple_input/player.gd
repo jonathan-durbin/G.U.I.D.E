@@ -13,6 +13,13 @@ func _ready():
 	GUIDE.enable_mapping_context(mapping_context)
 
 func _process(delta:float) -> void:
+	# This is close to how input would be handled with Godot's built-in
+	# input. GUIDE can actually combine the input into a 2D axis for you
+	# (similar to Godot's Input.get_vector). However because this is
+	# done in the mapping context, the script doesn't need to know about
+	# it. Look at the 2d_axis_mapping example to see how to streamline
+	# this code quite a bit.
+	
 	var offset:Vector2 = Vector2.ZERO
 	
 	if left_action.is_triggered():

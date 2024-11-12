@@ -91,11 +91,34 @@ signal completed()
 signal cancelled()
 
 var _last_state:GUIDEActionState = GUIDEActionState.COMPLETED
-var _value:Vector3 = Vector3.ZERO
-var _value_bool:bool = false
-var _value_axis2d:Vector2 = Vector2.ZERO
 
-func _triggered(value:Vector3) -> void:
+var _value_bool:bool = false
+var value_bool:bool:
+	get: return _value_bool
+	
+var value_axis_1d:float:
+	get: return _value.x
+		
+var _value_axis2d:Vector2 = Vector2.ZERO
+var value_axis_2d:Vector2:
+	get: return _value_axis2d
+
+var _value:Vector3 = Vector3.ZERO
+var value_axis3d:Vector3:
+	get: return _value
+	
+
+var _elapsed_seconds:float
+var elapsed_seconds:float:
+	get: return _elapsed_seconds
+
+var _triggered_seconds:float
+var triggered_seconds:float:
+	get: return _triggered_seconds
+
+
+func _triggered(value:Vector3, delta:float) -> void:
+	_triggered_seconds += delta
 	_update_value(value)
 	_last_state = GUIDEActionState.TRIGGERED
 	triggered.emit()
@@ -107,7 +130,8 @@ func _started(value:Vector3) -> void:
 	started.emit()
 	ongoing.emit()
 
-func _ongoing(value:Vector3) -> void:
+func _ongoing(value:Vector3, delta:float) -> void:
+	_elapsed_seconds += delta
 	_update_value(value)
 	var was_triggered:bool = _last_state == GUIDEActionState.TRIGGERED
 	_last_state = GUIDEActionState.ONGOING
@@ -119,12 +143,15 @@ func _ongoing(value:Vector3) -> void:
 	
 
 func _cancelled(value:Vector3) -> void:
+	_elapsed_seconds = 0
 	_update_value(value)
 	_last_state = GUIDEActionState.COMPLETED
 	cancelled.emit()
 	completed.emit()
 
 func _completed(value:Vector3) -> void:
+	_elapsed_seconds = 0
+	_triggered_seconds = 0
 	_update_value(value)
 	_last_state = GUIDEActionState.COMPLETED
 	completed.emit()
