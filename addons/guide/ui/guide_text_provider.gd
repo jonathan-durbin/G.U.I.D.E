@@ -13,7 +13,10 @@ func supports(input:GUIDEInput) -> bool:
 	return false
 	
 ## Provides the text for the given input. Will only be called when the 
-## input is supported by this text provider.
+## input is supported by this text provider. Note that for key input
+## this is not supposed to look at the modifiers. This function will
+## be called separately for each modifier.
 func get_text(input:GUIDEInput) -> String:
 	return "not implemented"
  
+

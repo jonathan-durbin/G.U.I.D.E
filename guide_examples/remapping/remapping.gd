@@ -1,25 +1,53 @@
+## This is the main game controller. It enables a control scheme at the start and is
+## responsible for controlling the remapping dialog.
 extends Node
 
-@export var game_controls:GUIDEMappingContext
-@export var open_menu_action:GUIDEAction
+const Utils = preload("utils.gd")
+
+@export_group("Context & Modifiers")
+@export var keyboard:GUIDEMappingContext
+@export var controller:GUIDEMappingContext
+@export var controller_axis_invert_modifier:GUIDEModifierNegate
+
+@export_group("Actions")
+@export var switch_to_keyboard:GUIDEAction
+@export var switch_to_controller:GUIDEAction
+@export var open_menu:GUIDEAction
+
 
 @onready var _remapping_dialog:Control = %RemappingDialog
 
 func _ready():
-	# We start in game mode, so enable the game controls
-	GUIDE.enable_mapping_context(game_controls)
-	# And react when the open menu action is triggered.
-	open_menu_action.triggered.connect(_open_menu)
+	# React when the open menu action is triggered.
+	open_menu.triggered.connect(_open_menu)
+	
+	# and switching to controller / keyboard ... 
+	switch_to_controller.triggered.connect(_switch.bind(controller))
+	switch_to_keyboard.triggered.connect(_switch.bind(keyboard))
+	
+	# Also listen to when the remapping dialog closes and re-apply the changed
+	# mapping config
+	_remapping_dialog.closed.connect(_load_remapping_config)
+	
+	# Start with the keyboard scheme
+	GUIDE.enable_mapping_context(keyboard)
+	
+	# finally enable all controls with the last saved remapping configuration
+	_load_remapping_config(Utils.load_remapping_config())
 	
 	
 func _open_menu() -> void:
-	# disable the game controls, so player can no longer
-	# move while the menu is open
-	GUIDE.disable_mapping_context(game_controls)
 	# and show the remapping dialog
 	_remapping_dialog.open()
 	
-
-
 	
+func _load_remapping_config(config:GUIDERemappingConfig):
+	GUIDE.set_remapping_config(config)
+	
+	# also apply changes to our modifiers
+	controller_axis_invert_modifier.x = config.custom_data.get(Utils.CUSTOM_DATA_INVERT_HORIZONTAL, false)
+	controller_axis_invert_modifier.y = config.custom_data.get(Utils.CUSTOM_DATA_INVERT_VERTICAL, false)
 
+
+func _switch(context:GUIDEMappingContext):
+	GUIDE.enable_mapping_context(context, true)

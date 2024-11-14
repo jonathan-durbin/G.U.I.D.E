@@ -93,4 +93,16 @@ func get_text(input:GUIDEInput) -> String:
 	if input is GUIDEInputAction:
 		return _format(tr("Action %s") % ["?" if input.action == null else input.action._editor_name()])
 
+	if input is GUIDEInputAny:
+		var parts:Array[String] = []
+		if input.joy:
+			parts.append(tr("Joy Button"))
+		if input.mouse:
+			parts.append(tr("Mouse Button"))
+		if input.keyboard:
+			parts.append(tr("Key"))
+			
+		return _format(tr("Any %s") % [ "/".join(parts) ] )
+			
+
 	return _format("??")

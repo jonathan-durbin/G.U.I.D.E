@@ -5,4 +5,5 @@ extends Node2D
 
 
 func _ready():
+	print("AP_READY")
 	GUIDE.enable_mapping_context(mapping_context)

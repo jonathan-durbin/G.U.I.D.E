@@ -19,13 +19,10 @@ extends Node
 signal detection_started()
 
 ## Emitted when the input detector detects an input of the given type.
+## If detection was aborted the given input is null.
 signal input_dectected(input:GUIDEInput)
 
-## Emitted when the detection was aborted.
-signal detection_aborted()
-
-## The timer for the detection countdown.
-
+# The timer for the detection countdown.
 var _timer:Timer
 
 func _ready():
@@ -63,7 +60,7 @@ func abort_detection() -> void:
 	_timer.stop()
 	if _is_detecting:
 		_is_detecting = false
-		detection_aborted.emit()
+		input_dectected.emit(null)
 
 ## Detects the given input type.
 func detect(value_type:GUIDEAction.GUIDEActionValueType) -> void:
@@ -129,7 +126,7 @@ func _try_detect_axis_1d(event:InputEvent) -> void:
 		return
 
 	if event is InputEventJoypadMotion:
-		if event.axis_value < minimum_axis_amplitude:
+		if abs(event.axis_value) < minimum_axis_amplitude:
 			return
 			
 		var result := GUIDEInputJoyAxis1D.new()

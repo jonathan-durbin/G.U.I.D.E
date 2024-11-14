@@ -14,7 +14,11 @@ var _dirty:bool = true
 var _script_lut:Dictionary = {}
 
 func _init():
-	EditorInterface.get_resource_filesystem().script_classes_updated.connect(func(): _dirty = true)
+	EditorInterface.get_resource_filesystem().script_classes_updated.connect(_mark_dirty)
+
+
+func _mark_dirty():
+	_dirty = true
 
 ## Returns all classes that directly or indirectly inherit from the 
 ## given class. Only works for scripts in the project, e.g. doesn't

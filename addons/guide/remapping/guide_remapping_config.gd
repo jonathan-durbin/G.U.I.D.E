@@ -17,6 +17,11 @@ extends Resource
 ## The bound input can be NULL which means that this was deliberately unbound.	
 @export var remapped_inputs:Dictionary = {}
 
+## Dictionary for additional custom data to store (e.g. modifier settings, etc.)
+## Note that this data is completely under application control and it's the responsibility
+## of the application to ensure that this data is serializable and gets applied at
+## the necessary point in time.
+@export var custom_data:Dictionary = {}
 
 ## Binds the given input to the given action. Index can be given to have 
 ## alternative bindings for the same action.
@@ -78,17 +83,3 @@ func _has(mapping_context:GUIDEMappingContext, action:GUIDEAction, index:int = 0
 		return false
 		
 	return remapped_inputs[mapping_context][action].has(index)
-	
-
-func _get_mappings_using_input(input:GUIDEInput) -> Array[Dictionary]:
-	var result:Array[Dictionary] = []
-	for context in remapped_inputs.keys():
-		for action in context.keys():
-			for index in action.keys():
-				if action[index] != null and action[index]._is_same_as(GUIDEInput):
-					result.append({
-						"context" : context,
-						"action" : action,
-						"index" : index
-					})
-	return result

@@ -2,20 +2,15 @@ extends Node2D
 
 @export var speed:float = 100
 
-@export var mapping_context:GUIDEMappingContext
-
 @export var left_action:GUIDEAction
 @export var right_action:GUIDEAction
 @export var up_action:GUIDEAction
 @export var down_action:GUIDEAction
 
-func _ready():
-	GUIDE.enable_mapping_context(mapping_context)
-
 func _process(delta:float) -> void:
 	# This is close to how input would be handled with Godot's built-in
 	# input. GUIDE can actually combine the input into a 2D axis for you
-	# (similar to Godot's Input.get_vector). However because this is
+	# (similar to Godot's Input.get_vector). Because this is
 	# done in the mapping context, the script doesn't need to know about
 	# it. Look at the 2d_axis_mapping example to see how to streamline
 	# this code quite a bit.

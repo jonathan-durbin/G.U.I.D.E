@@ -15,12 +15,12 @@ func _input(event:InputEvent):
 	if not event is InputEventMouseButton:
 		return
 	
-	if event.button != button:
+	if event.button_index != button:
 		return
 		
 	_value.x = 1.0 if event.pressed else 0.0
 
-func _is_same_as(other:GUIDEInput) -> bool:
+func is_same_as(other:GUIDEInput) -> bool:
 	return other is GUIDEInputMouseButton and other.button == button
 
 

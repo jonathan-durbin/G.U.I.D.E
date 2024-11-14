@@ -37,7 +37,7 @@ func _input(event:InputEvent):
 	if event.axis == y:
 		_value.y = event.axis_value
 
-func _is_same_as(other:GUIDEInput) -> bool:
+func is_same_as(other:GUIDEInput) -> bool:
 	return other is GUIDEInputJoyAxis2D and \
 		other.x == x and \
 		other.y == y and \

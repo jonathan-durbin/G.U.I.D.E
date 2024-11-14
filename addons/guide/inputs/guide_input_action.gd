@@ -40,7 +40,7 @@ func _off() -> void:
 	_value = Vector3.ZERO	
 	
 	
-func _is_same_as(other:GUIDEInput) -> bool:
+func is_same_as(other:GUIDEInput) -> bool:
 	return other is GUIDEInputAction and other.action == action
 
 

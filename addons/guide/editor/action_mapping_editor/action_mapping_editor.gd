@@ -4,7 +4,6 @@ extends MarginContainer
 const ActionSlot = preload("../action_slot/action_slot.gd")
 const Utils = preload("../utils.gd")
 const ArrayEdit = preload("../array_edit/array_edit.gd")
-const GUIDEUI = preload("../../ui/guide_ui.gd")
 
 signal delete_requested()
 signal duplicate_requested()
@@ -16,7 +15,6 @@ signal duplicate_requested()
 const ClassScanner = preload("../class_scanner.gd")
 
 var _plugin:EditorPlugin
-var _ui:GUIDEUI
 var _scanner:ClassScanner
 var _undo_redo:EditorUndoRedoManager
 
@@ -31,9 +29,8 @@ func _ready():
 	_input_mappings.duplicate_requested.connect(_on_input_mappings_duplicate_requested)
 	_input_mappings.collapse_state_changed.connect(_on_input_mappings_collapse_state_changed)
 
-func initialize(plugin:EditorPlugin, ui:GUIDEUI, scanner:ClassScanner):
+func initialize(plugin:EditorPlugin, scanner:ClassScanner):
 	_plugin = plugin
-	_ui = ui
 	_scanner = scanner
 	_undo_redo = _plugin.get_undo_redo()
 	
@@ -57,7 +54,7 @@ func _update():
 		var input_mapping_editor = input_mapping_editor_scene.instantiate()
 		_input_mappings.add_item(input_mapping_editor)
 
-		input_mapping_editor.initialize(_plugin, _ui, _scanner)
+		input_mapping_editor.initialize(_plugin, _scanner)
 		input_mapping_editor.edit(input_mapping)
 	
 	_input_mappings.collapsed = _mapping.get_meta("_guide_input_mappings_collapsed", false)

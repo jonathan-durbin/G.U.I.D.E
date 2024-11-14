@@ -5,7 +5,7 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_kra7t"]
 viewport_path = NodePath("SubViewport")
 
-[node name="IconMaker" type="Node2D"]
+[node name="GUIDEIconMaker" type="Node2D"]
 script = ExtResource("1_hdbjk")
 
 [node name="SubViewport" type="SubViewport" parent="."]

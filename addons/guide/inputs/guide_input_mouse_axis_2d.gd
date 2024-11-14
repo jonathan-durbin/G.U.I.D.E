@@ -15,7 +15,7 @@ func _input(event:InputEvent) -> void:
 	_value.x = event.relative.x
 	_value.y = event.relative.y
 		
-func _is_same_as(other:GUIDEInput):
+func is_same_as(other:GUIDEInput):
 	return other is GUIDEInputMouseAxis2D
 
 

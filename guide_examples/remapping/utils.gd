@@ -1,5 +1,9 @@
 const REMAPPING_CONFIG_PATH = "user://remapping_config.tres"
 
+# Constants for custom data that we store in the remapping config.
+const CUSTOM_DATA_INVERT_HORIZONTAL = "invert_horizontal"
+const CUSTOM_DATA_INVERT_VERTICAL = "invert_vertical"
+
 ## Loads the saved remapping config if it exists, or an empty remapping
 ## config if none exists.
 static func load_remapping_config() -> GUIDERemappingConfig:
@@ -10,4 +14,5 @@ static func load_remapping_config() -> GUIDERemappingConfig:
 
 ## Saves the given remapping config to the user folder
 static func save_remapping_config(config:GUIDERemappingConfig) -> void:
-	ResourceSaver.save(config, REMAPPING_CONFIG_PATH, ResourceSaver.FLAG_CHANGE_PATH)
+	ResourceSaver.save(config, REMAPPING_CONFIG_PATH)
+	config.take_over_path(REMAPPING_CONFIG_PATH)

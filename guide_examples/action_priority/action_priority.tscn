@@ -1,13 +1,35 @@
-[gd_scene load_steps=4 format=3 uid="uid://c03o20jchp7kb"]
+[gd_scene load_steps=8 format=3 uid="uid://c03o20jchp7kb"]
 
 [ext_resource type="Script" path="res://guide_examples/action_priority/action_priority.gd" id="1_segid"]
-[ext_resource type="Resource" uid="uid://ragqbe7yjfwe" path="res://guide_examples/action_priority/action_priority.tres" id="2_spx2e"]
+[ext_resource type="Resource" uid="uid://ragqbe7yjfwe" path="res://guide_examples/action_priority/mapping_contexts/action_priority.tres" id="2_spx2e"]
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="3_ocaq1"]
+[ext_resource type="Theme" uid="uid://dot0gi1yoqmrl" path="res://guide_examples/shared/ui_theme.tres" id="4_ur8xb"]
+[ext_resource type="Script" path="res://guide_examples/shared/instructions_label.gd" id="4_v7mqo"]
+[ext_resource type="Resource" uid="uid://esf4ilpf0inv" path="res://guide_examples/action_priority/mapping_contexts/action1.tres" id="5_oqj0p"]
+[ext_resource type="Resource" uid="uid://bhq3gby2yiibf" path="res://guide_examples/action_priority/mapping_contexts/spell1.tres" id="6_ue1ny"]
 
 [node name="ActionPriority" type="Node2D"]
 script = ExtResource("1_segid")
 mapping_context = ExtResource("2_spx2e")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="."]
 
-[node name="GuideDebugger" parent="CanvasLayer" instance=ExtResource("3_ocaq1")]
+[node name="Label" type="RichTextLabel" parent="UILayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -78.0
+offset_top = 19.0
+offset_right = -38.0
+offset_bottom = 42.0
+grow_horizontal = 0
+theme = ExtResource("4_ur8xb")
+script = ExtResource("4_v7mqo")
+instructions_text = "Do %s for action1
+Do %s for spell1"
+actions = Array[Resource("res://addons/guide/guide_action.gd")]([ExtResource("5_oqj0p"), ExtResource("6_ue1ny")])
+
+[node name="DebugLayer" type="CanvasLayer" parent="."]
+
+[node name="GuideDebugger" parent="DebugLayer" instance=ExtResource("3_ocaq1")]
+theme = ExtResource("4_ur8xb")

@@ -16,6 +16,8 @@ func _exit_tree() -> void:
 	remove_autoload_singleton("GUIDE")
 	if is_instance_valid(_main_panel):
 		_main_panel.queue_free()
+		
+	GUIDEInputFormatter._cleanup()
 
 func _edit(object):
 	if object is GUIDEMappingContext:

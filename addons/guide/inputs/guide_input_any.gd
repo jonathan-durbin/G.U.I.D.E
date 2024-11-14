@@ -1,5 +1,6 @@
 ## Input that triggers if any input from the given device class
-## is given.
+## is given. Only looks for button inputs, not axis inputs as axes
+## have a tendency to accidentally trigger.
 @tool
 class_name GUIDEInputAny
 extends GUIDEInput
@@ -19,15 +20,15 @@ func _needs_reset() -> bool:
 	return true
 
 func _input(event:InputEvent):
-	if mouse and event is InputEventMouse:
+	if mouse and event is InputEventMouseButton:
 		_value = Vector3.RIGHT
 		return
 			
-	if joy and (event is InputEventJoypadButton or event is InputEventJoypadMotion):
+	if joy and event is InputEventJoypadButton:
 		_value = Vector3.RIGHT
 		return 
 			
-	if keyboard and (event is InputEventKey):
+	if keyboard and event is InputEventKey:
 		_value = Vector3.RIGHT
 		return
 		

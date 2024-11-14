@@ -92,7 +92,7 @@ func _input(event:InputEvent):
 		
 	_value.x = 1.0 if event.pressed else 0.0
 
-func _is_same_as(other:GUIDEInput) -> bool:
+func is_same_as(other:GUIDEInput) -> bool:
 	return other is GUIDEInputKey \
 			and other.key == key \
 			and other.shift == shift \

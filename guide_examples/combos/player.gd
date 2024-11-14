@@ -1,5 +1,7 @@
+## This is a somewhat more complex player example. Note how all the combos
+## are completely handled by GUIDE, the player doesn't need to know which
+## inputs trigger them. 
 extends CharacterBody2D
-
 
 @export var speed:float = 150
 @export var dash_speed_bonus:float = 250

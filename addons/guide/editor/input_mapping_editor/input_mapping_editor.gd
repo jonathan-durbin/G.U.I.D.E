@@ -4,7 +4,7 @@ extends MarginContainer
 const ArrayEdit = preload("../array_edit/array_edit.gd")
 const ClassScanner = preload("../class_scanner.gd")
 const Utils = preload("../utils.gd")
-const GUIDEUI = preload("../../ui/guide_ui.gd")
+
 @export var modifier_slot_scene:PackedScene
 @export var trigger_slot_scene:PackedScene
 @export var binding_dialog_scene:PackedScene
@@ -20,7 +20,6 @@ const GUIDEUI = preload("../../ui/guide_ui.gd")
 @onready var _add_trigger_popup:PopupMenu = %AddTriggerPopup
 
 var _plugin:EditorPlugin
-var _ui:GUIDEUI
 var _scanner:ClassScanner
 var _undo_redo:EditorUndoRedoManager
 
@@ -45,12 +44,10 @@ func _ready():
 	_triggers.collapse_state_changed.connect(_on_triggers_collapse_state_changed)
 	
 	
-func initialize(plugin:EditorPlugin, ui:GUIDEUI, scanner:ClassScanner) -> void:
+func initialize(plugin:EditorPlugin, scanner:ClassScanner) -> void:
 	_plugin = plugin
-	_ui = ui
 	_scanner = scanner
 	_undo_redo = plugin.get_undo_redo()
-	_input_display.initialize(ui)
 	_input_display.clicked.connect(_on_input_display_clicked)
 	
 	
@@ -125,7 +122,7 @@ func _on_input_changed(input:GUIDEInput):
 func _on_edit_input_button_pressed():
 	var dialog:Window = binding_dialog_scene.instantiate()
 	EditorInterface.popup_dialog_centered(dialog)	
-	dialog.initialize(_ui, _scanner)
+	dialog.initialize(_scanner)
 	dialog.input_selected.connect(_on_input_changed)
 
 

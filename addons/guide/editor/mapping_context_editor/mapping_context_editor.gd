@@ -4,7 +4,6 @@ extends MarginContainer
 const ClassScanner = preload("../class_scanner.gd")
 const Utils = preload("../utils.gd")
 const ArrayEdit = preload("../array_edit/array_edit.gd")
-const GUIDEUI = preload("../../ui/guide_ui.gd")
 
 @export var action_mapping_editor_scene:PackedScene
 
@@ -15,16 +14,13 @@ const GUIDEUI = preload("../../ui/guide_ui.gd")
 
 var _plugin:EditorPlugin
 var _current_context:GUIDEMappingContext
-var _ui:GUIDEUI
 var _undo_redo:EditorUndoRedoManager
 var _scanner:ClassScanner
 
 
 func _ready():
 	_title_label.add_theme_font_override("font", get_theme_font("title", "EditorFonts"))
-	_ui = GUIDEUI.new()
 	_scanner = ClassScanner.new()
-	add_child(_ui)
 	
 	_editing_view.visible = false
 	_empty_view.visible = true
@@ -69,7 +65,7 @@ func _refresh():
 		var mapping = _current_context.mappings[i]
 		
 		var mapping_editor = action_mapping_editor_scene.instantiate()
-		mapping_editor.initialize(_plugin, _ui, _scanner)
+		mapping_editor.initialize(_plugin, _scanner)
 		
 		_action_mappings.add_item(mapping_editor)
 		

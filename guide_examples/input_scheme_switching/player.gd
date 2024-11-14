@@ -12,6 +12,7 @@ extends Node2D
 func _ready():
 	shoot_action.triggered.connect(_shoot_fireball)
 
+
 func _process(delta:float) -> void:
 	position += move_action.get_value_axis_2d().normalized() * speed * delta
 

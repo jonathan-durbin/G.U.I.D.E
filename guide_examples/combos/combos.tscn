@@ -1,19 +1,20 @@
-[gd_scene load_steps=17 format=3 uid="uid://b12bmbtmbuame"]
+[gd_scene load_steps=18 format=3 uid="uid://b12bmbtmbuame"]
 
 [ext_resource type="PackedScene" uid="uid://dkr80d2pi0d41" path="res://addons/guide/debugger/guide_debugger.tscn" id="1_eyn1y"]
 [ext_resource type="Script" path="res://guide_examples/combos/combos.gd" id="1_kdeb4"]
-[ext_resource type="Resource" uid="uid://c7uloa16ajj5p" path="res://guide_examples/combos/combos.tres" id="2_ahmv3"]
-[ext_resource type="Resource" uid="uid://bqiryilvj5mqv" path="res://guide_examples/combos/actions/basic/move_left.tres" id="3_a84vf"]
+[ext_resource type="Resource" uid="uid://c7uloa16ajj5p" path="res://guide_examples/combos/mapping_contexts/combos.tres" id="2_ahmv3"]
 [ext_resource type="Script" path="res://guide_examples/combos/player.gd" id="3_kulxp"]
-[ext_resource type="Resource" uid="uid://b2wemrcnxfbmo" path="res://guide_examples/combos/actions/basic/move_horizontal.tres" id="4_7328w"]
-[ext_resource type="Resource" uid="uid://bk54ofxos3xxg" path="res://guide_examples/combos/actions/basic/move_right.tres" id="4_dsmgc"]
-[ext_resource type="Texture2D" uid="uid://byjxtsekdl8t2" path="res://guide_examples/godot_logo.svg" id="4_uej32"]
-[ext_resource type="Resource" uid="uid://b0761600n8fnb" path="res://guide_examples/combos/actions/combos/fireball_left.tres" id="4_uvwd5"]
-[ext_resource type="Resource" uid="uid://dj83uxjdx6r2c" path="res://guide_examples/combos/actions/combos/dash_left.tres" id="5_s5wpr"]
-[ext_resource type="Resource" uid="uid://cgr4iegvrkebx" path="res://guide_examples/combos/actions/basic/fire.tres" id="5_x8x8m"]
-[ext_resource type="Resource" uid="uid://5ve3hevhhgnw" path="res://guide_examples/combos/actions/combos/dash_right.tres" id="6_vd0bg"]
-[ext_resource type="Resource" uid="uid://wdh7cg7kjul0" path="res://guide_examples/combos/actions/combos/fireball_right.tres" id="11_n707x"]
+[ext_resource type="Resource" uid="uid://b2wemrcnxfbmo" path="res://guide_examples/combos/mapping_contexts/basic_actions/move_horizontal.tres" id="4_7328w"]
+[ext_resource type="Texture2D" uid="uid://byjxtsekdl8t2" path="res://guide_examples/shared/godot_logo.svg" id="4_uej32"]
+[ext_resource type="Resource" uid="uid://b0761600n8fnb" path="res://guide_examples/combos/mapping_contexts/combo_actions/fireball_left.tres" id="4_uvwd5"]
+[ext_resource type="Resource" uid="uid://dj83uxjdx6r2c" path="res://guide_examples/combos/mapping_contexts/combo_actions/dash_left.tres" id="5_s5wpr"]
+[ext_resource type="Resource" uid="uid://5ve3hevhhgnw" path="res://guide_examples/combos/mapping_contexts/combo_actions/dash_right.tres" id="6_vd0bg"]
+[ext_resource type="Theme" uid="uid://dot0gi1yoqmrl" path="res://guide_examples/shared/ui_theme.tres" id="11_i5q2v"]
+[ext_resource type="Resource" uid="uid://wdh7cg7kjul0" path="res://guide_examples/combos/mapping_contexts/combo_actions/fireball_right.tres" id="11_n707x"]
+[ext_resource type="Script" path="res://guide_examples/shared/instructions_label.gd" id="11_obfhv"]
+[ext_resource type="Resource" uid="uid://bqiryilvj5mqv" path="res://guide_examples/combos/mapping_contexts/basic_actions/move_left.tres" id="12_0mhlm"]
 [ext_resource type="PackedScene" uid="uid://c36cnvgv2ur60" path="res://guide_examples/shared/fireball/fireball.tscn" id="12_fl88r"]
+[ext_resource type="Resource" uid="uid://bk54ofxos3xxg" path="res://guide_examples/combos/mapping_contexts/basic_actions/move_right.tres" id="13_xn6qb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8kkfa"]
 size = Vector2(137, 138)
@@ -23,9 +24,6 @@ size = Vector2(137, 138)
 [node name="Combos" type="Node2D"]
 script = ExtResource("1_kdeb4")
 mapping_context = ExtResource("2_ahmv3")
-move_left = ExtResource("3_a84vf")
-move_right = ExtResource("4_dsmgc")
-fire = ExtResource("5_x8x8m")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(902, 841)
@@ -58,10 +56,9 @@ color = Color(0.285871, 0.0915713, 0.0208481, 1)
 position = Vector2(869, 1)
 shape = SubResource("WorldBoundaryShape2D_0s5wn")
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="."]
 
-[node name="InstructionsLabel" type="RichTextLabel" parent="UI"]
-unique_name_in_owner = true
+[node name="InstructionsLabel" type="RichTextLabel" parent="UILayer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -69,12 +66,22 @@ offset_left = -482.0
 offset_top = 21.0
 offset_bottom = 205.0
 grow_horizontal = 0
+theme = ExtResource("11_i5q2v")
 bbcode_enabled = true
 text = "Lore, ipsum dolor sit amet."
 fit_content = true
 scroll_active = false
+script = ExtResource("11_obfhv")
+instructions_text = "Press %s to move left.
+Press %s to move right.
+Press %s to dash left.
+Press %s to dash right.
+Press %s shoot a fireball to the left.
+Press %s to shoot a fireball to the right."
+actions = Array[Resource("res://addons/guide/guide_action.gd")]([ExtResource("12_0mhlm"), ExtResource("13_xn6qb"), ExtResource("5_s5wpr"), ExtResource("6_vd0bg"), ExtResource("4_uvwd5"), ExtResource("11_n707x")])
 
-[node name="Debugger" type="CanvasLayer" parent="."]
+[node name="DebuggerLayer" type="CanvasLayer" parent="."]
 
-[node name="GuideDebugger" parent="Debugger" instance=ExtResource("1_eyn1y")]
+[node name="GuideDebugger" parent="DebuggerLayer" instance=ExtResource("1_eyn1y")]
+theme = ExtResource("11_i5q2v")
 metadata/_edit_lock_ = true

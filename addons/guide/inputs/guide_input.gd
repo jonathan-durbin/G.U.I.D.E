@@ -25,7 +25,7 @@ func _input(event:InputEvent):
 	pass
 	
 ## Returns whether this input is the same input as the other input.
-func _is_same_as(other:GUIDEInput) -> bool:
+func is_same_as(other:GUIDEInput) -> bool:
 	return false
 	
 ## Called when the input is started to be used by GUIDE. Can be used to perform

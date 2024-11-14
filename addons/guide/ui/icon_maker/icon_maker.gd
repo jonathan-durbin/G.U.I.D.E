@@ -13,7 +13,8 @@ var _fetch_image:bool = false
 
 func _ready():
 	# don't needlessly eat performance
-	set_process(false)
+	if _pending_requests.is_empty():
+		set_process(false)
 	DirAccess.make_dir_recursive_absolute(CACHE_DIR)
 	
 func clear_cache():

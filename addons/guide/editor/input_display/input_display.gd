@@ -1,9 +1,8 @@
 @tool
 extends RichTextLabel
-const GUIDEUI = preload("../../ui/guide_ui.gd")
 signal clicked()
 
-var _ui:GUIDEUI
+var _formatter:GUIDEInputFormatter = GUIDEInputFormatter.new(64)
 
 var input:GUIDEInput:
 	set(value):
@@ -26,15 +25,11 @@ func _refresh():
 		tooltip_text = ""
 		return
 		
-	var text := await _ui.format_input_as_icons("%s", [input], 64)
+	var text := await _formatter.input_as_richtext_async(input, false)
 	parse_bbcode("[center]" + text + "[/center]")
-	tooltip_text = _ui.format_input_as_text("%s", [input])
+	tooltip_text = _formatter.input_as_text(input)
 
  
-func initialize(ui:GUIDEUI):
-	_ui = ui
-	
-
 func _gui_input(event):
 	if event is InputEventMouseButton:
 		if event.pressed and event.button_index == MOUSE_BUTTON_LEFT:

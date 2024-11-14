@@ -10,7 +10,6 @@ extends CharacterBody2D
 @onready var _collision_shape:CollisionShape2D = %CollisionShape
 
 func _ready():
-	GUIDE.enable_mapping_context(context)
 	use.triggered.connect(_enter_boat)
 	
 func _physics_process(_delta):
@@ -35,6 +34,7 @@ func _enter_boat():
 
 
 func _boat_exited():
+	# re-enable our own mapping context
 	GUIDE.enable_mapping_context(context)
 	
 	# and re-enable our collisions

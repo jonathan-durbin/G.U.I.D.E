@@ -3,7 +3,6 @@ extends Window
 
 const ClassScanner = preload("../class_scanner.gd")
 const Utils = preload("../utils.gd")
-const GUIDEUI = preload("../../ui/guide_ui.gd")
 
 signal input_selected(input:GUIDEInput)
 
@@ -25,14 +24,10 @@ signal input_selected(input:GUIDEInput)
 
 var _scanner:ClassScanner
 var _last_detected_input:GUIDEInput
-var _ui:GUIDEUI 
 
 	
-func initialize(ui:GUIDEUI, scanner:ClassScanner):
-	_ui = ui
+func initialize(scanner:ClassScanner):
 	_scanner = scanner
-	_input_display.initialize(_ui)
-	
 	_setup_dialog()
 	
 func _setup_dialog():

@@ -1,8 +1,6 @@
 extends Node2D
 
-@export var speed:float = 100
 
-@export var mapping_context:GUIDEMappingContext
 @onready var _animation_player:AnimationPlayer = %AnimationPlayer
 @onready var _progress_bar:ProgressBar = %ProgressBar
 
@@ -10,7 +8,6 @@ extends Node2D
 @export var somersault_action:GUIDEAction
 
 func _ready():
-	GUIDE.enable_mapping_context(mapping_context)
 	jump_action.triggered.connect(_play.bind("jump"))
 	somersault_action.triggered.connect(_play.bind("somersault"))
 	somersault_action.ongoing.connect(_update_progress_bar)

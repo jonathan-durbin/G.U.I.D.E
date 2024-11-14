@@ -3,7 +3,11 @@ extends Node
 const GUIDESet = preload("guide_set.gd")
 const GUIDEReset = preload("guide_reset.gd")
 const GUIDEInputTracker = preload("guide_input_tracker.gd")
-const GUIDEUI = preload("ui/guide_ui.gd")
+
+## This is emitted whenever input mappings change (either due to mapping
+## contexts being enabled/disabled or remapping configs being re-applied).
+## This is useful for updating UI prompts.
+signal input_mappings_changed()
 
 ## The currently active contexts. Key is the context, value is the priority
 var _active_contexts:Dictionary = {}
@@ -26,20 +30,14 @@ var _actions_sharing_input:Dictionary = {}
 ## before new input is processed at the beginning of the frame.
 var _reset_node:GUIDEReset
 
-var _ui:GUIDEUI
-var UI:GUIDEUI:
-	get: return _ui
 
 func _ready():
 	_reset_node = GUIDEReset.new()
-	_ui = GUIDEUI.new()
-	add_child(_ui)
 	add_child(_reset_node)
 	# attach to the current viewport to get input events
 	GUIDEInputTracker._instrument.call_deferred(get_viewport())
 	
 	get_tree().node_added.connect(_on_node_added)
-	
 
 
 ## Called when a node is added to the tree. If the node is a window
@@ -59,8 +57,54 @@ func inject_input(event:InputEvent) -> void:
 	
 	for input:GUIDEInput in _active_inputs:
 		input._input(event)
+
+
+## Applies an input remapping config. This will override all input bindings in the 
+## currently loaded mapping contexts with the bindings from the configuration.	
+## Note that GUIDE will not track changes to the remapping config. If your remapping
+## config changes, you will need to call this method again.
+func set_remapping_config(config:GUIDERemappingConfig) -> void:
+	_active_remapping_config = config
+	_update_caches()
 	
 	
+## Enables the given context with the given priority. Lower numbers have higher priority. If 
+## disable_others is set to true, all other currently enabled mapping contexts will be disabled.
+func enable_mapping_context(context:GUIDEMappingContext, disable_others:bool = false,  priority:int = 0):
+	if not is_instance_valid(context):
+		push_error("Null context given. Ignoring.")
+		return
+	
+	if disable_others:
+		_active_contexts.clear()	
+	
+	_active_contexts[context] = priority
+	_update_caches()
+	
+	
+## Disables the given mapping context.
+func disable_mapping_context(context:GUIDEMappingContext):
+	if not is_instance_valid(context):
+		push_error("Null context given. Ignoring.")
+		return
+
+	_active_contexts.erase(context)
+	_update_caches()
+
+
+## Checks whether the given mapping context is currently enabled.
+func is_mapping_context_enabled(context:GUIDEMappingContext) -> bool:
+	return _active_contexts.has(context)
+
+
+## Returns the currently enabled mapping contexts
+func get_enabled_mapping_contexts() -> Array[GUIDEMappingContext]:
+	var result:Array[GUIDEMappingContext] = []
+	for key in _active_contexts.keys():
+		result.append(key)
+	return result
+
+
 ## Processes all currently active actions
 func _process(delta:float) -> void:
 	var blocked_actions:GUIDESet = GUIDESet.new()
@@ -120,51 +164,11 @@ func _process(delta:float) -> void:
 						action._started(consolidated_value)
 					GUIDETrigger.GUIDETriggerState.TRIGGERED:
 						action._triggered(consolidated_value, delta)
-							
-## Checks the currently activated mapping contexts and retrieves the highest
-## priority mapping for the given action. Then returns all inputs currently
-## used in this mapping.
-func get_inputs_bound_to_action(action:GUIDEAction) -> Array[GUIDEInput]:	
-	var result:Array[GUIDEInput] = []
-	for mapping in _active_action_mappings:
-		if mapping.action == action:
-			for input_mapping in mapping.input_mappings:
-				result.append(input_mapping.input)
-			break
-			
-	return result
-
-## Applies an input remapping config. This will override all input bindings in the 
-## currently loaded mapping contexts with the bindings from the configuration.	
-func set_remapping_config(config:GUIDERemappingConfig) -> void:
-	if config == _active_remapping_config:
-		return
-	_active_remapping_config = config
-	_update_caches()
-	
-## Enables the given context with the given priority. Lower numbers have higher priority.
-func enable_mapping_context(context:GUIDEMappingContext, priority:int = 0):
-	if not is_instance_valid(context):
-		push_error("Null context given. Ignoring.")
-		return
-		
-	_active_contexts[context] = priority
-	_update_caches()
-	
-	
-## Disables the given mapping context.
-func disable_mapping_context(context:GUIDEMappingContext):
-	if not is_instance_valid(context):
-		push_error("Null context given. Ignoring.")
-		return
-
-	_active_contexts.erase(context)
-	_update_caches()
-
-	
+						
 func _update_caches():
 	# Notify existing inputs that they aren no longer required
 	for input:GUIDEInput in _active_inputs:
+		input._reset()
 		input._end_usage()
 		
 	# Cancel all actions, so they don't remain in weird states.
@@ -230,7 +234,7 @@ func _update_caches():
 				# can be null for combo mappings, so check that
 				if bound_input != null:
 					# check if we already have this kind of input
-					var existing = consolidated_inputs.first_match(func(it:GUIDEInput): return it._is_same_as(bound_input))
+					var existing = consolidated_inputs.first_match(func(it:GUIDEInput): return it.is_same_as(bound_input))
 					if existing != null:
 						# if we have this already, use the instance we have
 						bound_input = existing
@@ -305,5 +309,8 @@ func _update_caches():
 			_reset_node._inputs_to_reset.append(input)
 		# Notify inputs that GUIDE is about to use them
 		input._begin_usage()
-	
-	
+		
+	# and notify interested parties that the input mappings have changed
+	input_mappings_changed.emit()
+
+

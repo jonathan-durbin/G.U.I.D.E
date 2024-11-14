@@ -5,11 +5,13 @@ G.U.I.D.E is an extension for the Godot Engine that allows you to easily use inp
 ## Features
 
 - Unified input detection from multiple sources (keyboard, mouse, gamepad, etc.).
-- Multiple mapping contexts (e.g different controls while walking, flying, etc.)
-- Mapping contexts can be easily enabled/disabled at any time, e.g. to lock all input during a cutscene.
+- Actions can have different value types (e.g. boolean, 1D, 2D or 3D axis).
+- Multiple mapping contexts (e.g different controls while walking, driving, flying, etc.)
+- Mapping contexts can be easily enabled/disabled at any time, e.g. to lock all input during a cutscene or while being in a menu.
+- Actions can be prioritized, so higher priority actions win over lower priority ones when they share input.
 - Inputs from different sources can be combined (e.g. build a 2D axis from 4 buttons or 2 gamepad triggers).
 - Inputs can be modified (e.g. for joystick dead-zones, sensitivity, inversion, etc.).
 - Built-in support for common action patterns (e.g. tap, hold, press, release, etc.).
 - Built-in support for local multiplayer (e.g. multiple players with different input sources).
 - Built-in remapping system (e.g. change input mappings at runtime).
-- Integrates with Godot's built-in input system (so if you always wanted to navigate your UI with your joystick you can do so now).
+- Integrates with Godot's built-in input system (so you can send G.U.I.D.E actions as Godot actions).

@@ -1,22 +1,18 @@
 [gd_scene load_steps=2 format=3 uid="uid://ck5a30syo6bpo"]
 
-[ext_resource type="Script" path="res://addons/guide/editor/modifier_slot/modifier_slot.gd" id="1_3tim1"]
+[ext_resource type="Script" path="res://addons/guide/editor/modifier_slot/modifier_slot.gd" id="1_273m5"]
 
-[node name="ModifierSlot" type="HBoxContainer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_3tim1")
-
-[node name="LineEdit" type="LineEdit" parent="."]
-unique_name_in_owner = true
-layout_mode = 2
+[node name="LineEdit" type="LineEdit"]
+offset_right = 1920.0
+offset_bottom = 31.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 text = "Name"
 editable = false
+context_menu_enabled = false
+virtual_keyboard_enabled = false
+shortcut_keys_enabled = false
+middle_mouse_paste_enabled = false
 selecting_enabled = false
-
-[connection signal="gui_input" from="LineEdit" to="." method="_on_line_edit_gui_input"]
+drag_and_drop_selection_enabled = false
+script = ExtResource("1_273m5")

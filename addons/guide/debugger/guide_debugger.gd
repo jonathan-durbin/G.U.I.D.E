@@ -3,7 +3,7 @@ extends MarginContainer
 
 @onready var _actions:Container = %Actions
 @onready var _inputs:Container = %Inputs
-
+@onready var _formatter:GUIDEInputFormatter = GUIDEInputFormatter.for_active_contexts()
 
 
 func _process(delta):
@@ -48,7 +48,7 @@ func _process(delta):
 	
 	index = 0
 	for input in GUIDE._active_inputs:
-		var input_label = GUIDE.UI.format_input_as_text("%s", [input])	
+		var input_label = _formatter.input_as_text(input)	
 		var input_value:String = ""
 		match(input._native_value_type()):
 			GUIDEAction.GUIDEActionValueType.BOOL:
