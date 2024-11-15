@@ -103,19 +103,19 @@ signal cancelled()
 
 var _last_state:GUIDEActionState = GUIDEActionState.COMPLETED
 
-var _value_bool:bool = false
+var _value_bool:bool
 var value_bool:bool:
 	get: return _value_bool
 	
 var value_axis_1d:float:
 	get: return _value.x
 		
-var _value_axis2d:Vector2 = Vector2.ZERO
+var _value_axis_2d:Vector2 = Vector2.ZERO
 var value_axis_2d:Vector2:
-	get: return _value_axis2d
+	get: return _value_axis_2d
 
 var _value:Vector3 = Vector3.ZERO
-var value_axis3d:Vector3:
+var value_axis_3d:Vector3:
 	get: return _value
 	
 
@@ -186,15 +186,15 @@ func _update_value(value:Vector3):
 	match action_value_type:
 		GUIDEActionValueType.BOOL, GUIDEActionValueType.AXIS_1D:
 			_value_bool = abs(value.x) > 0
-			_value_axis2d = Vector2(abs(value.x), 0)
+			_value_axis_2d = Vector2(abs(value.x), 0)
 			_value = Vector3(value.x, 0, 0)
 		GUIDEActionValueType.AXIS_2D:
 			_value_bool = abs(value.x) > 0
-			_value_axis2d = Vector2(value.x, value.y)
+			_value_axis_2d = Vector2(value.x, value.y)
 			_value = Vector3(value.x, value.y, 0)
 		GUIDEActionValueType.AXIS_3D:
 			_value_bool = abs(value.x) > 0
-			_value_axis2d = Vector2(value.x, value.y)
+			_value_axis_2d = Vector2(value.x, value.y)
 			_value = value
 
 ## Returns whether the action is currently triggered. Can be used for a 
@@ -212,7 +212,7 @@ func get_value_axis_1d() -> float:
 	
 ## Returns the value of this action as axis 2d.
 func get_value_axis_2d() -> Vector2:
-	return _value_axis2d
+	return _value_axis_2d
 	
 ## Returns the value of this action as axis 3d.
 func get_value_axis_3d() -> Vector3:

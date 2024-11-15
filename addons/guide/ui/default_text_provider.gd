@@ -104,5 +104,7 @@ func get_text(input:GUIDEInput) -> String:
 			
 		return _format(tr("Any %s") % [ "/".join(parts) ] )
 			
+	if input is GUIDEInputMousePosition:
+		return _format(tr("Mouse Position"))
 
 	return _format("??")
