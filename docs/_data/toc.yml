@@ -1,0 +1,13 @@
+- title: "Home"
+  url: ""
+- title: "Installation & Updating"
+  url: "installation"
+- title: "Quick Start"
+  url: "quick-start"
+- title: "Usage"
+  url: "usage/concepts"
+  links:
+    - title: "How G.U.I.D.E works"
+      url: "usage/concepts"
+    - title: "Examples"
+      url: "usage/examples"

@@ -7,7 +7,7 @@ extends RichTextLabel
 ## each %s in the text.
 @export var actions:Array[GUIDEAction] = []
 ## The icon size to be used for rendering.
-@export var icon_size:int = 32
+@export var icon_size:int = 48
 
 ## If set, the label will only show when the given mapping context is active.
 @export var limit_to_context:GUIDEMappingContext

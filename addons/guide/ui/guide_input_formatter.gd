@@ -3,12 +3,18 @@
 class_name GUIDEInputFormatter
 
 const IconMaker = preload("icon_maker/icon_maker.gd")
-const KeyRenderer = preload("icon_maker/renderers/key_renderer.tscn")
-const MouseRenderer = preload("icon_maker/renderers/mouse_renderer.tscn")
-const JoyRenderer = preload("icon_maker/renderers/joy_renderer.tscn")
-const ActionRenderer = preload("icon_maker/renderers/action_renderer.tscn")
-const FallbackRenderer = preload("icon_maker/renderers/fallback_renderer.tscn")
-const DefaultTextProvider = preload("default_text_provider.gd")
+const KeyRenderer = preload("renderers/keyboard/key_renderer.tscn")
+const MouseRenderer = preload("renderers/mouse/mouse_renderer.tscn")
+const JoyRenderer = preload("renderers/joy/joy_renderer.tscn")
+const XboxRenderer = preload("renderers/controllers/xbox/xbox_controller_renderer.tscn")
+const PlayStationRenderer = preload("renderers/controllers/playstation/playstation_controller_renderer.tscn")
+const SwitchRenderer = preload("renderers/controllers/switch/switch_controller_renderer.tscn")
+const ActionRenderer = preload("renderers/misc/action_renderer.tscn")
+const FallbackRenderer = preload("renderers/misc/fallback_renderer.tscn")
+const DefaultTextProvider = preload("text_providers/default_text_provider.gd")
+const XboxTextProvider = preload("text_providers/controllers/xbox/xbox_controller_text_provider.gd")
+const PlayStationTextProvider = preload("text_providers/controllers/playstation/playstation_controller_text_provider.gd")
+const SwitchTextProvider = preload("text_providers/controllers/switch/switch_controller_text_provider.gd")
 
 # These are shared across all instances
 static var _icon_maker:IconMaker
@@ -45,9 +51,15 @@ static func _ensure_readiness():
 	add_icon_renderer(MouseRenderer.instantiate())
 	add_icon_renderer(ActionRenderer.instantiate())
 	add_icon_renderer(JoyRenderer.instantiate())
+	add_icon_renderer(XboxRenderer.instantiate())
+	add_icon_renderer(PlayStationRenderer.instantiate())
+	add_icon_renderer(SwitchRenderer.instantiate())
 	add_icon_renderer(FallbackRenderer.instantiate())
 	
 	add_text_provider(DefaultTextProvider.new())
+	add_text_provider(XboxTextProvider.new())
+	add_text_provider(PlayStationTextProvider.new())
+	add_text_provider(SwitchTextProvider.new())
 	
 	_is_ready = true
 
@@ -308,3 +320,24 @@ class MaterializedChordedInput:
 class MaterializedComboInput:
 	extends MaterializedInput
 	var parts:Array[MaterializedInput] = []
+
+
+## Returns the name of the associated joystick/pad of the given input.
+## If the input is no joy input or the device name cannot be determined
+## returns an empty string. 
+static func _joy_name_for_input(input:GUIDEInput) -> String:
+	if not input is GUIDEInputJoyBase:
+		return ""
+	
+	var joypads:Array[int] = Input.get_connected_joypads()
+	var joy_index = input.joy_index
+	if joy_index == -1:
+		# pick the first one
+		joy_index = 0
+	
+	# We don't have such a controller, so bail out.
+	if joypads.size() <= joy_index:
+		return "" 
+		
+	var id = joypads[joy_index]
+	return Input.get_joy_name(id)	
