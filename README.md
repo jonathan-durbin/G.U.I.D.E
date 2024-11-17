@@ -18,7 +18,7 @@ _Note: While the features work pretty well, this plugin hasn't seen a lot of use
 
 ## Documentation
 
-The documentation is availabe on the [documentation site](https://godotneers.github.io/guide/).
+The documentation is availabe on the [documentation site](https://godotneers.github.io/G.U.I.D.E/).
 
 
 ## Acknowledgements / Licenses
