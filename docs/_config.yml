@@ -26,9 +26,9 @@ baseurl: "/g.u.i.d.e" # the subpath of your site, e.g. /blog
 url: "https://godotneers.github.io/" # the base hostname & protocol for your site
 
 # Social (First three Required)
-repo: "https://github.com/godotneers/g.u.i.d.e"
+repo: "https://github.com/godotneers/G.U.I.D.E"
 github_user: "godotneers"
-github_repo: "g.u.i.d.e"
+github_repo: "G.U.I.D.E"
 github_branch: "main"
 
 # Optional
