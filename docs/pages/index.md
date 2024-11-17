@@ -7,7 +7,9 @@ description: "Godot State Charts is a plugin for Godot Engine that allows you to
 
 # {{ site.title }}
 
-G.U.I.D.E is an extension for the Godot Engine that allows you to easily use input from multiple sources, such as keyboard, mouse, gamepad, etc. in a unified way. Gone are the days, where mouse input was handled differently from joysticks. No matter where the input comes from - your game code stays the same.
+G.U.I.D.E is an extension for the Godot Engine that allows you to easily use input from multiple sources, such as keyboard, mouse, gamepad, etc. in a unified way. Gone are the days, where mouse input was handled differently from joysticks. No matter where the input comes from - your game code works the same way.
+
+_Note: While the features work pretty well, this plugin hasn't seen a lot of use yet, so be prepared for a few rough edges. Also the documentation still needs expansion. Please report any issues you encounter._
 
 ## Features
 
