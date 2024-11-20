@@ -9,5 +9,11 @@
   links:
     - title: "How G.U.I.D.E works"
       url: "usage/concepts"
+    - title: "Using G.U.I.D.E in your game"
+      url: "usage/using-guide"
+    - title: "Extending G.U.I.D.E"
+      url: "usage/extending-guide"
     - title: "Examples"
       url: "usage/examples"
+    - title: "Modifier reference"
+      url: "usage/modifier-reference"

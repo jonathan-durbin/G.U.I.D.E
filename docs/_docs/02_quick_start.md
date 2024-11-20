@@ -5,21 +5,6 @@ permalink: /quick-start
 description: "Quickly set up G.U.I.D.E in your project."
 ---
 
-# {{ page.title }}
-
-## Table of Contents
-
-- [Introduction](#introduction)
-- [Installation](#installation)
-- [What we will do](#what-we-will-do)
-- [Setting up the scene](#setting-up-the-scene)
-- [Creating actions](#creating-actions)
-  - [Setting up the actions](#setting-up-the-actions)
-  - [Binding the actions to input](#binding-the-actions-to-input)
-  - [Getting directional input](#getting-directional-input)
-  - [Controlling the action with triggers](#controlling-the-action-with-triggers)
-- [Using the actions in code](#using-the-actions-in-code)
-
 ## Introduction
 
 This is a quick start guide to get you up and running with G.U.I.D.E. within a few minutes. We assume that you have a basic understanding of Godot, e.g.  how to use the editor and create basic stuff like scenes and sprites. If you are new to Godot, you probably don't want to use G.U.I.D.E just yet, and we recommend  to first [get acquainted with the engine](https://docs.godotengine.org/en/stable/getting_started/step_by_step/index.html).

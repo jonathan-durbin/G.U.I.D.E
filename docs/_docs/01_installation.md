@@ -5,14 +5,6 @@ permalink: /installation
 description: "Here you can find the installation instructions for the plugin."
 ---
 
-# {{ page.title }}
-
-## Table of Contents
-- [Requirements](#requirements)
-- [Installation with the Godot Asset Library](#installation-with-the-godot-asset-library)
-- [Manual installation](#manual-installation)
-- [Updating from an earlier version](#updating-from-an-earlier-version)
-
 ## Requirements
 
 This plugin requires Godot 4.2.0 or later. Earlier versions of Godot 4 will not work because the plugin uses features that were introduced only in Godot 4.2.0. Godot 3 is not supported.

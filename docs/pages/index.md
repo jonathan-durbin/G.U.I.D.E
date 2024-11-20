@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Home
+no_toc: true
 permalink: /
 description: "Godot State Charts is a plugin for Godot Engine that allows you to use state charts in your game."
 ---

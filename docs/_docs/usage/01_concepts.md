@@ -5,17 +5,6 @@ permalink: /usage/concepts
 description: "A high level overview of how G.U.I.D.E works."
 ---
 
-# {{ page.title }}
-
-## Table of Contents
-- [Introduction](#introduction)
-- [Input](#input)
-- [Modifiers](#modifiers)
-- [Triggers](#triggers)
-- [Actions](#actions)
-  - [Action states](#action-states)
-  - [Action state changes](#action-state-changes)
-
 ## Introduction
 
 G.U.I.D.E is a plugin for Godot that allows you to create input actions and bind them to input events. It is designed to
