@@ -7,7 +7,6 @@ This lists the currently open to do items in no particular order.
 - [ ] Add a C# API.
 - [ ] Documentation
 - [ ] Prepare for asset library (git attributes, page, etc.)
-- [ ] Remove get_action_value_xxx from Action (replaced by value_xxx property)
 
 
 ## Done
@@ -21,3 +20,5 @@ This lists the currently open to do items in no particular order.
 - [x] Implement elapsed/triggered time.
 - [x] Make an editor for setting up the system. The inspector is atrocious.
 - [x] Decide whether to convert into C++ after the prototyping phase is done (decided against it, GDScript is fast enough, easier to maintain and works on all platforms out of the box).
+- [x] Remove get_action_value_xxx from Action (replaced by value_xxx property)
+

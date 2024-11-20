@@ -21,9 +21,9 @@ func _ready():
 
 func _physics_process(delta):
 	# rotate by our turn axis
-	rotate(turn.get_value_axis_1d() * deg_to_rad(turn_speed_degrees) * delta)
+	rotate(turn.value_axis_1d * deg_to_rad(turn_speed_degrees) * delta)
 	# accelerate by our acceleration axis
-	velocity = transform.x * accelerate.get_value_axis_1d() * speed
+	velocity = transform.x * accelerate.value_axis_1d * speed
 	move_and_slide()
 	
 

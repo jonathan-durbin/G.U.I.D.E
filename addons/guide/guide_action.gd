@@ -104,17 +104,21 @@ signal cancelled()
 var _last_state:GUIDEActionState = GUIDEActionState.COMPLETED
 
 var _value_bool:bool
+## Returns the value of this action as bool.
 var value_bool:bool:
 	get: return _value_bool
-	
+
+## Returns the value of this action as float.
 var value_axis_1d:float:
 	get: return _value.x
 		
 var _value_axis_2d:Vector2 = Vector2.ZERO
+## Returns the value of this action as Vector2.
 var value_axis_2d:Vector2:
 	get: return _value_axis_2d
 
 var _value:Vector3 = Vector3.ZERO
+## Returns the value of this action as Vector3.
 var value_axis_3d:Vector3:
 	get: return _value
 	
@@ -202,23 +206,7 @@ func _update_value(value:Vector3):
 func is_triggered() -> bool:
 	return _last_state == GUIDEActionState.TRIGGERED
 	
-## Returns the value of this action as bool.
-func get_value_bool() -> bool:
-	return _value_bool 
 	
-## Returns the value of this action as axis 1d.
-func get_value_axis_1d() -> float:
-	return _value.x
-	
-## Returns the value of this action as axis 2d.
-func get_value_axis_2d() -> Vector2:
-	return _value_axis_2d
-	
-## Returns the value of this action as axis 3d.
-func get_value_axis_3d() -> Vector3:
-	return _value
-	
-
 func _editor_name() -> String:
 	# Try to give the most user friendly name
 	if display_name != "":

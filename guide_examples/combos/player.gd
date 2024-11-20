@@ -28,7 +28,7 @@ func _ready():
 
 func _physics_process(delta):
 	# Get current left-right input
-	var movement: = horizontal_movement.get_value_axis_1d()
+	var movement:float = horizontal_movement.value_axis_1d
 	
 	# Move any dash bonus towards zero
 	_dash_bonus = move_toward(_dash_bonus, 0, delta)

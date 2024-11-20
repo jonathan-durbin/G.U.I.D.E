@@ -13,7 +13,7 @@ func _ready():
 	use.triggered.connect(_enter_boat)
 	
 func _physics_process(_delta):
-	velocity = move.get_value_axis_2d().normalized() * speed
+	velocity = move.value_axis_2d.normalized() * speed
 	move_and_slide()	
 	
 	

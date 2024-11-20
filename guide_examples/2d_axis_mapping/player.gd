@@ -7,4 +7,4 @@ extends Node2D
 func _process(delta:float) -> void:
 	# GUIDE already gives us a full 2D axis. We don't need to build it
 	# ourselves using Input.get_vector.
-	position += move_action.get_value_axis_2d().normalized() * speed * delta
+	position += move_action.value_axis_2d.normalized() * speed * delta

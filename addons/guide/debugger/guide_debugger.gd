@@ -9,9 +9,9 @@ extends MarginContainer
 func _process(delta):
 	var index:int = 0
 	for mapping in GUIDE._active_action_mappings:
-		var action = mapping.action
+		var action:GUIDEAction = mapping.action
 
-		var action_name = action.name
+		var action_name:String = action.name
 		if action_name == "":
 			action_name = action._editor_name()
 			
@@ -27,13 +27,13 @@ func _process(delta):
 		var action_value:String = ""
 		match(action.action_value_type):
 			GUIDEAction.GUIDEActionValueType.BOOL:
-				action_value = str(action.get_value_bool())
+				action_value = str(action.value_bool)
 			GUIDEAction.GUIDEActionValueType.AXIS_1D:
-				action_value = str(action.get_value_axis_1d())
+				action_value = str(action.value_axis_1d)
 			GUIDEAction.GUIDEActionValueType.AXIS_2D:
-				action_value = str(action.get_value_axis_2d())
+				action_value = str(action.value_axis_2d)
 			GUIDEAction.GUIDEActionValueType.AXIS_3D:
-				action_value = str(action.get_value_axis_3d())
+				action_value = str(action.value_axis_3d)
 				
 				
 				
