@@ -202,11 +202,23 @@ func _update_value(value:Vector3):
 			_value = value
 
 ## Returns whether the action is currently triggered. Can be used for a 
-## polling style input 
+## polling style input.
 func is_triggered() -> bool:
 	return _last_state == GUIDEActionState.TRIGGERED
+
 	
-	
+## Returns whether the action is currently completed. Can be used for a 
+## polling style input.
+func is_completed() -> bool:
+	return _last_state == GUIDEActionState.COMPLETED
+
+
+## Returns whether the action is currently completed. Can be used for a 
+## polling style input.
+func is_ongoing() -> bool:
+	return _last_state == GUIDEActionState.ONGOING
+
+
 func _editor_name() -> String:
 	# Try to give the most user friendly name
 	if display_name != "":
