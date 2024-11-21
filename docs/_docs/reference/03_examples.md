@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Examples
-permalink: /usage/examples
+permalink: /reference/examples
 description: "Examples that ship with G.U.I.D.E."
 no_toc: true
 ---

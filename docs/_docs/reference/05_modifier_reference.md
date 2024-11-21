@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Modifier Reference
-permalink: /usage/modifier-reference
+permalink: /reference/modifiers
 description: "A reference for all built-in modifiers."
 ---
 
