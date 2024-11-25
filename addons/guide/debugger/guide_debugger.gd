@@ -1,4 +1,3 @@
-class_name GUIDEDebugger
 extends MarginContainer
 
 @onready var _actions:Container = %Actions
