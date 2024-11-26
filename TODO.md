@@ -3,9 +3,11 @@
 This lists the currently open to do items in no particular order.
 
 ## Open
-- [ ] Prevent having the same action twice in a context as the second one would be filtered out anyways.
 - [ ] Add a C# API.
 - [ ] Documentation
+    - [ ] document customizing the input prompt rendering
+    - [ ] document input remapping
+    - [ ] document all possible inputs and how they map to action values
 - [ ] Prepare for asset library (git attributes, page, etc.)
 
 

@@ -1,8 +1,8 @@
 ---
 layout: page
-title: "Using G.U.I.D.E in your project"
-permalink: /usage/using-guide
-description: "How to use G.U.I.D.E in your project"
+title: "Configuring and input handling"
+permalink: /usage/configuration-and-input-handling
+description: "How to configure G.U.I.D.E and how to process input in your game code."
 ---
 
 ## Introduction

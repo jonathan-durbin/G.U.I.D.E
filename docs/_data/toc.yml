@@ -9,8 +9,10 @@
   links:
     - title: "How G.U.I.D.E works"
       url: "usage/concepts"
-    - title: "Using G.U.I.D.E in your game"
-      url: "usage/using-guide"
+    - title: "Configuration and input handling"
+      url: "usage/configuration-and-input-handling"
+    - title: "Input prompts"
+      url: "usage/input-prompts"
     - title: "Extending G.U.I.D.E"
       url: "usage/extending-guide"
 - title: "Reference"
