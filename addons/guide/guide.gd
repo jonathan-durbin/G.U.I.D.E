@@ -5,7 +5,8 @@ const GUIDEReset = preload("guide_reset.gd")
 const GUIDEInputTracker = preload("guide_input_tracker.gd")
 
 ## This is emitted whenever input mappings change (either due to mapping
-## contexts being enabled/disabled or remapping configs being re-applied).
+## contexts being enabled/disabled or remapping configs being re-applied or
+## joystick devices being connected/disconnected).
 ## This is useful for updating UI prompts.
 signal input_mappings_changed()
 
@@ -38,6 +39,10 @@ func _ready():
 	GUIDEInputTracker._instrument.call_deferred(get_viewport())
 	
 	get_tree().node_added.connect(_on_node_added)
+	
+	# Emit a change of input mappings whenever a joystick was connected
+	# or disconnected.
+	Input.joy_connection_changed.connect(func(ig, ig2): input_mappings_changed.emit())
 
 
 ## Called when a node is added to the tree. If the node is a window
