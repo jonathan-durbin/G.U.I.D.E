@@ -20,6 +20,8 @@
   links:
     - title: "Examples"
       url: "reference/examples"
+    - title: "Input reference"
+      url: "reference/inputs"
     - title: "Modifier reference"
       url: "reference/modifiers"
     - title: "Trigger reference"
