@@ -62,6 +62,13 @@ This trigger triggers once when the input is pressed and will continue to trigge
 |_Max Pulses_| The maximum number of pulses that will be triggered. If set to a value <= 0, the trigger will pulse indefinitely. |
 |_Actuation Threshold_| The threshold at which the trigger will activate. If the input value is above this threshold the trigger will activate. |
 
+## Released
+This trigger triggers once when the input is released. This is the opposite of the _Pressed_ trigger and works similar to Godot UI buttons `pressed` event (which - contrary to its name - is fired when the button is released). This trigger has the following settings:
+
+| Setting | Description |
+|---|---|
+|_Actuation Threshold_| The threshold at which the trigger will consider the input as actuated. |
+
 ## Tap
 This trigger triggers when the input is pressed and released within a certain time frame. Can be used with hold trigger to bind two different actions to the same input (tap for one action, hold for another). The tap trigger has the following settings:
 
