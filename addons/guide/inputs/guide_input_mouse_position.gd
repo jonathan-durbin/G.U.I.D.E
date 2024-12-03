@@ -22,7 +22,7 @@ func _update_mouse_position():
 		
 		
 func is_same_as(other:GUIDEInput):
-	return other is GUIDEInputMouseAxis2D
+	return other is GUIDEInputMousePosition
 
 
 func _to_string():
