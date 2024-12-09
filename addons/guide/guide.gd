@@ -163,8 +163,8 @@ func _process(delta:float) -> void:
 			GUIDEAction.GUIDEActionState.COMPLETED:
 				match(consolidated_trigger_state):
 					GUIDETrigger.GUIDETriggerState.NONE:
-						# make sure the value is zero but don't emit any other events
-						action._update_value(Vector3.ZERO)
+						# make sure the value updated but don't emit any other events
+						action._update_value(consolidated_value)
 					GUIDETrigger.GUIDETriggerState.ONGOING:
 						action._started(consolidated_value)
 					GUIDETrigger.GUIDETriggerState.TRIGGERED:
@@ -183,6 +183,10 @@ func _update_caches():
 				mapping.action._cancelled(Vector3.ZERO)
 			GUIDEAction.GUIDEActionState.TRIGGERED:
 				mapping.action._completed(Vector3.ZERO)
+		# notify all modifiers they are no longer in use
+		for input_mapping in mapping.input_mappings:
+			for modifier in input_mapping.modifiers:
+				modifier._end_usage()
 		
 	_active_inputs.clear()
 	_active_action_mappings.clear()
@@ -314,6 +318,12 @@ func _update_caches():
 			_reset_node._inputs_to_reset.append(input)
 		# Notify inputs that GUIDE is about to use them
 		input._begin_usage()
+	
+	# notify modifiers they will be used.
+	for mapping in _active_action_mappings:
+		for input_mapping in mapping.input_mappings:
+			for modifier in input_mapping.modifiers:
+				modifier._begin_usage()
 		
 	# and notify interested parties that the input mappings have changed
 	input_mappings_changed.emit()
