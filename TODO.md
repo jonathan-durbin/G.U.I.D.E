@@ -3,15 +3,16 @@
 This lists the currently open to do items in no particular order.
 
 ## Open
+- [ ] Icon for "Mouse Position" input.
 - [ ] Add a C# API.
 - [ ] Documentation
-    - [ ] document customizing the input prompt rendering
-    - [ ] document input remapping
-    - [ ] document all possible inputs and how they map to action values
+	- [ ] document customizing the input prompt rendering
+	- [ ] document input remapping
 - [ ] Prepare for asset library (git attributes, page, etc.)
-
-
+- [ ] Idea: tracked variable modifier. A modifier that is updated by input and returns its value. Could be useful for a 3D position, rotation, etc.
+ 
 ## Done
+- [x] document all possible inputs and how they map to action values
 - [x] Add icon/text renderers for PS/XBOX/Nintendo controllers
 - [x] Make the fallback icons less ugly.
 - [x] Add functionality for runtime re-binding.

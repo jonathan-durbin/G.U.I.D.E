@@ -102,5 +102,16 @@ Multiplies the input with the given Vector3. Useful to  control things like inpu
 | _Scale_ | A `Vector3` which is multiplied with the input vector. |
 | _Apply delta time_ |If checked, the input is additionally multiplied with the current delta time. |
 
+
+## Virtual Cursor
+This modifier provides a virtual 2D cursor that can be controlled by any input. The input will be treated as a 2D vector that moves the cursor around. The cursor will be clamped to the window size. Output of this modifier is the cursor position in pixels (similiar to what the _Mouse Position_ input returns). Use the _3D coordinates_ or _Canvas coordinates_ modifier to convert the cursor position into 3D or 2D world coordinates. This modifier has the following settings:
+
+| Setting | Description |
+|---------|-------------|
+| _Initial position_ | The initial position of the cursor in a range between 0 and 1. This will be automatically scaled to the actual window size. |
+| _Scale_ | The scale which should be applied to the input before adding it to the cursor position. |
+| _Apply delta time_ | If checked, the input is additionally multiplied with the current delta time. |
+
+
 ## Window relative
 Treats the input vector as a mouse position difference in pixels (e.g. from the _Mouse_ input) and converts it into a range from `(0,0)` to `(1,1)` relative to the current window size. Useful to get resolution-independent mouse differences. This modifier has no settings.
