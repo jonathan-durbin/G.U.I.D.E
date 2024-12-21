@@ -103,8 +103,8 @@ Multiplies the input with the given Vector3. Useful to  control things like inpu
 | _Apply delta time_ |If checked, the input is additionally multiplied with the current delta time. |
 
 
-## Virtual Cursor
-This modifier provides a virtual 2D cursor that can be controlled by any input. The input will be treated as a 2D vector that moves the cursor around. The cursor will be clamped to the window size. Output of this modifier is the cursor position in pixels (similiar to what the _Mouse Position_ input returns). Use the _3D coordinates_ or _Canvas coordinates_ modifier to convert the cursor position into 3D or 2D world coordinates. This modifier has the following settings:
+## Virtual Cursor (experimental)
+This modifier provides a virtual 2D cursor that can be controlled by any input. This is useful if you need to simulate mouse input with a controller. The input will be treated as a 2D vector that moves the cursor around. The cursor will be clamped to the window size. Output of this modifier is the cursor position in pixels (similiar to what the _Mouse Position_ input returns). Use the _3D coordinates_ or _Canvas coordinates_ modifier to convert the cursor position into 3D or 2D world coordinates. This modifier has the following settings:
 
 | Setting | Description |
 |---------|-------------|

@@ -48,16 +48,7 @@ func _process(delta):
 	index = 0
 	for input in GUIDE._active_inputs:
 		var input_label = _formatter.input_as_text(input)	
-		var input_value:String = ""
-		match(input._native_value_type()):
-			GUIDEAction.GUIDEActionValueType.BOOL:
-				input_value = str(abs(input._value.x) > 0) 
-			GUIDEAction.GUIDEActionValueType.AXIS_1D:
-				input_value = str(input._value.x)
-			GUIDEAction.GUIDEActionValueType.AXIS_2D:
-				input_value = str(Vector2(input._value.x, input._value.y))
-			GUIDEAction.GUIDEActionValueType.AXIS_3D:
-				input_value = str(input._value)
+		var input_value:String = str(input._value)
 
 		var label := _get_label(_inputs, index)
 		label.text = "%s - %s" % [input_label, input_value]

@@ -4,10 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.0.3] - 2024-12-21
 ### Added
 - New trigger type _Released_ which triggers when the input is released (the opposite of _Pressed_).
 - New modifier _Virtual Cursor_ which provides a virtual mouse cursor that can be controlled by any input (experimental).
+
+### Changed
+- In the debugger, inputs now show the raw Vector3 coming from the input. This helps understanding modifiers better as we can see the value that is going into the modifier.
 
 ### Fixed
 - Added missing equality comparison for `GUIDEInputAny` and `GUIDEInputMousePosition` so these inputs are not needlessly duplicated and updated multiple times per frame.
