@@ -36,7 +36,7 @@ func _input(event:InputEvent):
 
 
 func is_same_as(other:GUIDEInput) -> bool:
-	return other is GUIDEInput and \
+	return other is GUIDEInputAny and \
 		other.mouse == mouse and \
 		other.joy == joy and \
 		other.keyboard == keyboard 
