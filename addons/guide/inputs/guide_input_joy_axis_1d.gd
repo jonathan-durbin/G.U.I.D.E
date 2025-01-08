@@ -1,7 +1,7 @@
 ## Input from a single joy axis.
 @tool
 class_name GUIDEInputJoyAxis1D
-extends GUIDEInputJoyBase
+extends "guide_input_joy_base.gd"
 
 ## The joy axis to sample
 @export var axis:JoyAxis = JOY_AXIS_LEFT_X:

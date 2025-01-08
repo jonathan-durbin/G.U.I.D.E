@@ -15,6 +15,7 @@ const DefaultTextProvider = preload("text_providers/default_text_provider.gd")
 const XboxTextProvider = preload("text_providers/controllers/xbox/xbox_controller_text_provider.gd")
 const PlayStationTextProvider = preload("text_providers/controllers/playstation/playstation_controller_text_provider.gd")
 const SwitchTextProvider = preload("text_providers/controllers/switch/switch_controller_text_provider.gd")
+const GUIDEInputJoyBase = preload("../inputs/guide_input_joy_base.gd")
 
 # These are shared across all instances
 static var _icon_maker:IconMaker
@@ -154,7 +155,8 @@ func _materialized_as_text(input:MaterializedInput) -> String:
 				# first provider wins
 				break
 		if text == "":
-			push_warning("No formatter found for input ", input)
+			pass
+			## push_warning("No formatter found for input ", input)
 		return text
 
 	var separator = _separator_for_input(input)

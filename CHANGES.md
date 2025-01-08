@@ -1,8 +1,28 @@
-﻿# Changelog
+# Changelog
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+### Breaking changes
+- The class `GUIDEInputJoyBase` was not supposed to be public API and has been removed. This should have no effect on existing projects unless you explicitely used this class in your code.
+
+### Added
+- Support for touch input:
+	- _Touch Position_  - will track the position of one or more fingers, similar to _Mouse Position_
+	- _Touch Axis2D_ - will track the position change of one or more fingers, similar to _Mouse Axis2D_
+	- _Touch Axis1D_ - similar to _Touch Axis2D_ but tracks a single axis, only.
+	- _Touch Distance_ - tracks distance changes between two fingers. Useful for implementing pinch/zoom gestures.
+	- _Touch Angle_ - tracks rotation changes between two fingers. Useful for implementing rotation gestures.
+- New trigger type _Stability_ which triggers depending on whether the input has changed after initial actuatation. Useful for touch input to detect taps and drags.
+- A new `touch` example has been added, showing how to use the new touch features to implement camera drags, pinch/zoom and rotation.
+- New modifier _Normalize_ to normalize an input vector.
+
+### Fixed
+- Triggers will no longer consider infinite input values as "actuating". Vector.INF is reserved for cases where no value is available.
+- Modifiers now handle infinite input values more gracefully instead of producing `NaN` values.
+- The text provider will no longer try to translate physical keys to labels on mobile platforms where Godot doesn't support this.
 
 ## [0.0.4] - 2024-12-28
 ### Fixed

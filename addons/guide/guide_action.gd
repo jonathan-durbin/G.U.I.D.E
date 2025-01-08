@@ -124,10 +124,13 @@ var value_axis_3d:Vector3:
 	
 
 var _elapsed_seconds:float
+## The amount of seconds elapsed since the action started evaluating.
 var elapsed_seconds:float:
 	get: return _elapsed_seconds
 
+
 var _triggered_seconds:float
+## The amount of seconds elapsed since the action triggered.
 var triggered_seconds:float:
 	get: return _triggered_seconds
 

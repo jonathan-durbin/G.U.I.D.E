@@ -1,6 +1,6 @@
 @tool
 class_name GUIDEInputJoyButton
-extends GUIDEInputJoyBase
+extends "guide_input_joy_base.gd"
 
 @export var button:JoyButton = JOY_BUTTON_A:
 	set(value):
