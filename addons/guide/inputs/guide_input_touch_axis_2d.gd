@@ -1,6 +1,6 @@
 @tool
 class_name GUIDEInputTouchAxis2D
-extends "guide_input_touch_axis_base.gd"
+extends GUIDEInputTouchAxisBase
 
 func _apply_value(value:Vector2):
 	_value = Vector3(value.x, value.y, 0)

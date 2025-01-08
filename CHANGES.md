@@ -5,9 +5,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Breaking changes
-- The class `GUIDEInputJoyBase` was not supposed to be public API and has been removed. This should have no effect on existing projects unless you explicitely used this class in your code.
-
 ### Added
 - Support for touch input:
 	- _Touch Position_  - will track the position of one or more fingers, similar to _Mouse Position_

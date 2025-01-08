@@ -7,6 +7,7 @@ extends Camera2D
 @export var camera_movement:GUIDEAction
 @export var camera_zoom:GUIDEAction
 @export var camera_rotation:GUIDEAction
+@export var camera_reset:GUIDEAction
 
 
 @onready var _reference_zoom:Vector2 = zoom
@@ -15,6 +16,7 @@ extends Camera2D
 func _ready():
 	camera_zoom.triggered.connect(_zoom_camera)
 	camera_rotation.triggered.connect(_rotate_camera)
+	camera_reset.triggered.connect(_reset_camera)
 	# whenever zooming completes, we store the new reference zoom
 	camera_zoom.completed.connect(func(): _reference_zoom = zoom)
 	# whenever rotation completes, we store the new reference rotation
@@ -31,3 +33,10 @@ func _zoom_camera():
 
 func _rotate_camera():
 	rotation = fmod(_reference_rotation + camera_rotation.value_axis_1d, TAU)
+
+
+func _reset_camera():
+	zoom = Vector2.ONE
+	rotation = 0
+	_reference_zoom = zoom
+	_reference_rotation = rotation

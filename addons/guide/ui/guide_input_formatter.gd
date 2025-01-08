@@ -5,6 +5,7 @@ class_name GUIDEInputFormatter
 const IconMaker = preload("icon_maker/icon_maker.gd")
 const KeyRenderer = preload("renderers/keyboard/key_renderer.tscn")
 const MouseRenderer = preload("renderers/mouse/mouse_renderer.tscn")
+const TouchRenderer = preload("renderers/touch/touch_renderer.tscn")
 const JoyRenderer = preload("renderers/joy/joy_renderer.tscn")
 const XboxRenderer = preload("renderers/controllers/xbox/xbox_controller_renderer.tscn")
 const PlayStationRenderer = preload("renderers/controllers/playstation/playstation_controller_renderer.tscn")
@@ -15,7 +16,6 @@ const DefaultTextProvider = preload("text_providers/default_text_provider.gd")
 const XboxTextProvider = preload("text_providers/controllers/xbox/xbox_controller_text_provider.gd")
 const PlayStationTextProvider = preload("text_providers/controllers/playstation/playstation_controller_text_provider.gd")
 const SwitchTextProvider = preload("text_providers/controllers/switch/switch_controller_text_provider.gd")
-const GUIDEInputJoyBase = preload("../inputs/guide_input_joy_base.gd")
 
 # These are shared across all instances
 static var _icon_maker:IconMaker
@@ -50,6 +50,7 @@ static func _ensure_readiness():
 	
 	add_icon_renderer(KeyRenderer.instantiate())
 	add_icon_renderer(MouseRenderer.instantiate())
+	add_icon_renderer(TouchRenderer.instantiate())
 	add_icon_renderer(ActionRenderer.instantiate())
 	add_icon_renderer(JoyRenderer.instantiate())
 	add_icon_renderer(XboxRenderer.instantiate())

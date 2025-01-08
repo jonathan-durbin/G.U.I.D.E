@@ -1,8 +1,6 @@
 @tool
 extends GUIDEIconRenderer
 
-const GUIDEInputJoyBase = preload("../../../inputs/guide_input_joy_base.gd")
-
 @onready var _stick:Control = %Stick
 @onready var _button:Control = %Button
 @onready var _text:Control = %Text

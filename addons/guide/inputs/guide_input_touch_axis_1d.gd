@@ -1,6 +1,6 @@
 @tool
 class_name GUIDEInputTouchAxis1D
-extends "guide_input_touch_axis_base.gd"
+extends GUIDEInputTouchAxisBase
 
 enum GUIDEInputTouchAxis {
 	X,

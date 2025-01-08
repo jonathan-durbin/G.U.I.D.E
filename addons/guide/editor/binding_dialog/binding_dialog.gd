@@ -66,6 +66,7 @@ func _show_inputs_of_value_type(type:GUIDEAction.GUIDEActionValueType) -> void:
 	if items.is_empty():
 		return
 		
+	items.sort_custom(func(a,b): return a._editor_name().nocasecmp_to(b._editor_name()) < 0)
 	Utils.clear(_available_types)
 	
 	for item in items:

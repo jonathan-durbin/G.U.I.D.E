@@ -1,4 +1,6 @@
+## Base class for joystick inputs.
 @tool
+class_name GUIDEInputJoyBase
 extends GUIDEInput
 
 ## The index of the connected joy pad to check. If -1 checks all joypads.
