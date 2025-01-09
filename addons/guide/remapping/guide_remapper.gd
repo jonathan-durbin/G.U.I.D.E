@@ -40,20 +40,41 @@ func remove_custom_data(key:Variant) -> void:
 	_remapping_config.custom_data.erase(key)
 	
 	
-## Returns all remappable items. Can be filtered by context and display category.
-func get_remappable_items(context:GUIDEMappingContext = null, display_category:String = "") -> Array[ConfigItem]:
+## Returns all remappable items. Can be filtered by context, display category or
+## action.
+func get_remappable_items(context:GUIDEMappingContext = null, 
+		display_category:String = "",
+		action:GUIDEAction = null) -> Array[ConfigItem]:
+	
+	if action != null and not action.is_remappable:
+		push_warning("Action filter was set but filtered action is not remappable.")
+		return []
+
+	if action != null and display_category.length() > 0 and action.display_category != action.display_category:
+		push_warning("Action and display category filter was set but filtered action is not in filtered display category.")
+		return []
+		
+	
 	var result:Array[ConfigItem] = []
 	for a_context:GUIDEMappingContext in _mapping_contexts:
 		if context != null and context != a_context:
 			continue
 		for action_mapping:GUIDEActionMapping in a_context.mappings:
-			var action:GUIDEAction = action_mapping.action
-			if not action.is_remappable:
+			var mapped_action:GUIDEAction = action_mapping.action
+			# filter non-remappable actions
+			if not mapped_action.is_remappable:
 				continue
 			
-			if display_category.length() > 0 and action.display_category != display_category:
+			# if action filter is set, only pick mappings for this action
+			if action != null and action != mapped_action:
 				continue
 			
+			# if display category filter is set, only pick mappings for actions
+			# in this category
+			if display_category.length() > 0 and mapped_action.display_category != display_category:
+				continue
+			
+			# make config items
 			for index:int in action_mapping.input_mappings.size():
 				var item = ConfigItem.new(a_context, action_mapping.action, index)
 				item_changed.connect(item._item_changed)
@@ -214,7 +235,9 @@ class ConfigItem:
 		self.context = context
 		self.action = action
 		self.index = index
-		
+	
+	## Checks whether this config item is the same as some other
+	## e.g. refers to the same input mapping.	
 	func is_same_as(other:ConfigItem) -> bool:
 		return context == other.context and \
 				action == other.action and \
