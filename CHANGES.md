@@ -22,7 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Improved
 - `GUIDEInputDetector` can now filter for device types, so you can limit detected input to keyboard, mouse or joystick/gamepad input.
 - `GUIDEInputDetector` now has a `is_detecting` property to find out whether it is currently detecting input.
+- `GUIDEInputDetector` now has a setting determining which joy index should be assigned to detected joy events.
 - `GUIDERemapper` can now also filter for single actions, so it is easier to remap input for a specific action.
+- The `remapping` example's usability for controllers has been improved, showing some techniques on how to make UI more controller friendly.
 
 ### Fixed
 - Triggers will no longer consider infinite input values as "actuating". Vector.INF is reserved for cases where no value is available.
