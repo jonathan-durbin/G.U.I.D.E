@@ -47,7 +47,7 @@ func _process(delta):
 	
 	index = 0
 	for input in GUIDE._active_inputs:
-		var input_label = _formatter.input_as_text(input)	
+		var input_label = _formatter.input_as_text(input, false)	
 		var input_value:String = str(input._value)
 
 		var label := _get_label(_inputs, index)
