@@ -105,7 +105,7 @@ func _on_input_detector_detection_started():
 	_instructions_label.text = tr("Actuate the input now...")
 
 
-func _on_input_detector_input_dectected(input:GUIDEInput):
+func _on_input_detector_input_detected(input:GUIDEInput):
 	_instructions_label.visible = false
 	_input_display.visible = true
 	_input_display.input = input

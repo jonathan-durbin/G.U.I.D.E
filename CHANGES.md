@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Breaking Changes
+- The `input_detected` signal of `GUIDEInputDetector` had a typo in it (was `input_dectected`) and was renamed to fix this. If your code uses this signal you will need to update it. Also check your scenes if you connected this signal using the editor.
+
 ### Added
 - Support for touch input:
 	- _Touch Position_  - will track the position of one or more fingers, similar to _Mouse Position_
@@ -18,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Improved
 - `GUIDEInputDetector` can now filter for device types, so you can limit detected input to keyboard, mouse or joystick/gamepad input.
+- `GUIDEInputDetector` now has a `is_detecting` property to find out whether it is currently detecting input.
 - `GUIDERemapper` can now also filter for single actions, so it is easier to remap input for a specific action.
 
 ### Fixed

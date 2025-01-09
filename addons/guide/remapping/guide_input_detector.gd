@@ -20,7 +20,7 @@ signal detection_started()
 
 ## Emitted when the input detector detects an input of the given type.
 ## If detection was aborted the given input is null.
-signal input_dectected(input:GUIDEInput)
+signal input_detected(input:GUIDEInput)
 
 # The timer for the detection countdown.
 var _timer:Timer
@@ -44,6 +44,11 @@ func _ready():
 	_timer.timeout.connect(_begin_detection)
 
 var _is_detecting:bool
+
+## Whether the input detector is currently detecting input.
+var is_detecting:bool:
+	get: return _is_detecting
+
 var _value_type:GUIDEAction.GUIDEActionValueType
 var _device_types:Array[DeviceType] = []
 
@@ -73,7 +78,7 @@ func abort_detection() -> void:
 	_timer.stop()
 	if _is_detecting:
 		_is_detecting = false
-		input_dectected.emit(null)
+		input_detected.emit(null)
 
 ## Detects the given input type. If device types are given
 ## will only detect inputs from the given device types. 
@@ -219,4 +224,4 @@ func _find_joy_index(device_id:int) -> int:
 
 func _deliver(input:GUIDEInput) -> void:
 	_is_detecting = false
-	input_dectected.emit(input)
+	input_detected.emit(input)
