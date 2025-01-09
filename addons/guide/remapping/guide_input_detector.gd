@@ -4,6 +4,26 @@
 class_name GUIDEInputDetector
 extends Node
 
+## The device type for which the input should be filtered.
+enum DeviceType {
+	## Only detect input from keyboard.
+	KEYBOARD = 1,
+	## Only detect input from the mouse.
+	MOUSE = 2,
+	## Only detect input from joysticks/gamepads.
+	JOY = 4
+	# touch doesn't make a lot of sense as this is usually
+	# not remappable.
+}
+
+## Which joy index should be used for detected joy events
+enum JoyIndex {
+	# Use -1, so the detected input will match any joystick
+	ANY = 0,
+	# Use the actual index of the detected joystick.
+	DETECTED = 1
+}
+
 ## A countdown between initiating a dection and the actual start of the 
 ## detection. This is useful because when the user clicks a button to
 ## start a detection, we want to make sure that the player is actually
@@ -13,6 +33,13 @@ extends Node
 
 ## Minimum amplitude to detect any axis. 
 @export_range(0, 1, 0.1, "or_greater") var minimum_axis_amplitude:float = 0.2
+
+## If any of these inputs is encountered, the detector will 
+## treat this as "abort detection". 
+@export var abort_detection_on:Array[GUIDEInput] = []
+
+## Which joy index should be returned for detected joy events.
+@export var use_joy_index:JoyIndex = JoyIndex.ANY
 
 ## Emitted when the detection has started (e.g. countdown has elapsed).
 ## Can be used to signal this to the player.
@@ -25,17 +52,7 @@ signal input_detected(input:GUIDEInput)
 # The timer for the detection countdown.
 var _timer:Timer
 
-## The device type for which the input should be filtered.
-enum DeviceType {
-	## Only detect input from keyboard.
-	KEYBOARD = 1,
-	## Only detect input from the mouse.
-	MOUSE = 2,
-	## Only detect input from joysticks/gamepads.
-	JOY = 4
-	# touch doesn't make a lot of sense as this is usually
-	# not remappable.
-}
+
 
 func _ready():
 	_timer = Timer.new()
@@ -89,6 +106,10 @@ func detect(value_type:GUIDEAction.GUIDEActionValueType,
 		push_error("Device types must not be null. Supply an empty array if you want to detect input from all devices.")
 		return
 	
+	# reset all abort inputs
+	for input in abort_detection_on:
+		input._reset()
+	
 	abort_detection()
 	_value_type = value_type
 	_device_types = device_types
@@ -103,6 +124,16 @@ func _begin_detection():
 func _input(event:InputEvent) -> void:
 	if not _is_detecting:
 		return
+		
+	# feed the event into the abort inputs
+	for input in abort_detection_on:
+		input._input(event)
+		# if it triggers, we abort
+		if input._value.is_finite() and input._value.length() > 0:
+			# eat the input so it doesn't accidentally trigger something else
+			get_viewport().set_input_as_handled()
+			abort_detection()
+			return	
 		
 	# check if the event matches the device type we are
 	# looking for	
@@ -215,6 +246,9 @@ func _try_detect_axis_3d(event:InputEvent) -> void:
 
 
 func _find_joy_index(device_id:int) -> int:
+	if use_joy_index == JoyIndex.ANY:
+		return -1
+	
 	var pads := Input.get_connected_joypads()
 	for i in pads.size():
 		if pads[i] == device_id:
@@ -224,4 +258,6 @@ func _find_joy_index(device_id:int) -> int:
 
 func _deliver(input:GUIDEInput) -> void:
 	_is_detecting = false
+	# eat the input so it doesn't accidentally trigger something else
+	get_viewport().set_input_as_handled()
 	input_detected.emit(input)
