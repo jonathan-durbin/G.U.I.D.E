@@ -25,6 +25,18 @@ signal input_dectected(input:GUIDEInput)
 # The timer for the detection countdown.
 var _timer:Timer
 
+## The device type for which the input should be filtered.
+enum DeviceType {
+	## Only detect input from keyboard.
+	KEYBOARD = 1,
+	## Only detect input from the mouse.
+	MOUSE = 2,
+	## Only detect input from joysticks/gamepads.
+	JOY = 4
+	# touch doesn't make a lot of sense as this is usually
+	# not remappable.
+}
+
 func _ready():
 	_timer = Timer.new()
 	_timer.one_shot = true
@@ -33,25 +45,26 @@ func _ready():
 
 var _is_detecting:bool
 var _value_type:GUIDEAction.GUIDEActionValueType
+var _device_types:Array[DeviceType] = []
 
 ## Detects a boolean input type.
-func detect_bool() -> void:
-	detect(GUIDEAction.GUIDEActionValueType.BOOL)
+func detect_bool(device_types:Array[DeviceType] = []) -> void:
+	detect(GUIDEAction.GUIDEActionValueType.BOOL, device_types)
 
 
 ## Detects a 1D axis input type.
-func detect_axis_1d() -> void:
-	detect(GUIDEAction.GUIDEActionValueType.AXIS_1D)
+func detect_axis_1d(device_types:Array[DeviceType] = []) -> void:
+	detect(GUIDEAction.GUIDEActionValueType.AXIS_1D, device_types)
 
 	
 ## Detects a 2D axis input type.
-func detect_axis_2d() -> void:
-	detect(GUIDEAction.GUIDEActionValueType.AXIS_2D)
+func detect_axis_2d(device_types:Array[DeviceType] = []) -> void:
+	detect(GUIDEAction.GUIDEActionValueType.AXIS_2D, device_types)
 
 
 ## Detects a 3D axis input type.
-func detect_axis_3d() -> void:
-	detect(GUIDEAction.GUIDEActionValueType.AXIS_3D)
+func detect_axis_3d(device_types:Array[DeviceType] = []) -> void:
+	detect(GUIDEAction.GUIDEActionValueType.AXIS_3D, device_types)
 
 
 ## Aborts a running detection. If no detection currently runs
@@ -62,10 +75,18 @@ func abort_detection() -> void:
 		_is_detecting = false
 		input_dectected.emit(null)
 
-## Detects the given input type.
-func detect(value_type:GUIDEAction.GUIDEActionValueType) -> void:
+## Detects the given input type. If device types are given
+## will only detect inputs from the given device types. 
+## Otherwise will detect inputs from all supported device types.
+func detect(value_type:GUIDEAction.GUIDEActionValueType,
+		device_types:Array[DeviceType] = []) -> void:
+	if device_types == null:
+		push_error("Device types must not be null. Supply an empty array if you want to detect input from all devices.")
+		return
+	
 	abort_detection()
 	_value_type = value_type
+	_device_types = device_types
 	_timer.start(detection_countdown_seconds)
 
 
@@ -78,7 +99,13 @@ func _input(event:InputEvent) -> void:
 	if not _is_detecting:
 		return
 		
-		
+	# check if the event matches the device type we are
+	# looking for	
+	if not _matches_device_types(event):
+		return
+	
+	# then check if it can be mapped to the desired 
+	# value type	
 	match _value_type:
 		GUIDEAction.GUIDEActionValueType.BOOL:
 			_try_detect_bool(event)
@@ -88,6 +115,22 @@ func _input(event:InputEvent) -> void:
 			_try_detect_axis_2d(event)
 		GUIDEAction.GUIDEActionValueType.AXIS_3D:
 			_try_detect_axis_3d(event)
+
+
+func _matches_device_types(event:InputEvent) -> bool:
+	if _device_types.is_empty():
+		return true
+	
+	if event is InputEventKey:
+		return _device_types.has(DeviceType.KEYBOARD)
+		
+	if event is InputEventMouse:
+		return _device_types.has(DeviceType.MOUSE)
+		
+	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		return _device_types.has(DeviceType.JOY)	
+
+	return false
 
 			
 func _try_detect_bool(event:InputEvent) -> void:
