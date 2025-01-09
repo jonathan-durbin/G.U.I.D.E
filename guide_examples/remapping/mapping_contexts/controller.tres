@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=29 format=3 uid="uid://bexjevffjsh3i"]
+[gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=31 format=3 uid="uid://bexjevffjsh3i"]
 
 [ext_resource type="Resource" uid="uid://chhw5umkd1j2p" path="res://guide_examples/remapping/mapping_contexts/shared_actions/player_movement_2d.tres" id="1_78yyx"]
 [ext_resource type="Script" path="res://addons/guide/guide_mapping_context.gd" id="1_l4253"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/guide/inputs/guide_input_joy_axis_2d.gd" id="6_y041f"]
 [ext_resource type="Resource" uid="uid://ce3ytxn2tcxxe" path="res://guide_examples/remapping/mapping_contexts/controller_actions/switch_to_keyboard.tres" id="8_4d4ov"]
 [ext_resource type="Script" path="res://addons/guide/inputs/guide_input_any.gd" id="9_0d1uf"]
+[ext_resource type="Script" path="res://addons/guide/triggers/guide_trigger_released.gd" id="9_eexjp"]
 [ext_resource type="Resource" uid="uid://c65tsmp268vdq" path="res://guide_examples/remapping/mapping_contexts/shared_actions/open_menu.tres" id="9_l4c4j"]
 [ext_resource type="Resource" uid="uid://b1iaet1m2gi2e" path="res://guide_examples/remapping/mapping_contexts/shared_actions/fire.tres" id="9_tkveh"]
 [ext_resource type="Script" path="res://addons/guide/inputs/guide_input_joy_button.gd" id="10_a30o8"]
@@ -41,11 +42,15 @@ script = ExtResource("10_a30o8")
 button = 6
 joy_index = -1
 
+[sub_resource type="Resource" id="Resource_uov21"]
+script = ExtResource("9_eexjp")
+actuation_threshold = 0.5
+
 [sub_resource type="Resource" id="Resource_f4p62"]
 script = ExtResource("4_m37gr")
 input = SubResource("Resource_p73kx")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
-triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
+triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_uov21")])
 
 [sub_resource type="Resource" id="Resource_wa31m"]
 script = ExtResource("5_167oa")

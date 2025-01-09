@@ -18,7 +18,6 @@ func initialize(item:GUIDERemapper.ConfigItem, input:GUIDEInput):
 	
 func _on_action_name_pressed():
 	if _item != null:
-		_action_name.release_focus()
 		rebind.emit(_item)
 
 

@@ -50,4 +50,8 @@ func _load_remapping_config(config:GUIDERemappingConfig):
 
 
 func _switch(context:GUIDEMappingContext):
+	# ignore while remapping is active, remapping will take care of it
+	if _remapping_dialog.visible:
+		return
+		
 	GUIDE.enable_mapping_context(context, true)
