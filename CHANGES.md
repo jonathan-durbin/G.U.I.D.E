@@ -16,10 +16,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A new `touch` example has been added, showing how to use the new touch features to implement camera drags, pinch/zoom and rotation.
 - New modifier _Normalize_ to normalize an input vector.
 
+### Improved
+- `GUIDEInputDetector` can now filter for device types, so you can limit detected input to keyboard, mouse or joystick/gamepad input.
+- `GUIDERemapper` can now also filter for single actions, so it is easier to remap input for a specific action.
+
 ### Fixed
 - Triggers will no longer consider infinite input values as "actuating". Vector.INF is reserved for cases where no value is available.
 - Modifiers now handle infinite input values more gracefully instead of producing `NaN` values.
 - The text provider will no longer try to translate physical keys to labels on mobile platforms where Godot doesn't support this.
+- Inputs of type `GUIDEInputAction` are now properly displayed in the debugger.
 
 ## [0.0.4] - 2024-12-28
 ### Fixed
