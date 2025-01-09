@@ -87,6 +87,9 @@ This modifier negates one or more axes of the input vector. Useful to map key in
 | _Z_     | Whether the `z`-axis of the input should be negated. |
 
 
+## Normalize
+This modifier normalizes the input vector (e.g. keeps the direction but changes the length to 1). It has no settings.
+
 ## Positive/Negative
 Limits inputs to positive or negative values. Values which do not match will be clamped to zero. Useful if you want to bind different halves of an axis to different actions. This modifier has the following settings:
 
