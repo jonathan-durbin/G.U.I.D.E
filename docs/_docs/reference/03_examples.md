@@ -21,4 +21,5 @@ G.U.I.D.E ships with quite a few small example projects that demonstrate how to 
 - `remapping` - Shows how to use the built-in remapping system to allow players to remap their controls with a dialog.
 - `simple_input` - a very barebones example that shows how to create a simple input action and bind it to a key press.
 - `tap_and_hold` - Shows the built-in _tap_ and _hold_ trigger. Players can tap a button to jump or hold it to perform a somersault.
+- `touch` - Shows how to use the touch inputs and triggers to detect screen drags, taps, long-presses, pinch/zoom and rotation gestures with one or multiple fingers.
 - `two_joysticks` - Shows how to do local multiplayer with two joysticks. Each player has their own joystick and can move around independently while both players use the same script to handle input.

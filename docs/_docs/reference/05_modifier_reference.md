@@ -11,11 +11,11 @@ G.U.I.D.E ships with a selection of modifiers for many use cases. This is a list
 ## 3D Coordinates
 This modifier converts a 2D mouse position (from the _Mouse Position_ input) into 3D world coordinates. It does this by performing a raycast into the game world using the currently active 3D camera. Use this to find out "where in my 3D world did the player just click". It has the following settings:
 
-|Setting|Description|
-|---|---|
-|_Max Depth_| The maximum depth for the ray cast in units. |
-|_Collide with areas_| Whether the raycast should collide with areas. |
-|_Collision mask_ | A mask used for the ray cast. This should be set up so the collision layers that make up your "world" are selected for collision. |
+| Setting              | Description                                                                                                                       |
+|----------------------|-----------------------------------------------------------------------------------------------------------------------------------|
+| _Max Depth_          | The maximum depth for the ray cast in units.                                                                                      |
+| _Collide with areas_ | Whether the raycast should collide with areas.                                                                                    |
+| _Collision mask_     | A mask used for the ray cast. This should be set up so the collision layers that make up your "world" are selected for collision. |
 
 The modifier sets the action value to the 3D world position of the raycast hit. If the raycast hits nothing, the modifier sets the action value to `Vector3.INF`.
 
@@ -27,7 +27,11 @@ This is a filtering modifier that checks whether 2D input points into one of 8 d
 | _Direction_         | The direction for which the modifier should filter.                                                                               |
 
 ## Canvas coordinates
-This modifier converts a 2D mouse position (from the the _Mouse Position_ input) into 2D world coordinates (canvas coordinates) for the currently active viewport. This modifier takes into account the current scaling mode and any changes (zoom, offset) applied by a Camera2D in the currently active viewport. Use this to quickly find out "where in my 2D world did the player just click". This modifier has no settings.
+This modifier converts a 2D pixel coordinate (from the _Mouse Position_, _Touch Position_ or _Touch Axis_ inputs) into 2D world coordinates (canvas coordinates) for the currently active viewport. This modifier takes into account the current scaling mode and any changes (zoom, offset) applied by a Camera2D in the currently active viewport. Use this to quickly find out "where in my 2D world did the player just click". This modifier has the following settings:
+
+| Setting          | Description                                |
+|------------------|--------------------------------------------|
+| _Relative Input_ | Whether the input is absolute or relative. |
 
 
 ## Curve
@@ -97,20 +101,20 @@ Limits inputs to positive or negative values. Values which do not match will be 
 ## Scale
 Multiplies the input with the given Vector3. Useful to  control things like input sensitivity or to convert input into a more useful range (e.g. radians from 0-1). Input can also be multiplied with delta time (to limit input over time). The modifier has the following settings:
 
-| Setting | Description                                            |
-|---------|--------------------------------------------------------|
-| _Scale_ | A `Vector3` which is multiplied with the input vector. |
-| _Apply delta time_ |If checked, the input is additionally multiplied with the current delta time. |
+| Setting            | Description                                                                   |
+|--------------------|-------------------------------------------------------------------------------|
+| _Scale_            | A `Vector3` which is multiplied with the input vector.                        |
+| _Apply delta time_ | If checked, the input is additionally multiplied with the current delta time. |
 
 
 ## Virtual Cursor (experimental)
 This modifier provides a virtual 2D cursor that can be controlled by any input. This is useful if you need to simulate mouse input with a controller. The input will be treated as a 2D vector that moves the cursor around. The cursor will be clamped to the window size. Output of this modifier is the cursor position in pixels (similiar to what the _Mouse Position_ input returns). Use the _3D coordinates_ or _Canvas coordinates_ modifier to convert the cursor position into 3D or 2D world coordinates. This modifier has the following settings:
 
-| Setting | Description |
-|---------|-------------|
+| Setting            | Description                                                                                                                 |
+|--------------------|-----------------------------------------------------------------------------------------------------------------------------|
 | _Initial position_ | The initial position of the cursor in a range between 0 and 1. This will be automatically scaled to the actual window size. |
-| _Scale_ | The scale which should be applied to the input before adding it to the cursor position. |
-| _Apply delta time_ | If checked, the input is additionally multiplied with the current delta time. |
+| _Scale_            | The scale which should be applied to the input before adding it to the cursor position.                                     |
+| _Apply delta time_ | If checked, the input is additionally multiplied with the current delta time.                                               |
 
 
 ## Window relative

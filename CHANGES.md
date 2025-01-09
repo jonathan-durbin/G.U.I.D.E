@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `GUIDEInputDetector` now has a `is_detecting` property to find out whether it is currently detecting input.
 - `GUIDEInputDetector` now has a setting determining which joy index should be assigned to detected joy events.
 - `GUIDERemapper` can now also filter for single actions, so it is easier to remap input for a specific action.
+- The _Canvas Coordinates_ modifier can now also convert relative pixel coordinates into relative world coordinates.
 - The `remapping` example's usability for controllers has been improved, showing some techniques on how to make UI more controller friendly.
 
 ### Fixed
