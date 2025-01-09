@@ -13,7 +13,7 @@ func _needs_reset() -> bool:
 	return true
 
 func _reset() -> void:
-	_last_position = GUIDETouchState.get_finger_position(finger_index, finger_count, exact)
+	_last_position = GUIDETouchState.get_finger_position(finger_index, finger_count)
 	_apply_value(_calculate_value(_last_position))
 
 func _input(event:InputEvent) -> void:
@@ -22,7 +22,7 @@ func _input(event:InputEvent) -> void:
 		return
 	
 	# calculate live position from the cache
-	var new_position:Vector2 = GUIDETouchState.get_finger_position(finger_index, finger_count, exact)
+	var new_position:Vector2 = GUIDETouchState.get_finger_position(finger_index, finger_count)
 
 	_apply_value(_calculate_value(new_position))
 
@@ -41,7 +41,6 @@ func _calculate_value(new_position:Vector2) -> Vector2:
 func is_same_as(other:GUIDEInput):
 	return other is GUIDEInputTouchAxis2D and \
 		other.finger_count == finger_count and \
-		other.exact == exact and \
 		other.finger_index == finger_index
 
 

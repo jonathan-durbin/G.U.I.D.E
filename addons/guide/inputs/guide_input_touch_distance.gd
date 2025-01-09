@@ -38,12 +38,12 @@ func _input(event:InputEvent) -> void:
 		
 	
 func _calculate_distance() -> float:
-	var pos1:Vector2 = GUIDETouchState.get_finger_position(0, 2, true)
+	var pos1:Vector2 = GUIDETouchState.get_finger_position(0, 2)
 	# if we have no position for first finger, we can immediately abort
 	if not pos1.is_finite():
 		return INF
 		
-	var pos2:Vector2 = GUIDETouchState.get_finger_position(1, 2, true)
+	var pos2:Vector2 = GUIDETouchState.get_finger_position(1, 2)
 	# if there is no second finger, we can abort as well
 	if not pos2.is_finite():
 		return INF

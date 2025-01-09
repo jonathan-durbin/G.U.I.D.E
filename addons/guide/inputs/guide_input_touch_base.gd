@@ -11,13 +11,6 @@ extends GUIDEInput
 		finger_count = value
 		emit_changed()
 
-## If this is true, then this input will only react if the amount
-## of fingers exactly matches the finger count.
-@export var exact:bool = true:
-	set(value):
-		exact = value
-		emit_changed()
-
 ## The index of the finger for which the position/delta should be reported 
 ## (0 = first finger, 1 = second finger, etc.). If -1, reports the average position/delta for 
 ## all fingers currently touching.

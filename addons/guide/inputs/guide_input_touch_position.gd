@@ -16,7 +16,7 @@ func _input(event:InputEvent) -> void:
 		return
 		
 	# update finger position
-	var position := GUIDETouchState.get_finger_position(finger_index, finger_count, exact)
+	var position := GUIDETouchState.get_finger_position(finger_index, finger_count)
 	if not position.is_finite():
 		_value = Vector3.INF
 		return
@@ -27,12 +27,11 @@ func _input(event:InputEvent) -> void:
 func is_same_as(other:GUIDEInput):
 	return other is GUIDEInputTouchPosition and \
 		other.finger_count == finger_count and \
-		other.exact == exact and \
 		other.finger_index == finger_index
 
 
 func _to_string():
-	return "(GUIDEInputTouchPosition finger_count=" + str(finger_count) + " exact=" + str(exact) + \
+	return "(GUIDEInputTouchPosition finger_count=" + str(finger_count) + \
 		" finger_index=" + str(finger_index) +")"
 
 

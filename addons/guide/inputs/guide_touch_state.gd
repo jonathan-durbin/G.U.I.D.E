@@ -47,18 +47,17 @@ static func process_input_event(event:InputEvent) -> bool:
 
 ## Gets the finger position of the finger at the given index.
 ## If finger_index is < 0, returns the average of all finger positions.
-## If exact is true, will only return a position if the amount of fingers
+## Will only return a position if the amount of fingers
 ## currently touching matches finger_count. 
 ##
 ## If no finger position can be determined, returns Vector2.INF.
-static func get_finger_position(finger_index:int, finger_count:int, exact:bool) -> Vector2:
+static func get_finger_position(finger_index:int, finger_count:int) -> Vector2:
 	# if we have no finger positions right now, we can cut it short here
 	if _finger_positions.is_empty():
 		return Vector2.INF
 
-	# If the finger count doesn't match, and we are in exact mode
-	# we have no position right now
-	if exact and _finger_positions.size() != finger_count:
+	# If the finger count doesn't match we have no position right now
+	if _finger_positions.size() != finger_count:
 		return Vector2.INF
 		
 	# if a finger index is set, use this fingers position, if available

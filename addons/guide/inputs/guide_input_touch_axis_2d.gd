@@ -8,12 +8,11 @@ func _apply_value(value:Vector2):
 func is_same_as(other:GUIDEInput):
 	return other is GUIDEInputTouchAxis2D and \
 		other.finger_count == finger_count and \
-		other.exact == exact and \
 		other.finger_index == finger_index
 
 
 func _to_string():
-	return "(GUIDEInputTouchAxis2D finger_count=" + str(finger_count) + " exact=" + str(exact) + \
+	return "(GUIDEInputTouchAxis2D finger_count=" + str(finger_count) + \
 		" finger_index=" + str(finger_index) +")"
 
 
