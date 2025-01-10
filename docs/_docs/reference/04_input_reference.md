@@ -17,13 +17,16 @@ This input takes a `GUIDEAction` and returns the current value of the action. Th
 | _Action_ | The action that the input should track. |
 
 ## Any
-This input returns `(1,0,0)` if any input is received from the selected device classes, and `(0,0,0)` otherwise. This is useful if you want to check if any input is received from a device (e.g. to switch input schemes when you detect controller input). The input has the following settings:
+This input returns `(1,0,0)` if any input of the selected types is received, and `(0,0,0)` otherwise. This is useful to switch input schemes when you detect controller input from a certain device (e.g. switch to a controller or touch input scheme when receiving controller or touch input). Can also be used to realize things like "press any key to continue". The input has the following settings:
 
-| Setting | Description                           |
-|---------|---------------------------------------|
-| _Mouse_ | Detect input from the mouse           |
-| _Joy_   | Detect input from joysticks / joypads |
-| _Key_   | Detect input from the keyboard        |
+| Setting         | Description                                   |
+|-----------------|-----------------------------------------------|
+| _Mouse Buttons_ | Detect input from mouse buttons.              |
+| _Mouse Motion_  | Detect mouse motion.                          |
+| _Joy Buttons_   | Detect input from joystick / joypad  buttons. |
+| _Joy Axes_      | Detect input from joystick / joypad axes.     |
+| _Keyboard_      | Detect input from the keyboard                |
+| _Touch_         | Detect touch input                            |
 
 ## Joy Axis 1D
 

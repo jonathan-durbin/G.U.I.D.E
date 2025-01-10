@@ -22,7 +22,6 @@
 [sub_resource type="Resource" id="Resource_pajkc"]
 script = ExtResource("7_1c4fi")
 finger_count = 1
-exact = true
 finger_index = 0
 
 [sub_resource type="Resource" id="Resource_citsh"]
@@ -67,7 +66,6 @@ input_mappings = Array[ExtResource("4_ni8em")]([SubResource("Resource_drjxq")])
 [sub_resource type="Resource" id="Resource_7c46x"]
 script = ExtResource("2_r7fg4")
 finger_count = 1
-exact = true
 finger_index = 0
 
 [sub_resource type="Resource" id="Resource_l3wvc"]
@@ -115,7 +113,6 @@ input_mappings = Array[ExtResource("4_ni8em")]([SubResource("Resource_6twam")])
 [sub_resource type="Resource" id="Resource_4nu5w"]
 script = ExtResource("2_r7fg4")
 finger_count = 3
-exact = true
 finger_index = 0
 
 [sub_resource type="Resource" id="Resource_rvgtf"]

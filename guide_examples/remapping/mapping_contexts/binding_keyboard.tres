@@ -36,9 +36,14 @@ input_mappings = Array[ExtResource("3_n037t")]([SubResource("Resource_lju6e")])
 
 [sub_resource type="Resource" id="Resource_mpqi8"]
 script = ExtResource("7_b4hkn")
+mouse_buttons = false
+mouse_movement = false
+joy_buttons = true
+joy_axes = false
+keyboard = false
+touch = false
 mouse = false
 joy = true
-keyboard = false
 
 [sub_resource type="Resource" id="Resource_4apa3"]
 script = ExtResource("4_t70fr")

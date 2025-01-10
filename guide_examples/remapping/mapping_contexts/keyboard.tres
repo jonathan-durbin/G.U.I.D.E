@@ -112,9 +112,14 @@ metadata/_guide_input_mappings_collapsed = false
 
 [sub_resource type="Resource" id="Resource_ke2lc"]
 script = ExtResource("15_51tw7")
+mouse_buttons = false
+mouse_movement = false
+joy_buttons = true
+joy_axes = false
+keyboard = false
+touch = false
 mouse = false
 joy = true
-keyboard = false
 
 [sub_resource type="Resource" id="Resource_oh8td"]
 script = ExtResource("5_d2nln")
