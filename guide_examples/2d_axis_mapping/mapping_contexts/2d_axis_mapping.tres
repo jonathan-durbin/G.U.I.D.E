@@ -15,7 +15,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_ct0te"]
 script = ExtResource("3_nlxx1")
@@ -33,14 +33,14 @@ input = SubResource("Resource_t51n6")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([SubResource("Resource_ct0te"), SubResource("Resource_qm6gq")])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
 
-[sub_resource type="Resource" id="Resource_t0nnh"]
+[sub_resource type="Resource" id="Resource_c40re"]
 script = ExtResource("2_0yrlp")
 key = 65
 shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_rkxfa"]
 script = ExtResource("3_nlxx1")
@@ -50,7 +50,7 @@ z = true
 
 [sub_resource type="Resource" id="Resource_6qgwf"]
 script = ExtResource("3_ad6sj")
-input = SubResource("Resource_t0nnh")
+input = SubResource("Resource_c40re")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([SubResource("Resource_rkxfa")])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
 
@@ -61,7 +61,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_eoiu5"]
 script = ExtResource("5_qr6a5")
@@ -73,18 +73,18 @@ input = SubResource("Resource_2t3ts")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([SubResource("Resource_eoiu5")])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
 
-[sub_resource type="Resource" id="Resource_rl2me"]
+[sub_resource type="Resource" id="Resource_lften"]
 script = ExtResource("2_0yrlp")
 key = 68
 shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_v2qov"]
 script = ExtResource("3_ad6sj")
-input = SubResource("Resource_rl2me")
+input = SubResource("Resource_lften")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
 

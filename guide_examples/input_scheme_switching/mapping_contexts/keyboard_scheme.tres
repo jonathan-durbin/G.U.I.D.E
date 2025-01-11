@@ -19,7 +19,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_8rr5k"]
 script = ExtResource("3_uaw8o")
@@ -44,7 +44,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_tu604"]
 script = ExtResource("4_hv31f")
@@ -65,7 +65,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_x4ewt"]
 script = ExtResource("3_uaw8o")
@@ -84,7 +84,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_ggp85"]
 script = ExtResource("5_v5abd")
@@ -104,7 +104,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_a515r"]
 script = ExtResource("8_enquy")
@@ -123,9 +123,14 @@ input_mappings = Array[ExtResource("5_v5abd")]([SubResource("Resource_u0geb")])
 
 [sub_resource type="Resource" id="Resource_1wnrb"]
 script = ExtResource("9_j1ko4")
+mouse_buttons = false
+mouse_movement = false
+joy_buttons = true
+joy_axes = false
+keyboard = false
+touch = false
 mouse = false
 joy = true
-keyboard = false
 
 [sub_resource type="Resource" id="Resource_i18os"]
 script = ExtResource("5_v5abd")

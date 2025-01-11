@@ -21,6 +21,7 @@ script = ExtResource("2_xu301")
 
 [sub_resource type="Resource" id="Resource_hqwk3"]
 script = ExtResource("11_j8wbm")
+relative_input = false
 
 [sub_resource type="Resource" id="Resource_wsyf2"]
 script = ExtResource("3_vy8se")
@@ -40,7 +41,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_o78ws"]
 script = ExtResource("7_668rf")
@@ -65,7 +66,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_l8svn"]
 script = ExtResource("8_o7tqa")
@@ -84,7 +85,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_ly8fj"]
 script = ExtResource("7_668rf")
@@ -105,7 +106,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_xiclq"]
 script = ExtResource("3_vy8se")

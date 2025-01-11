@@ -25,7 +25,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_jphf8"]
 script = ExtResource("3_dnh2v")
@@ -38,7 +38,7 @@ metadata/_guide_modifiers_collapsed = true
 script = ExtResource("2_o8ffe")
 action = ExtResource("1_pb347")
 input_mappings = Array[ExtResource("3_dnh2v")]([SubResource("Resource_jphf8")])
-metadata/_guide_input_mappings_collapsed = true
+metadata/_guide_input_mappings_collapsed = false
 
 [sub_resource type="Resource" id="Resource_bf80h"]
 script = ExtResource("2_wsx31")
@@ -47,7 +47,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_o2rir"]
 script = ExtResource("3_dnh2v")
@@ -59,7 +59,7 @@ triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
 script = ExtResource("2_o8ffe")
 action = ExtResource("5_jksbs")
 input_mappings = Array[ExtResource("3_dnh2v")]([SubResource("Resource_o2rir")])
-metadata/_guide_input_mappings_collapsed = true
+metadata/_guide_input_mappings_collapsed = false
 
 [sub_resource type="Resource" id="Resource_xe8bg"]
 script = ExtResource("8_04uuh")
@@ -91,7 +91,7 @@ triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
 script = ExtResource("2_o8ffe")
 action = ExtResource("13_u4d84")
 input_mappings = Array[ExtResource("3_dnh2v")]([SubResource("Resource_6q14n"), SubResource("Resource_m3jub")])
-metadata/_guide_input_mappings_collapsed = true
+metadata/_guide_input_mappings_collapsed = false
 
 [sub_resource type="Resource" id="Resource_rgf84"]
 script = ExtResource("2_wsx31")
@@ -100,7 +100,7 @@ shift = false
 control = false
 alt = false
 meta = false
-allow_additional_modifiers = false
+allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_wf4jl"]
 script = ExtResource("3_dnh2v")
@@ -112,7 +112,7 @@ triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
 script = ExtResource("2_o8ffe")
 action = ExtResource("17_yw71c")
 input_mappings = Array[ExtResource("3_dnh2v")]([SubResource("Resource_wf4jl")])
-metadata/_guide_input_mappings_collapsed = true
+metadata/_guide_input_mappings_collapsed = false
 
 [sub_resource type="Resource" id="Resource_ai4v6"]
 script = ExtResource("8_ewrgg")
@@ -147,7 +147,7 @@ triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubR
 script = ExtResource("2_o8ffe")
 action = ExtResource("21_wfbjl")
 input_mappings = Array[ExtResource("3_dnh2v")]([SubResource("Resource_00r0g")])
-metadata/_guide_input_mappings_collapsed = true
+metadata/_guide_input_mappings_collapsed = false
 
 [sub_resource type="Resource" id="Resource_w3it8"]
 script = ExtResource("8_ewrgg")
@@ -182,7 +182,7 @@ triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubR
 script = ExtResource("2_o8ffe")
 action = ExtResource("9_ciqk8")
 input_mappings = Array[ExtResource("3_dnh2v")]([SubResource("Resource_wnc21")])
-metadata/_guide_input_mappings_collapsed = true
+metadata/_guide_input_mappings_collapsed = false
 
 [sub_resource type="Resource" id="Resource_cbc1w"]
 script = ExtResource("20_226av")
@@ -218,7 +218,7 @@ triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubR
 script = ExtResource("2_o8ffe")
 action = ExtResource("9_lvx6c")
 input_mappings = Array[ExtResource("3_dnh2v")]([SubResource("Resource_v7om3")])
-metadata/_guide_input_mappings_collapsed = true
+metadata/_guide_input_mappings_collapsed = false
 
 [sub_resource type="Resource" id="Resource_2ivmb"]
 script = ExtResource("20_226av")
@@ -254,7 +254,7 @@ triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubR
 script = ExtResource("2_o8ffe")
 action = ExtResource("12_icm8e")
 input_mappings = Array[ExtResource("3_dnh2v")]([SubResource("Resource_do51u")])
-metadata/_guide_input_mappings_collapsed = true
+metadata/_guide_input_mappings_collapsed = false
 
 [resource]
 script = ExtResource("1_bycs2")
