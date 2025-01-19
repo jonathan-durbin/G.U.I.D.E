@@ -121,4 +121,22 @@ This modifier provides a virtual 2D cursor that can be controlled by any input. 
 
 
 ## Window relative
-Treats the input vector as a mouse position difference in pixels (e.g. from the _Mouse_ input) and converts it into a range from `(0,0)` to `(1,1)` relative to the current window size. Useful to get resolution-independent mouse differences. This modifier has no settings.
+Treats the input vector as a mouse position difference in pixels (e.g. from the _Mouse_ input) and converts it into a range from `(0,0)` to `(1,1)` relative to the current window size. Useful to get resolution-independent mouse differences. This modifier has no settings. 
+
+**Note**: Depending on the operating system and input device this modifier may not be required and will in fact make your input resolution-dependent when applied. 
+
+You already get resolution-independent values when:
+
+- using the mouse running on Linux
+- using the mouse running on OSX
+- using the mouse running on Windows with the mouse cursor captured
+
+In these cases, the modifier should _not_ be applied.
+
+You get resolution-dependent mouse values when:
+
+- using the mouse running on Windows with the mouse cursor visible
+- using touch input running on Android
+
+In these cases the modifier can be applied. Other combinations have not been tested, so you may need to conduct your own research here and report your findings, so they can be added to the documentation.
+
