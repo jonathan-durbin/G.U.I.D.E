@@ -207,7 +207,7 @@ func _disable_controls():
 
 ### Mapping context action priority
 
-You can enable multiple mapping contexts at the same time. This raises the question what happens, if the same action is configured in multiple mapping contexts and these mapping contexts are all active. GUIDE allows you to specify a priority when activing a mapping context. The default priority is `0`, but you can set it to any integer value:
+You can enable multiple mapping contexts at the same time. But what happens, if the same action is configured in multiple mapping contexts and these mapping contexts are all active? GUIDE allows you to specify a priority when activating a mapping context. The default priority is `0`, but you can set it to any integer value:
 
 ```gdscript
 GUIDE.enable_mapping_context(my_mapping_context, -10)
@@ -225,9 +225,11 @@ Here we have a modifier action named `spell_toggle` that is bound to the left tr
 
 ## The G.U.I.D.E debugger
 
-When designing input, it is often very useful to see what is happening with the input in real time. The G.U.I.D.E debugger allows you to see the current state of all actions and their inputs, so you can quickly see if your input is set up correctly. The G.U.I.D.E debugger is a separate scene that you can add to your game. It is recommended to put it into a separate canvas layer, but because it is a GUI control node, you can also embed it into your own debugging UI. The debugger is a full scene, not just a single node so you need to use the `Instance Child Scene` option in the editor to add it to your scene:
+When designing input, it is often very useful to see what is happening with the input in real time. The G.U.I.D.E debugger allows you to see the current state of all actions and their inputs, so you can quickly see if your input is set up correctly. It also shows the calculated priorities when actions have overlapping input. 
+
+The G.U.I.D.E debugger is a separate scene that you can add to your game. It is recommended to put it into a separate canvas layer, but because it is a GUI control node, you can also embed it into your own debugging UI. The debugger is a full scene, not just a single node so you need to use the `Instance Child Scene` option in the editor to add it to your scene:
 
 {% include video.html path="assets/img/manual/manual_add_guide_debugger.mp4" %}
 
 
-The the debugger will automatically update as mapping contexts get enabled or disabled, so all you have to do is to add it to your game and it should work without any additional configuration.
+The debugger will automatically update as mapping contexts get enabled or disabled, so all you have to do is to add it to your game and it should work without any additional configuration.

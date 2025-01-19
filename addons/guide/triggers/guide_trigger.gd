@@ -16,7 +16,7 @@ enum GUIDETriggerType {
 	# If there are more than one explicit triggers at least one must trigger
 	# for the action to trigger.
 	EXPLICIT = 1,
-	# All implicit triggers must trigger for the action to triger.
+	# All implicit triggers must trigger for the action to trigger.
 	IMPLICIT = 2,
 	# All blocking triggers prevent the action from triggering.
 	BLOCKING = 3
