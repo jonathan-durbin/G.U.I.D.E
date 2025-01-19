@@ -6,7 +6,7 @@
 script = ExtResource("1_rlep8")
 name = &""
 action_value_type = 0
-block_lower_priority_actions = false
+block_lower_priority_actions = true
 emit_as_godot_actions = false
 is_remappable = false
 display_name = ""
