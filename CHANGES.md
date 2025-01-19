@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.1.3] - 2025-01-19
+### Improved
+- The debugger now shows the action priorities which are derived from analyzing overlapping input. This can help find problems in the action mapping and also gives a bit more information about what G.U.I.D.E does internally.
+
+### Fixed
+- Chains of chorded actions are now properly handled when calculating action priority from overlapping input ([#9](https://github.com/godotneers/G.U.I.D.E/issues/9))
+- The plugin will now only register/unregister the `GUIDE` singleton when being enabled and disabled. This will avoid marking the project as modified just by loading it ([#11](https://github.com/godotneers/G.U.I.D.E/issues/11)).
+- A few small bugs in the examples have been fixed.
+
 ## [0.1.2] - 2025-01-11
 ### Breaking Changes
 - `GUIDEInputKey` now properly handles modifier keys (like shift, control, etc.). Until now, the handling of additional modifier keys had a bug that allowed you to press the key with a modifier even though _Allow additional modifiers_ was turned off. This has been fixed. However the more common use case is to ignore additional modifiers, so _Allow additional modifiers_ is now `true` by default. G.U.I.D.E cannot reliably migrate this new default for existing bindings, so if you want your existing key bindings to allow additional modifiers, you need to manually enable it for these. All new bindings will allow additional modifiers by default and you can disable this if you don't want it. 
