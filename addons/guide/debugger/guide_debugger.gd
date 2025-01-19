@@ -2,8 +2,13 @@ extends MarginContainer
 
 @onready var _actions:Container = %Actions
 @onready var _inputs:Container = %Inputs
+@onready var _priorities:Container = %Priorities
 @onready var _formatter:GUIDEInputFormatter = GUIDEInputFormatter.for_active_contexts()
 
+
+func _ready():
+	GUIDE.input_mappings_changed.connect(_update_priorities)
+	_update_priorities()
 
 func _process(delta):
 	var index:int = 0
@@ -74,3 +79,22 @@ func _cleanup(container:Container, index:int) -> void:
 		var to_free = container.get_child(index)
 		container.remove_child(to_free)		
 		to_free.queue_free()	
+
+func _update_priorities():
+	# since we don't update these per frame, we can just clear them out and 
+	# rebuild them when mapping contexts change
+	_cleanup(_priorities, 0)
+	
+	for mapping:GUIDEActionMapping in GUIDE._active_action_mappings:
+		var action := mapping.action
+		if GUIDE._actions_sharing_input.has(action):
+			var label := Label.new()
+			var names = ", ".join(GUIDE._actions_sharing_input[action].map(func(it): return it._editor_name()))
+			label.text = "[%s] > [%s]" % [action._editor_name(), names]
+			_priorities.add_child(label)			
+			
+			
+	if _priorities.get_child_count() == 0:
+		var label := Label.new()
+		label.text = "<no overlapping input>"
+		_priorities.add_child(label)
