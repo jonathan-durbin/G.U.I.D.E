@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+
+### Improved
+- Icons are now set to scale with the editor scale, so they no longer should be too small on high resolution displays.
+
 ## [0.1.3] - 2025-01-19
 ### Improved
 - The debugger now shows the action priorities which are derived from analyzing overlapping input. This can help find problems in the action mapping and also gives a bit more information about what G.U.I.D.E does internally.
