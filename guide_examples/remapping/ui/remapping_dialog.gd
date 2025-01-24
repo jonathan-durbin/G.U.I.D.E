@@ -90,8 +90,8 @@ func _fill_remappable_items(context:GUIDEMappingContext, root:Container):
 	var items := _remapper.get_remappable_items(context)
 	var section_name = ""
 	for item in items:
-		if item.action.display_category != section_name:
-			section_name = item.action.display_category
+		if item.display_category != section_name:
+			section_name = item.display_category
 			var section = binding_section_scene.instantiate()
 			root.add_child(section)
 			section.text = section_name
@@ -120,7 +120,7 @@ func _rebind_item(item:GUIDERemapper.ConfigItem):
 		device = GUIDEInputDetector.DeviceType.JOY
 
 	# detect a new input
-	_input_detector.detect(item.action.action_value_type, [device])
+	_input_detector.detect(item.value_type, [device])
 	var input = await _input_detector.input_detected
 
 	_press_prompt.visible = false
@@ -134,8 +134,8 @@ func _rebind_item(item:GUIDERemapper.ConfigItem):
 	# check for collisions 
 	var collisions := _remapper.get_input_collisions(item, input)
 		
-	# if any collision is from a non-bindable action, we cannot use this input
-	if collisions.any(func(it:GUIDERemapper.ConfigItem): return not it.action.is_remappable):
+	# if any collision is from a non-bindable mapping, we cannot use this input
+	if collisions.any(func(it:GUIDERemapper.ConfigItem): return not it.is_remappable):
 		return
 		
 	# unbind the colliding entries.

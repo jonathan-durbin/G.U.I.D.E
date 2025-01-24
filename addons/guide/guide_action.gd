@@ -4,10 +4,10 @@ class_name GUIDEAction
 extends Resource
 
 enum GUIDEActionValueType {
-	BOOL,
-	AXIS_1D,
-	AXIS_2D,
-	AXIS_3D
+	BOOL = 0,
+	AXIS_1D = 1,
+	AXIS_2D = 2,
+	AXIS_3D = 3
 }
 
 enum GUIDEActionState {

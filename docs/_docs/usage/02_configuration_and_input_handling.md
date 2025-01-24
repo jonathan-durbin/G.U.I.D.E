@@ -10,11 +10,11 @@ description: "How to configure G.U.I.D.E and how to process input in your game c
 G.U.I.D.E provides a lot of functionality and for many projects only a limited subset is actually needed. If you just want a quick introduction on how to use it check out the [quick start tutorial]({{site.baseurl}}/quick-start). 
 
 ## Actions
-Actions are the main way in which your game code will interact with G.U.I.D.E. In contrast to Godot's built-in input actions, G.U.I.D.E actions are resources of type `GUIDEAction` which you create as files in your project. To create an action, simply right-click in Godot's file system explorer and then create a new resource:
+Actions are the main way in which our game code will interact with G.U.I.D.E. In contrast to Godot's built-in input actions, G.U.I.D.E actions are resources of type `GUIDEAction` which we create as files in our project. To create an action, simply right-click in Godot's file system explorer and then create a new resource:
 
 {% include video.html path="assets/img/manual/manual_create_action.mp4" %}
 
-Actions have quite a few properties which control how they work. You can edit the action's properties by double-clicking them, then you can edit their properties in the inspector.
+Actions have quite a few properties which control how they work. We can edit the action's properties by double-clicking them, then we can edit their properties in the inspector.
 
 | Property                       | Description                                                                                                                                                                        |
 |--------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -28,19 +28,19 @@ Actions have quite a few properties which control how they work. You can edit th
 
 ### Using actions in game code
 
-Actions can be used in different ways in your game code. Before you can do that, you first need to get access to the action in your game code. The recommended way to do this is using an `@export` variable in your script. This allows you to simply drag the action you want to access into the inspector.
+Actions can be used in different ways in our game code. Before we can do that, we first need to get access to the action in our game code. The recommended way to do this is using an `@export` variable. This allows us to simply drag the action we want to access into the inspector.
 
 ```gdscript
 @export var action:GUIDEAction 
 ```
 
-Because an action is a resource, you can also get access to it by using Godot's `load` or `preload` functions, if you prefer this over an `@export`:
+Because an action is a resource, we can also get access to it by using Godot's `load` or `preload` functions:
 
 ```gdscript
 var action:GUIDEAction = load("res://path/to/my_action.tres")
 ```
 
-You can now poll the action's state in `_process` or `_physics_process`:
+We can now poll the action's state in `_process` or `_physics_process`:
 
 ```gdscript
 func _process(delta:float) -> void:
@@ -48,7 +48,7 @@ func _process(delta:float) -> void:
         print("The action was triggered!")
 ```
 
-Alternatively you can also get notified whenever the action changes its state. For this the action provides a range of [signals]({{site.baseurl}}/usage/concepts#action-signals).
+Alternatively we can also get notified whenever the action changes its state. For this the action provides a range of [signals]({{site.baseurl}}/usage/concepts#action-signals).
 
 ```gdscript
 func _ready():
@@ -58,7 +58,7 @@ func _on_action_triggered():
     print("The action was triggered")
 ```
 
-You can use whichever way works best for your project, you can also mix them. In addition to a state, each action also has a value. The type of value depends on the _Action Value Type_ you have set up when creating the action. You can access the current value of the action using the `value_xxx` properties:
+We can use whichever way works best for our project. It is also possible to mix both ways. In addition to a state, each action also has a value. The type of value depends on the _Action Value Type_ we have set up when creating the action. We can access the current value of the action using the `value_xxx` properties:
 
 ```gdscript
 # For boolean actions (on/off)
@@ -74,74 +74,74 @@ var action_value:Vector2 = action.value_axis_2d
 var action_value:Vector3 = action.value_axis_3d
 ```
 
-Note, that the value is independent from the state of an action. Even if an action is currently not triggered, it still has a value. 
+Note, that the value is independent of the state of an action. Even if an action is currently not triggered, it still has a value. 
 
 ## Mapping contexts
 
-Mapping contexts allow you to assign input to actions. Like an action, a mapping context is also just a resource of type `GUIDEMappingContext`, so you can create one similar to how you create an action:
+Mapping contexts allow us to assign input to actions. Like an action, a mapping context is also just a resource of type `GUIDEMappingContext`, so we can create one similar to how we create an action:
 
 ![Creating a mapping context]({{site.baseurl}}/assets/img/manual/quick_start_create_mapping_context.png)
 
 
-If you now double-click on the newly create mapping context, a custom editor will open and allow you to create bindings for your actions:
+If we now double-click on the newly create mapping context, a custom editor will open and allow us to create bindings for our actions:
 
 ![Mapping context editor]({{site.baseurl}}/assets/img/manual/manual_mapping_context_editor.png)
 
 ### Creating action mappings
 
-To create a new action mapping, press the _+_ button (#`1` in the image). This will create a new row for an action mapping. Start by dragging the action for which you want to create a binding into the action slot (#`2` in the image):
+To create a new action mapping, press the _+_ button (#`1` in the image). This will create a new row for an action mapping. We start by dragging the action for which we want to create a binding into the action slot (#`2` in the image):
 
 {% include video.html path="assets/img/manual/quick_start_create_action_mapping.mp4" %}
 
 ### Adding input mappings
-Now you can create input mappings for your action. In the simplest case, an action is bound to a single piece of input (e.g. key on the keyboard, a button or a stick on the controller). To bind an input to your action, press the _+_ button next to the _Input Mappings_ list (#`3` in the image). You can now bind an input to the action by clicking the pen icon (#`4` in the image). The input dialog allows you to either detect an input or manually specify one:
+Now we can create input mappings for our action. In the simplest case, an action is bound to a single piece of input (e.g. key on the keyboard, a button or a stick on the controller). To bind an input to our action, press the _+_ button next to the _Input Mappings_ list (#`3` in the image). We can now bind an input to the action by clicking the pen icon (#`4` in the image). The input dialog allows us to either detect an input or manually specify one:
 
 {% include video.html path="assets/img/manual/manual_input_dialog.mp4" %}
 
-Most of the time you will want to use the input detection as it is the quickest way to select an input. However some inputs (like _Action_ or _Any_) can only be selected manually on the right side of the dialog. Note, that the value type of the input doesn't necessarily need to match the value type of your action as the action value is calculated from the inputs (see [action value calculation](#action-value-calculation) below).
+Most of the time we want to use the input detection as it is the quickest way to select an input. However some inputs (like _Action_ or _Any_) can only be selected manually on the right side of the dialog. Note, that the value type of the input doesn't necessarily need to match the value type of our action as the action value is calculated from the inputs (see [action value calculation](#action-value-calculation) below).
 
-If you want to edit an input, you can either click the pen icon again and select a completely new input, or you can click on the input and then edit it in the inspector:
+If we want to edit an input, we can either click the pen icon again and select a completely new input, or we can click on the input and then edit it in the inspector:
 
 {% include video.html path="assets/img/manual/manual_edit_inputs.mp4" %}
 
-If you want you can also bind more than one input to the same action. The values of all inputs bound to an action will be combined into the final action value (see [action value calculation](#action-value-calculation) below).
+We can also bind more than one input to the same action. The values of all inputs bound to an action will be combined into the final action value (see [action value calculation](#action-value-calculation) below).
 
 
 ### Using actions as inputs
 
-Sometimes it is useful to use the value of one action as input for another action. For example you may want to combine WASD inputs into a single action with a 2D axis, but you still want _Left_, _Right_, _Up_ and _Down_ to be separate actions so the user can re-bind the keys for them. To do this, you can use the _Action_ input type. This allows you to select another action as input for the current action. The value of the input action will be used as the value of the current action. You can find the _Action_ input type on the right hand side of the input dialog in the _3D_ section. Once you have added the _Action_ input, click it to show it in the inspector. Then you can drag the action you want to use as input into the _Action_ field.
+Sometimes it is useful to use the value of one action as input for another action. To do this, we can use the _Action_ input type. This allows us to select another action as input for the current action. The value of the input action will be used as the value of the current action. We can find the _Action_ input type on the right hand side of the input dialog in the _3D_ section. Once we have added the _Action_ input, click it to show it in the inspector. Then we can drag the action that we want to use as input into the _Action_ field.
 
 {% include video.html path="assets/img/manual/manual_add_action_input.mp4" %}
 
 
-Note that action values are calculated in the order in which the actions are defined in the mapping context. So usually you will want to define the action that is used as input before the action that uses it as input. This also means that if you have a circular dependency between actions, then one of the actions will be calculated with the value of the other action from the previous frame. This can lead to unexpected behavior, so it is usually a good idea to avoid circular dependencies between actions.
+Note that action values are calculated in the order in which the actions are defined in the mapping context. So usually we will want to define the action that is used as input before the action that uses it as input. This also means that if we have a circular dependency between actions, then one of the actions will be calculated with the value of the other action from the previous frame. This can lead to unexpected behavior, so it is usually a good idea to avoid circular dependencies between actions.
 
 ### Adding modifiers
 
-Modifiers allow you to modify the value of an input before this value is sent to triggers and eventually your game code. For example, you can use a modifier to invert the value of an axis or to scale it. To add a modifier, click the _+_ button next to the _Modifiers_ list (#`5` in the image). You can now select a modifier from the list of available modifiers:
+Modifiers allow us to modify the value of an input before this value is sent to triggers and eventually our game code. For example, we can use a modifier to invert the value of an axis or to scale it. To add a modifier, click the _+_ button next to the _Modifiers_ list (#`5` in the image). We can now select a modifier from the list of available modifiers:
 
 {% include video.html path="assets/img/manual/manual_add_modifier.mp4" %}
 
-Many modifiers have settings that allow you to configure how the modifier works. To change the settings of a modifier, click on the modifier and then edit the settings in the inspector:
+Many modifiers have settings that allow us to configure how the modifier works. To change the settings of a modifier, click on the modifier and then edit the settings in the inspector:
 
 {% include video.html path="assets/img/manual/manual_edit_modifier.mp4" %}
 
-You can have multiple modifiers for a single input. The modifiers are applied in the order they are listed in the _Modifiers_ list. You can drag modifiers to change their order:
+We can have multiple modifiers for a single input. The modifiers are applied in the order they are listed in the _Modifiers_ list. We can drag modifiers to change their order:
 
 {% include video.html path="assets/img/manual/manual_reorder_modifiers.mp4" %}
 
 
 ### Adding triggers
 
-Triggers control whether an action is currently triggered. You can add triggers by clicking the _+_ button next to the _Triggers_ list (#`6` in the image). You can now select a trigger from the list of available triggers:
+Triggers control whether an action is currently triggered. We can add triggers by clicking the _+_ button next to the _Triggers_ list (#`6` in the image). We can now select a trigger from the list of available triggers:
 
 {% include video.html path="assets/img/manual/manual_add_trigger.mp4" %}
 
-Like inputs and modifiers, triggers can have settings that allow you to configure how the trigger works. To change the settings of a trigger, click on the trigger and then edit the settings in the inspector:
+Like inputs and modifiers, triggers can have settings that allow us to configure how the trigger works. To change the settings of a trigger, click on the trigger and then edit the settings in the inspector:
 
 {% include video.html path="assets/img/manual/manual_edit_trigger.mp4" %}
 
-For the most part you will only ever use a single trigger per input mapping. However you can have multiple triggers for a single input mapping. If more than one trigger is defined for an input mapping, then at least one of the triggers must be active for the action to be triggered. The only exception to this rule is the _Chorded action_ trigger. If you have one or more _Chorded action_ triggers, then all of them must be active for the action to be triggered. If other triggers exist in addition to the _Chorded action_ trigger, then at least one of them must be triggering as well. You can reorder triggers by dragging them in the _Triggers_ list, however this currently has no effect on the behavior of the triggers, so this feature mostly exists so you can keep your triggers organized in a way that makes sense to you.
+For the most part we will only ever use a single trigger per input mapping. However we can have multiple triggers for a single input mapping. If more than one trigger is defined for an input mapping, then at least one of the triggers must be active for the action to be triggered. The only exception to this rule is the _Chorded action_ trigger. If we have one or more _Chorded action_ triggers, then all of them must be active for the action to be triggered. If other triggers exist in addition to the _Chorded action_ trigger, then at least one of them must be triggering as well. We can reorder triggers by dragging them in the _Triggers_ list, however this currently has no effect on the behavior of the triggers, so this feature mostly exists so we can keep our triggers organized.
 
 
 All triggers have a setting called _Actuation Threshold_. This setting determines at which value a trigger will deem the input to be actuated. The trigger will take the action value and compare it with the actuation treshold. If the action value is a vector, then the length of the vector will be compared with the threshold. The value of an action is calculated from its inputs and modifiers (see [action value calculation](#action-value-calculation) below).
@@ -155,7 +155,7 @@ Each action can have multiple inputs assigned to it. This raises the question, h
 3. The values of all inputs are added together to get the final value of the action.
 
 
-For example, say you have a 2D axis action which is driven by 4 inputs, the _W_, _A_, _S_ and _D_ keys:
+For example, say we have a 2D axis action which is driven by 4 inputs, the _W_, _A_, _S_ and _D_ keys:
 
 ![Example 2D axis action]({{site.baseurl}}/assets/img/manual/manual_2d_axis_mapping.png)
 
@@ -184,11 +184,11 @@ So the final value of the action is `(-1,-1,0)`. Because the action is set to be
 
 ### Enabling and disabling mapping contexts
 
-You can define multiple mapping contexts for your game and you can enable and disable them through code while your game is running. This allows to easily implement a few things which are rather difficult to do with Godot's built-in input system. 
+We can define multiple mapping contexts for our game, and we can enable and disable them through code while our game is running. This allows us to easily implement a few things which are rather difficult to do with Godot's built-in input system. 
 
-- You can have contextual input depending on the player situation. E.g. the same controls that move the player left and right when the player is on foot, can control the steering of a car when the player is in a car.
-- You can quickly disable all input when you show a menu or a cutscene.
-- You can have different control schemes for different input devices (e.g keyboard and mouse vs. controller) and switch them dynamically when a certain input is actuated.
+- We can have contextual input depending on the player situation. E.g. the same controls that move the player left and right when the player is on foot, can control the steering of a car when the player is in a car.
+- We can quickly disable all input when we show a menu or a cutscene.
+- We can have different control schemes for different input devices (e.g keyboard and mouse vs. controller) and switch them dynamically when a certain input is actuated.
 
 
 Mapping contexts are enabled and disabled with the `GUIDE` autoload.
@@ -207,7 +207,7 @@ func _disable_controls():
 
 ### Mapping context action priority
 
-You can enable multiple mapping contexts at the same time. But what happens, if the same action is configured in multiple mapping contexts and these mapping contexts are all active? GUIDE allows you to specify a priority when activating a mapping context. The default priority is `0`, but you can set it to any integer value:
+We can enable multiple mapping contexts at the same time. But what happens, if the same action is configured in multiple mapping contexts and these mapping contexts are all active? GUIDE allows us to specify a priority when activating a mapping context. The default priority is `0`, but we can set it to any integer value:
 
 ```gdscript
 GUIDE.enable_mapping_context(my_mapping_context, -10)
@@ -225,11 +225,11 @@ Here we have a modifier action named `spell_toggle` that is bound to the left tr
 
 ## The G.U.I.D.E debugger
 
-When designing input, it is often very useful to see what is happening with the input in real time. The G.U.I.D.E debugger allows you to see the current state of all actions and their inputs, so you can quickly see if your input is set up correctly. It also shows the calculated priorities when actions have overlapping input. 
+When designing input, it is often very useful to see what is happening with the input in real time. The G.U.I.D.E debugger allows us to see the current state of all actions and their inputs, so we can quickly see if our input is set up correctly. It also shows the calculated priorities when actions have overlapping input. 
 
-The G.U.I.D.E debugger is a separate scene that you can add to your game. It is recommended to put it into a separate canvas layer, but because it is a GUI control node, you can also embed it into your own debugging UI. The debugger is a full scene, not just a single node so you need to use the `Instance Child Scene` option in the editor to add it to your scene:
+The G.U.I.D.E debugger is a separate scene that we can add to our game. It is recommended to put it into a separate canvas layer, but because it is a GUI control node, we could also embed it into a custom debugging UI. The debugger is a full scene, not just a single node so we need to use the `Instance Child Scene` option in the editor to add it to our scene:
 
 {% include video.html path="assets/img/manual/manual_add_guide_debugger.mp4" %}
 
 
-The debugger will automatically update as mapping contexts get enabled or disabled, so all you have to do is to add it to your game and it should work without any additional configuration.
+The debugger will automatically update as mapping contexts get enabled or disabled, so all we have to do is to add it to our game, and it should work without any additional configuration.

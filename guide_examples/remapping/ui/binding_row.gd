@@ -11,7 +11,7 @@ var _item:GUIDERemapper.ConfigItem
 
 func initialize(item:GUIDERemapper.ConfigItem, input:GUIDEInput):
 	_item = item
-	_action_name.text = item.action.display_name
+	_action_name.text = item.display_name
 	_item.changed.connect(_show_input)
 	_show_input(input)
 	

@@ -28,6 +28,10 @@ upper_threshold = 1.0
 
 [sub_resource type="Resource" id="Resource_gpn8l"]
 script = ExtResource("4_m37gr")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_nr3w6")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([SubResource("Resource_towa1"), ExtResource("4_qbgwt")])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
@@ -48,6 +52,10 @@ actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_f4p62"]
 script = ExtResource("4_m37gr")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_p73kx")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_uov21")])
@@ -74,6 +82,10 @@ actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_limxc"]
 script = ExtResource("4_m37gr")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_iwnk1")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_jwpon")])
@@ -94,6 +106,10 @@ actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_hf22v"]
 script = ExtResource("4_m37gr")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_tsvy3")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_qvmci")])

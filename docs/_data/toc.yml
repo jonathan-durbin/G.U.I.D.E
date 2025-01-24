@@ -13,6 +13,8 @@
       url: "usage/configuration-and-input-handling"
     - title: "Input prompts"
       url: "usage/input-prompts"
+    - title: "Remapping input"
+      url: "usage/remapping-input"
     - title: "Extending G.U.I.D.E"
       url: "usage/extending-guide"
 - title: "Reference"
