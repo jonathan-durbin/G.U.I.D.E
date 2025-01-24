@@ -193,6 +193,7 @@ func _build_interface():
         # add the display name as a label to the grid
         var name_label:Label = Label.new()
         name_label.text = item.display_name
+        grid.add_child(name_label)
 
 # This function applies the input to a label. If the input is null, it will
 # show a grayed out "Not bound" text.
