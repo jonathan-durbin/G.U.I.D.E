@@ -74,7 +74,7 @@ The first helper is the `GUIDERemapper` class, which provides a convenient inter
 Let's first create an instance of `GUIDERemapper`:
 
 ```gdscript
-var _remapper:GUIDERemapper = GUIDE.get_remapper()
+var _remapper:GUIDERemapper = GUIDERemapper.new()
 
 # The remapper needs to be initialized with _all_ mapping contexts that our 
 # game uses which contain remappable actions. We can load these in any way
