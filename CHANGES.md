@@ -6,8 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- It is now possible to override the action name and category for each input mapping, making it easier to remap actions that are mapped to multiple inputs (e.g. WASD for movement) ([#12](https://github.com/godotneers/G.U.I.D.E/issues/12)).
+
 ### Improved
 - Icons are now set to scale with the editor scale, so they no longer should be too small on high resolution displays.
+- The debugger will no longer update the UI when it is not visible. 
 
 ## [0.1.3] - 2025-01-19
 ### Improved
