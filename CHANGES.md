@@ -4,8 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
-
+## [0.2.0] - 2025-01-30 
 ### Added
 - It is now possible to override the action name and category for each input mapping, making it easier to remap actions that are mapped to multiple inputs (e.g. WASD for movement) ([#12](https://github.com/godotneers/G.U.I.D.E/issues/12)).
 - `GUIDEInputFormatter` has a new method `cleanup` which allows tearing down the icon rendering infrastructure. This is mainly useful for automated tests, to avoid spurious records of orphan nodes ([#13](https://github.com/godotneers/G.U.I.D.E/issues/13)).
