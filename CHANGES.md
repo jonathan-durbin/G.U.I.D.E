@@ -8,10 +8,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - It is now possible to override the action name and category for each input mapping, making it easier to remap actions that are mapped to multiple inputs (e.g. WASD for movement) ([#12](https://github.com/godotneers/G.U.I.D.E/issues/12)).
+- `GUIDEInputFormatter` has a new method `cleanup` which allows tearing down the icon rendering infrastructure. This is mainly useful for automated tests, to avoid spurious records of orphan nodes ([#13](https://github.com/godotneers/G.U.I.D.E/issues/13)).
 
 ### Improved
 - Icons are now set to scale with the editor scale, so they no longer should be too small on high resolution displays.
 - The debugger will no longer update the UI when it is not visible. 
+
+### Fixed
+- The icon rendering infrastructure is now properly cleaned up when disabling the plugin.
 
 ## [0.1.3] - 2025-01-19
 ### Improved

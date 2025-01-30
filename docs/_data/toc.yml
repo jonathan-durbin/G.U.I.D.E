@@ -28,3 +28,5 @@
       url: "reference/modifiers"
     - title: "Trigger reference"
       url: "reference/triggers"
+- title: "Updates & Support"
+  url: "updates-and-support"
