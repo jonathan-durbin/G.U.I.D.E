@@ -26,8 +26,10 @@ upper_threshold = 1.0
 [sub_resource type="Resource" id="Resource_tn5ov"]
 script = ExtResource("3_smvwl")
 initial_position = Vector2(0.5, 0.5)
-scale = Vector3(1, 1, 1)
+speed = Vector3(1, 1, 1)
+screen_scale = 1
 apply_delta_time = true
+scale = Vector3(1, 1, 1)
 
 [sub_resource type="Resource" id="Resource_r6xcs"]
 script = ExtResource("4_w4o86")
@@ -35,6 +37,10 @@ relative_input = false
 
 [sub_resource type="Resource" id="Resource_jede7"]
 script = ExtResource("5_ucwra")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_51lnp")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([SubResource("Resource_vtltt"), SubResource("Resource_tn5ov"), SubResource("Resource_r6xcs")])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
@@ -55,6 +61,10 @@ actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_mnbnv"]
 script = ExtResource("5_ucwra")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_5fidk")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_m13js")])

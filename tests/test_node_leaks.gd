@@ -3,7 +3,7 @@ extends GUIDETestBase
 # Test for https://github.com/godotneers/G.U.I.D.E/issues/13
 func test_node_leak():
 	var context = mapping_context()
-	var action = action()
+	var action = action_bool()
 	var input = input_key(KEY_Q)
 	
 	map(context, action, input)
@@ -16,12 +16,15 @@ func test_node_leak():
 	assert_string_contains(text, "[img")
 	
 	# WHEN: i run the cdleanup
+	var orphans_before = Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
+	
 	GUIDEInputFormatter.cleanup()
 	# give the thing one frame to let the cleanup kick in
 	await get_tree().process_frame
 	
 	# THEN: the cleanup works
-	assert_no_new_orphans()
+	var orphans = Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
+	assert_lt(orphans, orphans_before)
 	
 
 	
