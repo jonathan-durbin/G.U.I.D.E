@@ -5,8 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.3.1] - 2025-02-14
-### Fixed
-- G.U.I.D.E will now continue to process input when the tree is in pause mode ([#20](https://github.com/godotneers/G.U.I.D.E/issues/20)).
+### Breaking Changes
+- G.U.I.D.E will now continue to process input when the tree is in pause mode. Also, the debugger and all icon rendering facilities will continue to work even when the tree is paused. Technically, this should have been the behaviour from the beginning because games need to remain controllable even when paused. Since the behaviour was changed, I'm declaring this a breaking change. Please check if your game still works as expected in pause mode. If you need to disable input when the game is paused, consider calling `GUIDE.disable_mapping_context()` or add specific checks to your game code to prevent actions while the game is paused ([#20](https://github.com/godotneers/G.U.I.D.E/issues/20)).
 
 
 ## [0.3.0] - 2025-02-10
