@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.1] - 2025-02-14
+### Fixed
+- G.U.I.D.E will now continue to process input when the tree is in pause mode ([#20](https://github.com/godotneers/G.U.I.D.E/issues/20)).
+
+
 ## [0.3.0] - 2025-02-10
 ### Breaking Changes
 - `GUIDEModifierVirtualCursor` now tracks input as pixels rather than a virtual resolution independent value. This avoids the problem that the cursor movement speed is different for the x and y axes. The new implementation keeps a consistent speed on both axes. To achieve resolution independence, the modifier now has a separate setting which controls the screen scaling. Please check the [documentation](https://godotneers.github.io/G.U.I.D.E/reference/modifiers#virtual-cursor-experimental) for more information. Settings of existing projects will be migrated to the closest equivalent settings. Since the behaviour was changed, I declare this a breaking change. Please check your settings after updating and verify that the cursor behaves as expected ([#15](https://github.com/godotneers/G.U.I.D.E/issues/15)).
