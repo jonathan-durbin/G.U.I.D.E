@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [Unreleased]
+### Breaking Changes
+- Removed `get_display_categories` and `get_remappable_actions` from `GUIDEMappingContext`.  These methods were added before `GUIDERemapper` was introduced and are now obsolete. If you used these methods, switch to [using `GUIDERemapper` instead](https://godotneers.github.io/G.U.I.D.E/usage/remapping-input) ([#23](https://github.com/godotneers/G.U.I.D.E/issues/23)).
+
 
 ## [0.3.1] - 2025-02-14
 ### Breaking Changes
