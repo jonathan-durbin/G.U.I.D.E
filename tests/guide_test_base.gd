@@ -1,17 +1,15 @@
 class_name GUIDETestBase
-extends GutTest
+extends GdUnitTestSuite
 
 #------------------- Lifecycle ---------------------------------------------
 var start_frame:int = 0
 
-func after_each():
+func after_test():
 	# Clear all mapping contexts after each test
 	for context in GUIDE._active_contexts:
 		GUIDE.disable_mapping_context(context)
 
-func before_each():
-	var tst = gut._current_test
-	print("BEGIN: %s ----------------- " % gut._current_test.name )
+func before_test():
 	start_frame = Engine.get_process_frames()
 	_setup()	
 	
@@ -162,10 +160,14 @@ func tap_keys(keys:Array[Key]) -> void:
 #------------------ Custom asserts -------------------------------------------
 
 func assert_triggered(action:GUIDEAction):
-	assert_true(action.is_triggered(), "Action should be triggered but is not.")
+	assert_bool(action.is_triggered())\
+		.is_true()\
+		.append_failure_message("Action should be triggered but is not.")
 	
 func assert_not_triggered(action:GUIDEAction):
-	assert_false(action.is_triggered(), "Action should not be triggered but is.")
+	assert_bool(action.is_triggered())\
+		.is_false()\
+		.append_failure_message("Action should not be triggered but is.")
 
 
 #------------------ Other stuff -------------------------------------------
@@ -180,11 +182,14 @@ func wait_f(frames:int):
 	var start = get_f()
 	while start + frames > get_f():
 		var tree = get_tree()
-		if tree == null:
-			fail_test("Got no tree. Did you forget to add an await somewhere?")
-			return
+		assert_object(tree)\
+			.is_not_null()\
+			.append_failure_message("Got no tree. Did you forget to add an await somewhere?")
+		
 		await get_tree().process_frame
 
+func wait_seconds(seconds:float):
+	await get_tree().create_timer(seconds).timeout
 
 func print_f(text:Variant = ""):
 	print("[%s] %s" % [get_f(), text])

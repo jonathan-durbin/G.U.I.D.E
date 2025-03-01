@@ -38,8 +38,8 @@ func test_cursor_speed_is_uniform():
 	
 	# THEN
 	var value = _vc_action.value_axis_2d
-	assert_gt(value.length(), 1.0, "Cursor didn't move.")
-	assert_eq(value.x, value.y, "Cursor moved non-uniformly.")
+	assert_float(value.length()).is_greater(1.0).append_failure_message("Cursor didn't move")
+	assert_float(value.x).is_equal(value.y).append_failure_message("Cursor moved non-uniformly")
 	
 	
 func test_cursor_stays_in_frame():
@@ -47,13 +47,13 @@ func test_cursor_stays_in_frame():
 	await tap_key(KEY_A)
 	
 	# THEN i don't go further left
-	assert_eq(_vc_action.value_axis_2d, Vector2.ZERO)	
+	assert_vector(_vc_action.value_axis_2d).is_equal(Vector2.ZERO)	
 	
 	# WHEN i press up
 	await tap_key(KEY_W)
 	
 	# THEN i don't go further up
-	assert_eq(_vc_action.value_axis_2d, Vector2.ZERO)	
+	assert_vector(_vc_action.value_axis_2d).is_equal(Vector2.ZERO)	
 	
 	# WHEN I hold down and right
 	await keys_down([KEY_D, KEY_S])
@@ -65,7 +65,8 @@ func test_cursor_stays_in_frame():
 	
 	var size:Vector2 = get_window().size
 	# then I'm at the window size
-	assert_eq(_vc_action.value_axis_2d, size)
+	assert_vector(_vc_action.value_axis_2d).is_equal(size)
+	
 	
 	
 	

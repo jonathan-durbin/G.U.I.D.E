@@ -13,7 +13,7 @@ func test_node_leak():
 	# test formatting something	
 	var formatter = GUIDEInputFormatter.for_active_contexts()
 	var text = await formatter.action_as_richtext_async(action)
-	assert_string_contains(text, "[img")
+	assert_str(text).contains("[img")
 	
 	# WHEN: i run the cdleanup
 	var orphans_before = Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
@@ -24,7 +24,7 @@ func test_node_leak():
 	
 	# THEN: the cleanup works
 	var orphans = Performance.get_monitor(Performance.OBJECT_ORPHAN_NODE_COUNT)
-	assert_lt(orphans, orphans_before)
+	assert_float(orphans).is_less(orphans_before)
 	
 
 	

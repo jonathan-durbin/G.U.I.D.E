@@ -24,8 +24,9 @@ func test_pause_mode():
 	# THEN: the action is still triggered
 	assert_triggered(_action)
 	
-	
 	await key_up(KEY_Q)
+	
+	get_tree().paused = false
 	
 
 
