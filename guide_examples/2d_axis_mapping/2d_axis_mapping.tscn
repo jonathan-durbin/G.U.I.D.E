@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dvbxt8jyo8okp"]
+[gd_scene load_steps=9 format=3 uid="uid://dvbxt8jyo8okq"]
 
 [ext_resource type="Texture2D" uid="uid://byjxtsekdl8t2" path="res://guide_examples/shared/godot_logo.svg" id="1_4tef3"]
 [ext_resource type="Script" path="res://guide_examples/2d_axis_mapping/2d_axis_mapping.gd" id="1_vdstu"]
