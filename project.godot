@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="G.U.I.D.E"
-run/main_scene="res://guide_examples/touch/touch.tscn"
+run/main_scene="res://guide_examples/virtual_sticks/virtual_sticks.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -23,7 +23,6 @@ GUIDE="*res://addons/guide/guide.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
 
 [dotnet]
@@ -32,7 +31,14 @@ project/assembly_name="guide"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/guide/plugin.cfg", "res://addons/gut/plugin.cfg")
+enabled=PackedStringArray("res://addons/explore-editor-theme/plugin.cfg", "res://addons/guide/plugin.cfg", "res://addons/gdUnit4/plugin.cfg")
+
+[gdunit4]
+
+settings/test/test_lookup_folder="tests"
+ui/inspector/tree_view_mode=1
+ui/inspector/tree_sort_mode=2
+ui/toolbar/run_overall=true
 
 [input]
 
@@ -52,10 +58,6 @@ wqw={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":8,"position":Vector2(297, 40),"global_position":Vector2(303, 102),"factor":1.0,"button_index":4,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
-
-[input_devices]
-
-pointing/emulate_touch_from_mouse=true
 
 [rendering]
 
