@@ -146,6 +146,20 @@ For the most part we will only ever use a single trigger per input mapping. Howe
 
 All triggers have a setting called _Actuation Threshold_. This setting determines at which value a trigger will deem the input to be actuated. The trigger will take the action value and compare it with the actuation treshold. If the action value is a vector, then the length of the vector will be compared with the threshold. The value of an action is calculated from its inputs and modifiers (see [action value calculation](#action-value-calculation) below).
 
+### Copying modifiers and triggers
+
+Sometimes it can be useful to copy a trigger or modifier to another input mapping. We can achieve this by just dragging the modifier or trigger between input mappings. This will create a copy of the modifier or trigger (unless it is shared, see next section). Note that a modifier or trigger slot must already exist in the target input mapping for this to work. If none is there, we can just create a dummy modifier or trigger and then overwrite it.
+
+{% include video.html path="assets/img/manual/manual_copy_modifier_trigger.mp4" %}
+
+### Sharing modifiers and triggers
+
+Copying modifiers and triggers is useful when we need a quick copy to change some settings. However sometimes we don't want a copy but rather a shared instance so we can make sure the settings are the same everywhere. We can achieve this by creating the modifier or trigger as a separate resource in the file system. Then we can drag this resource into the modifier or trigger slot of the input mapping. This will create a shared instance of the modifier or trigger. If we change the settings of the shared modifier or trigger, then all input mappings that use this shared modifier or trigger will be updated as well. The sharing is indicated by a different color in the slot.
+
+{% include video.html path="assets/img/manual/manual_shared_modifier_trigger.mp4" %}
+
+**Important:** modifiers are stateless, while triggers are stateful. Because of this, G.U.I.D.E will create a duplicate of each trigger when enabling a mapping context. This is to ensure that the state of the trigger is not shared between different input mappings which would lead to unexpected behavior. This means when you change settings of a shared modifier through your game code (e.g. to enable/disable inversion of a stick) this will immediately work. However, if you change settings of a shared trigger through your game code (e.g. to change the actuation threshold or hold time) this will require that you disable and re-enable the mapping context to take effect.
+
 ### Action value calculation
 
 Each action can have multiple inputs assigned to it. This raises the question, how the final value of an action is calculated. The calculation is relatively simple:
@@ -182,6 +196,9 @@ Finally all four values are added together to get the final value of the action:
 
 So the final value of the action is `(-1,-1,0)`. Because the action is set to be a 2D axis, the final value only contains the _X_ and _Y_ components. The _Z_ component is ignored.
 
+
+
+## Using mapping contexts in the game
 ### Enabling and disabling mapping contexts
 
 We can define multiple mapping contexts for our game, and we can enable and disable them through code while our game is running. This allows us to easily implement a few things which are rather difficult to do with Godot's built-in input system. 
