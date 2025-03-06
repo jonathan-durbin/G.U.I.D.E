@@ -11,7 +11,6 @@ config_version=5
 [application]
 
 config/name="G.U.I.D.E"
-run/main_scene="res://guide_examples/virtual_sticks/virtual_sticks.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 config/icon="res://icon.svg"
 

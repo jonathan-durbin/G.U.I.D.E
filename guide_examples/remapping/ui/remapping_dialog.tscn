@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bq0w7uaotgfct"]
+[gd_scene load_steps=17 format=3 uid="uid://bq0w7uaotgfct"]
 
 [ext_resource type="Script" path="res://guide_examples/remapping/ui/remapping_dialog.gd" id="1_6hgqj"]
 [ext_resource type="Theme" uid="uid://dot0gi1yoqmrl" path="res://guide_examples/shared/ui_theme.tres" id="1_uhsj0"]
@@ -13,24 +13,8 @@
 [ext_resource type="Resource" uid="uid://3vqfs786vcsa" path="res://guide_examples/remapping/mapping_contexts/keyboard_actions/switch_to_controller.tres" id="8_lj8gw"]
 [ext_resource type="Resource" uid="uid://ce3ytxn2tcxxe" path="res://guide_examples/remapping/mapping_contexts/controller_actions/switch_to_keyboard.tres" id="9_brmt1"]
 [ext_resource type="Script" path="res://guide_examples/shared/instructions_label.gd" id="10_xsw70"]
-[ext_resource type="Script" path="res://addons/guide/inputs/guide_input_key.gd" id="11_e078a"]
 [ext_resource type="Resource" uid="uid://cfrx54l1vmjey" path="res://guide_examples/remapping/mapping_contexts/controller_actions/previous_tab.tres" id="11_uxwof"]
 [ext_resource type="Resource" uid="uid://dg1or0do0s1ad" path="res://guide_examples/remapping/mapping_contexts/controller_actions/next_tab.tres" id="12_byojv"]
-[ext_resource type="Script" path="res://addons/guide/inputs/guide_input_joy_button.gd" id="12_hftpv"]
-
-[sub_resource type="Resource" id="Resource_f3bao"]
-script = ExtResource("11_e078a")
-key = 4194305
-shift = false
-control = false
-alt = false
-meta = false
-allow_additional_modifiers = false
-
-[sub_resource type="Resource" id="Resource_twrga"]
-script = ExtResource("12_hftpv")
-button = 4
-joy_index = -1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bagfg"]
 bg_color = Color(0.266575, 0.266575, 0.266575, 1)
@@ -193,7 +177,6 @@ unique_name_in_owner = true
 editor_description = "This node has two inputs specified which count as abort for detection (Escape and Controller back button)."
 script = ExtResource("3_o0nvn")
 detection_countdown_seconds = 0.1
-abort_detection_on = Array[Resource("res://addons/guide/inputs/guide_input.gd")]([SubResource("Resource_f3bao"), SubResource("Resource_twrga")])
 
 [node name="PressPrompt" type="MarginContainer" parent="."]
 unique_name_in_owner = true

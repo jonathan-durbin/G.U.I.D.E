@@ -1,7 +1,6 @@
-[gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=33 format=3 uid="uid://dubuepcs1w17f"]
+[gd_resource type="Resource" script_class="GUIDEMappingContext" load_steps=28 format=3 uid="uid://dubuepcs1w17f"]
 
 [ext_resource type="Resource" uid="uid://bohjda85owgnc" path="res://guide_examples/remapping/mapping_contexts/controller_actions/ui_accept.tres" id="1_rokdq"]
-[ext_resource type="Script" path="res://addons/guide/inputs/guide_input_joy_button.gd" id="2_30snk"]
 [ext_resource type="Script" path="res://addons/guide/guide_input_mapping.gd" id="3_ifcmr"]
 [ext_resource type="Script" path="res://addons/guide/triggers/guide_trigger_pressed.gd" id="4_bn4su"]
 [ext_resource type="Script" path="res://addons/guide/guide_action_mapping.gd" id="5_wtinc"]
@@ -13,11 +12,6 @@
 [ext_resource type="Resource" uid="uid://dg1or0do0s1ad" path="res://guide_examples/remapping/mapping_contexts/controller_actions/next_tab.tres" id="10_5tveu"]
 [ext_resource type="Resource" uid="uid://cfrx54l1vmjey" path="res://guide_examples/remapping/mapping_contexts/controller_actions/previous_tab.tres" id="11_iu0wm"]
 
-[sub_resource type="Resource" id="Resource_uri0r"]
-script = ExtResource("2_30snk")
-button = 0
-joy_index = 0
-
 [sub_resource type="Resource" id="Resource_i518v"]
 script = ExtResource("7_ofh8l")
 actuation_threshold = 0.5
@@ -28,7 +22,6 @@ override_action_settings = false
 is_remappable = false
 display_name = ""
 display_category = ""
-input = SubResource("Resource_uri0r")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_i518v")])
 
@@ -36,11 +29,6 @@ triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubR
 script = ExtResource("5_wtinc")
 action = ExtResource("1_rokdq")
 input_mappings = Array[ExtResource("3_ifcmr")]([SubResource("Resource_kpld2")])
-
-[sub_resource type="Resource" id="Resource_lu1fr"]
-script = ExtResource("2_30snk")
-button = 6
-joy_index = 0
 
 [sub_resource type="Resource" id="Resource_oikmn"]
 script = ExtResource("7_ofh8l")
@@ -52,7 +40,6 @@ override_action_settings = false
 is_remappable = false
 display_name = ""
 display_category = ""
-input = SubResource("Resource_lu1fr")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_oikmn")])
 
@@ -91,11 +78,6 @@ script = ExtResource("5_wtinc")
 action = ExtResource("7_e2y7c")
 input_mappings = Array[ExtResource("3_ifcmr")]([SubResource("Resource_vwjgy")])
 
-[sub_resource type="Resource" id="Resource_sudy1"]
-script = ExtResource("2_30snk")
-button = 10
-joy_index = 0
-
 [sub_resource type="Resource" id="Resource_4j53a"]
 script = ExtResource("4_bn4su")
 actuation_threshold = 0.5
@@ -106,7 +88,6 @@ override_action_settings = false
 is_remappable = false
 display_name = ""
 display_category = ""
-input = SubResource("Resource_sudy1")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_4j53a")])
 
@@ -114,11 +95,6 @@ triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubR
 script = ExtResource("5_wtinc")
 action = ExtResource("10_5tveu")
 input_mappings = Array[ExtResource("3_ifcmr")]([SubResource("Resource_1g85d")])
-
-[sub_resource type="Resource" id="Resource_dkk46"]
-script = ExtResource("2_30snk")
-button = 9
-joy_index = 0
 
 [sub_resource type="Resource" id="Resource_taj0d"]
 script = ExtResource("4_bn4su")
@@ -130,7 +106,6 @@ override_action_settings = false
 is_remappable = false
 display_name = ""
 display_category = ""
-input = SubResource("Resource_dkk46")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_taj0d")])
 
