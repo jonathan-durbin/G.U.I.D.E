@@ -12,9 +12,15 @@ func after_test():
 func before_test():
 	start_frame = Engine.get_process_frames()
 	_setup()	
+	print("-----------------------------------")
 	
 func _setup():
 	pass
+
+#------------------- Tracking  ---------------------------------------------
+func track(action:GUIDEAction) -> TrackedAction:
+	return TrackedAction.new(action)	
+
 
 #------------------- Setup -------------------------------------------------
 
@@ -196,3 +202,20 @@ func print_f(text:Variant = ""):
 
 func get_f() -> int:
 	return Engine.get_process_frames() - start_frame
+
+
+class TrackedAction:
+	var action:GUIDEAction
+	var trigger_count:int = 0
+	
+	var was_triggered:bool:
+		get: return trigger_count > 0
+	
+	func _init(action:GUIDEAction):
+		action.triggered.connect(_track_trigger)	
+		
+	func _track_trigger():
+		trigger_count += 1
+		
+	func reset():
+		trigger_count = 0

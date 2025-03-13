@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## [0.4.1] - 2025-03-13
+### Fixed
+- Binding a modifier key as the key input (e.g. shift for running) will now work even if "allow additional modifiers" is set to false ([#34](https://github.com/godotneers/G.U.I.D.E/issues/34)).
+
 ## [0.4.0] - 2025-03-06
 ### Breaking Changes
 - Removed `get_display_categories` and `get_remappable_actions` from `GUIDEMappingContext`. These methods were added before `GUIDERemapper` was introduced and are now obsolete. If you used these methods, switch to [using `GUIDERemapper` instead](https://godotneers.github.io/G.U.I.D.E/usage/remapping-input) ([#23](https://github.com/godotneers/G.U.I.D.E/issues/23)).
