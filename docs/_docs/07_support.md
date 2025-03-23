@@ -19,4 +19,4 @@ At some point, support for older versions of Godot might be dropped if necessary
 
 ## Support
 
-You can report issues or ask for help in the [GitHub issue tracker](https://github.com/godotneers/G.U.I.D.E/issues). Questions about how to use the plugin are marked with the `Knowledge` label, so you can [filter](https://github.com/godotneers/G.U.I.D.E/issues?q=is%3Aissue%20label%3Aknowledge%20) for them to find answers for questions that others have asked already. 
+You can report issues or ask for help in the [GitHub issue tracker]({{site.issue_tracker}}). Questions about how to use the plugin are marked with the `Knowledge` label, so you can [filter]({{site.issue_tracker}}?q=is%3Aissue%20label%3Aknowledge%20) for them to find answers for questions that others have asked already. 

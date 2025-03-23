@@ -30,3 +30,6 @@
       url: "reference/triggers"
 - title: "Updates & Support"
   url: "updates-and-support"
+  links:
+    - title: "FAQ"
+      url: "faq"

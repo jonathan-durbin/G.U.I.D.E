@@ -25,6 +25,9 @@ baseurl: "/G.U.I.D.E" # the subpath of your site, e.g. /blog
 # This is mostly for testing
 url: "https://godotneers.github.io/" # the base hostname & protocol for your site
 
+# Issue Tracker
+issue_tracker: "https://github.com/godotneers/G.U.I.D.E/issues"
+
 # Social (First three Required)
 repo: "https://github.com/godotneers/G.U.I.D.E"
 github_user: "godotneers"

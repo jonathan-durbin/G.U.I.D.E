@@ -9,18 +9,21 @@ description: "Here you can find the installation instructions for the plugin."
 
 This plugin requires Godot 4.2.0 or later. Earlier versions of Godot 4 will not work because the plugin uses features that were introduced only in Godot 4.2.0. Godot 3 is not supported.
 
-## Installation with the Godot Asset Library
+## Installation process
+### Installation with the Godot Asset Library
 
 The easiest way to install the plugin is to use the Godot Asset Library. Search for "G.U.I.D.E" and install the plugin. You can exclude the `guide_examples` folder if you don't need the examples.
 
-## Manual installation
+### Manual installation
 
 You can also download a ZIP file of this repository and extract it, then copy the `addons/guide` folder into your project's `addons` folder.
 
+### Important steps after installation
 After you installed it, make sure you enable the plugin in the project settings:
 
 ![Enabling the plugin in the project settings]({{ site.baseurl }}/assets/img/manual/installation_enable_plugin.png)
 
+Also, please **restart the Godot editor** after enabling the plugin. This is required, because Godot usually doesn't fully pick up new plugins while it's running. If you don't restart the editor the plugin might not work correctly or not at all.
 
 ## Updating from an earlier version
 
