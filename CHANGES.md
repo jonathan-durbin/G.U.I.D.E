@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.4.2] - 2025-03-25
+### Fixed
+- G.U.I.D.E now properly detects the PlayStation DualSense controller range as PlayStation controller. A big thanks goes to [laternRaft](https://github.com/laternRaft) for submitting a PR for this and helping with testing ([#43](https://github.com/godotneers/G.U.I.D.E/pull/43)).
+
 ## [0.4.1] - 2025-03-13
 ### Fixed
 - Binding a modifier key as the key input (e.g. shift for running) will now work even if "allow additional modifiers" is set to false ([#34](https://github.com/godotneers/G.U.I.D.E/issues/34)).
