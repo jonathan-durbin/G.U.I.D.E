@@ -4,6 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.0] - 2025-04-01
+### Breaking Change
+- The `GUIDEInputDetector` now detects controller trigger buttons when looking for `BOOLEAN` input. Before it would only do this when detecting `AXIS_1D` input. Since triggers are very often used for boolean input, this behaviour was changed to keep it more in line with player expectations. If you want to keep the old behaviour, you can set the `allow_triggers_for_boolean_actions` property of `GUIDEInputDetector` to `false`. 
+
+### Added
+- `GUIDEAction` now has a new `elapsed_ratio` property which can be used to drive hold progress bars. When the mapping context is activated G.U.I.D.E will check if the action has any hold trigger bound to it and provide some information for an `elapsed_ratio` property on the action to update.  This `elapsed_ratio` will go from 0 to 1 as the hold time elapses and stay at 1 while the action is triggered. If the action has no hold trigger, then `elapsed_ratio` will stay at 0 while the action is not triggered, and go to 1 when the action is triggered ([#48](https://github.com/godotneers/G.U.I.D.E/issues/48)). 
+
+### Fixed
+- Removed a font file that was unnecessarily embedded into the mapping context editor scene, bloating its file size ([#49](https://github.com/godotneers/G.U.I.D.E/issues/49)).
+
+
 ## [0.4.2] - 2025-03-25
 ### Fixed
 - G.U.I.D.E now properly detects the PlayStation DualSense controller range as PlayStation controller. A big thanks goes to [laternRaft](https://github.com/laternRaft) for submitting a PR for this and helping with testing ([#43](https://github.com/godotneers/G.U.I.D.E/pull/43)).
