@@ -17,6 +17,8 @@
       url: "usage/remapping-input"
     - title: "Extending G.U.I.D.E"
       url: "usage/extending-guide"
+    - title: "Recipes"
+      url: "usage/recipes"
 - title: "Reference"
   url: "reference/modifiers"
   links:

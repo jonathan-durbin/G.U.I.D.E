@@ -23,7 +23,7 @@ func _play(animation:String):
 func _update_progress_bar():
 	# exceeds tap time
 	if somersault_action.elapsed_seconds > 0.1:
-		_progress_bar.value = somersault_action.elapsed_seconds
+		_progress_bar.value = somersault_action.elapsed_ratio
 		_progress_bar.visible = true
 
 func _hide_progress_bar():

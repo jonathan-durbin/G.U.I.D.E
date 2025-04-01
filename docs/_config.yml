@@ -70,6 +70,10 @@ collections:
   docs:
     output: true
     permalink: /:path
+  
+  recipes:
+    output: true
+    permalink: /:path
 
 # Defaults
 defaults:

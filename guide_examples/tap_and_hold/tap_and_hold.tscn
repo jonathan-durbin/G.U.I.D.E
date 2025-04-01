@@ -105,7 +105,7 @@ offset_left = -58.0
 offset_top = 64.0
 offset_right = 57.0
 offset_bottom = 91.0
-max_value = 0.5
+max_value = 1.0
 show_percentage = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -133,6 +133,7 @@ actions = Array[Resource("res://addons/guide/guide_action.gd")]([ExtResource("4_
 metadata/_edit_use_anchors_ = true
 
 [node name="Label" type="Label" parent="UI Layer"]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -142,10 +143,11 @@ offset_right = -57.0
 offset_bottom = 223.0
 grow_horizontal = 0
 theme = ExtResource("6_r6oud")
-text = "This demonstrates using the hold and tap triggers to bind multiple actions to the same key.  This also uses the hold action's elapsed_seconds property to drive a hold progress bar to indicate how long the key needs to be held."
+text = "This demonstrates using the hold and tap triggers to bind multiple actions to the same key.  This also uses the hold action's elapsed_ratio property to drive a hold progress bar to indicate how long the key needs to be held."
 autowrap_mode = 2
 
 [node name="Debug Layer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="GuideDebugger" parent="Debug Layer" instance=ExtResource("6_vjlt4")]
 theme = ExtResource("6_r6oud")
