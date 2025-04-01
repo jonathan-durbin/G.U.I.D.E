@@ -350,11 +350,14 @@ func _update_caches():
 		# Notify inputs that GUIDE is about to use them
 		input._begin_usage()
 	
-	# notify modifiers they will be used.
 	for mapping in _active_action_mappings:
 		for input_mapping in mapping.input_mappings:
+			# notify modifiers they will be used.
 			for modifier in input_mapping.modifiers:
 				modifier._begin_usage()
+		
+			# and copy over the hold time threshold from the mapping
+			mapping.action._trigger_hold_threshold = input_mapping._trigger_hold_threshold
 		
 	# and notify interested parties that the input mappings have changed
 	input_mappings_changed.emit()
