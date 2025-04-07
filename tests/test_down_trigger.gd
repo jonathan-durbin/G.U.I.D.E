@@ -18,13 +18,13 @@ func test_down_trigger_works_for_key_input():
 	await key_down(KEY_Q)
 
 	# THEN: the action is triggered
-	assert_triggered(_action)
+	assert_bool(_action.is_triggered()).is_true()
 	
 	# WHEN: i release the key
 	await key_up(KEY_Q)
 	
 	# THEN: the action is not triggered anymore
-	assert_not_triggered(_action)
+	assert_bool(_action.is_triggered()).is_false()
 	
 
 

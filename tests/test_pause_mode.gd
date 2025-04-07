@@ -22,7 +22,7 @@ func test_pause_mode():
 	await key_down(KEY_Q)
 
 	# THEN: the action is still triggered
-	assert_triggered(_action)
+	await assert_triggered(_action)
 	
 	await key_up(KEY_Q)
 	

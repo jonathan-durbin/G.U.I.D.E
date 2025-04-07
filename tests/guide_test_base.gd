@@ -17,11 +17,6 @@ func before_test():
 func _setup():
 	pass
 
-#------------------- Tracking  ---------------------------------------------
-func track(action:GUIDEAction) -> TrackedAction:
-	return TrackedAction.new(action)	
-
-
 #------------------- Setup -------------------------------------------------
 
 func mapping_context() -> GUIDEMappingContext:
@@ -32,6 +27,7 @@ func action(name:String, value_type:GUIDEAction.GUIDEActionValueType) -> GUIDEAc
 	var result := GUIDEAction.new()
 	result.name = name
 	result.action_value_type = value_type
+	monitor_signals(result)
 	return result
 
 
@@ -53,12 +49,19 @@ func action_3d(name:String = "action") -> GUIDEAction:
 func input_action(action:GUIDEAction) -> GUIDEInputAction:
 	var result := GUIDEInputAction.new()
 	result.action = action
+	monitor_signals(result)
 	return result
+	
 	
 	
 func input_key(key:Key) -> GUIDEInputKey:
 	var result := GUIDEInputKey.new()
 	result.key = key
+	return result
+	
+	
+func input_any() -> GUIDEInputAny:
+	var result := GUIDEInputAny.new()
 	return result
 
 	
@@ -121,6 +124,31 @@ func map(context:GUIDEMappingContext, action:GUIDEAction, input:GUIDEInput, \
 	
 #------------------ Input simulation ----------------------------------------
 
+func mouse_down(button:MouseButton, wait:bool =  true) -> void:
+	var input := InputEventMouseButton.new()
+	input.button_index = button
+	input.pressed= true
+	Input.parse_input_event(input)
+	print_f("Mouse down %s" % button)
+	if wait:
+		await wait_f(2)
+
+
+func mouse_up(button:MouseButton, wait:bool =  true) -> void:
+	var input = InputEventMouseButton.new()
+	input.button_index = button
+	input.pressed= false
+	Input.parse_input_event(input)
+	print_f("Mouse up %s" % button)
+	if wait:
+		await wait_f(2)
+
+
+func tap_mouse(button:MouseButton) -> void:
+	await mouse_down(button)
+	await mouse_up(button)		
+
+		
 func key_down(key:Key, wait:bool = true) -> void:
 	var input = InputEventKey.new()
 	input.physical_keycode = key
@@ -162,18 +190,80 @@ func tap_key(key:Key) -> void:
 func tap_keys(keys:Array[Key]) -> void:
 	await keys_down(keys)
 	await keys_up(keys)
+	
+func mouse_move(delta:Vector2, wait:bool = true) -> void:
+	var event := InputEventMouseMotion.new()
+	event.relative = delta
+	Input.parse_input_event(event)
+	if wait:
+		await wait_f(2)
+
+func joy_button_down(button:JoyButton, wait:bool = true) -> void:
+	var input := InputEventJoypadButton.new()
+	input.button_index = button
+	input.pressed = true
+	Input.parse_input_event(input)
+	print_f("Joy button down %s" % button)
+	if wait:
+		await wait_f(2)
+	
+func joy_button_up(button:JoyButton, wait:bool = true) -> void:
+	var input := InputEventJoypadButton.new()
+	input.button_index = button
+	input.pressed = false
+	Input.parse_input_event(input)
+	print_f("Joy button up %s" % button)
+	if wait:
+		await wait_f(2)
+		
+func tap_joy_button(button:JoyButton) -> void:
+	await joy_button_down(button)
+	await joy_button_up(button)
+	
+	
+func joy_axis(axis:JoyAxis, value:float, wait:bool = true) -> void:
+	var input := InputEventJoypadMotion.new()
+	input.axis = axis
+	input.axis_value = value
+	Input.parse_input_event(input)
+	print_f("Joy axis %s" % axis)
+	if wait:
+		await wait_f(2)
+		
+func finger_down(index:int, position:Vector2, wait:bool = true) -> void:
+	var input := InputEventScreenTouch.new()
+	input.index = index
+	input.pressed = true
+	input.position = position
+	Input.parse_input_event(input)
+	print_f("Finger down %s" % index)
+	if wait:
+		await wait_f(2)
+		
+func finger_up(index:int, wait:bool = true) -> void:
+	var input := InputEventScreenTouch.new()
+	input.index = index
+	input.pressed = false
+	Input.parse_input_event(input)
+	print_f("Finger up %s" % index)
+	if wait:
+		await wait_f(2)
+		
+func tap_finger(index:int, position:Vector2) -> void:
+	await finger_down(index, position)
+	await finger_up(index)
 
 #------------------ Custom asserts -------------------------------------------
 
 func assert_triggered(action:GUIDEAction):
-	assert_bool(action.is_triggered())\
-		.is_true()\
-		.append_failure_message("Action should be triggered but is not.")
+	await assert_signal(action) \
+		.append_failure_message("Action should be triggered but is not.") \
+		.is_emitted("triggered")
 	
 func assert_not_triggered(action:GUIDEAction):
-	assert_bool(action.is_triggered())\
-		.is_false()\
-		.append_failure_message("Action should not be triggered but is.")
+	await assert_signal(action) \
+		.append_failure_message("Action should not be triggered but is.") \
+		.is_not_emitted("triggered")
 
 
 #------------------ Other stuff -------------------------------------------
@@ -204,18 +294,3 @@ func get_f() -> int:
 	return Engine.get_process_frames() - start_frame
 
 
-class TrackedAction:
-	var action:GUIDEAction
-	var trigger_count:int = 0
-	
-	var was_triggered:bool:
-		get: return trigger_count > 0
-	
-	func _init(action:GUIDEAction):
-		action.triggered.connect(_track_trigger)	
-		
-	func _track_trigger():
-		trigger_count += 1
-		
-	func reset():
-		trigger_count = 0

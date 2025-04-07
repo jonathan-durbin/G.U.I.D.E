@@ -13,13 +13,11 @@ func test_modifiers(modifier:int, test_parameters = [[KEY_SHIFT], [KEY_CTRL], [K
 	GUIDE.enable_mapping_context(mc)
 	
 	# WHEN
-	await key_down(modifier)
+	await tap_key(modifier)
 	
 	# THEN
-	assert_triggered(action)
+	await assert_triggered(action)
 	
-
-	await key_up(modifier)
 
 # If bind something to a key and the modifier is down that is disallowed
 # the action is not triggered.
@@ -33,16 +31,15 @@ func test_disallowed_modifiers_prevent_action():
 	
 	GUIDE.enable_mapping_context(mc)
 	
-	var tracked := track(action)
 	# WHEN
 	await tap_keys([KEY_CTRL, KEY_SHIFT, KEY_A])
 	
 	# THEN - not triggered because shift was down in addition to ctrl
-	assert_bool(tracked.was_triggered).is_false()
+	await assert_not_triggered(action)
 	
 	# WHEN
 	await tap_keys([KEY_CTRL, KEY_A])
 	
 	# THEN - triggered because only ctrl + a were down
-	assert_bool(tracked.was_triggered).is_true()
+	await assert_triggered(action)
 

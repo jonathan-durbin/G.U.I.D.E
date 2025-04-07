@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.1] - 2025-04-07
+### Improved
+- `GUIDEInputAny` now has settings to determine minimal mouse and joypad axis motion to be considered as input. This is useful to avoid accidental input when the mouse or joypad only moved slightly ([#26](https://github.com/godotneers/G.U.I.D.E/issues/26), [#52](https://github.com/godotneers/G.U.I.D.E/issues/52)). 
+
 ## [0.5.0] - 2025-04-01
 ### Breaking Change
 - The `GUIDEInputDetector` now detects controller trigger buttons when looking for `BOOLEAN` input. Before it would only do this when detecting `AXIS_1D` input. Since triggers are very often used for boolean input, this behaviour was changed to keep it more in line with player expectations. If you want to keep the old behaviour, you can set the `allow_triggers_for_boolean_actions` property of `GUIDEInputDetector` to `false`. 
