@@ -69,6 +69,12 @@ func input_mouse_axis2d() -> GUIDEInputMouseAxis2D:
 	return GUIDEInputMouseAxis2D.new()
 
 	
+func input_joy_axis1d(axis:JoyAxis) -> GUIDEInputJoyAxis1D:
+	var result := GUIDEInputJoyAxis1D.new()
+	result.axis = axis
+	return result
+	
+
 func modifier_virtual_cursor(initial_position:Vector2 = Vector2(0.5, 0.5), \
 		speed:Vector3=Vector3.ONE, \
 		screen_scale:GUIDEModifierVirtualCursor.ScreenScale = GUIDEModifierVirtualCursor.ScreenScale.LONGER_AXIS, \
@@ -91,6 +97,19 @@ func modifier_input_swizzle(operation:GUIDEModifierInputSwizzle.GUIDEInputSwizzl
 	
 func modifier_negate(x:bool = true, y:bool = true, z:bool = true) -> GUIDEModifierNegate:
 	var result := GUIDEModifierNegate.new()
+	result.x = x
+	result.y = y
+	result.z = z
+	return result
+
+	
+func modifier_map_range(imin:float, imax:float, omin:float, omax:float, x:bool = true, y:bool = true, z:bool = true) -> \
+	GUIDEModifierMapRange:
+	var result := GUIDEModifierMapRange.new()
+	result.input_min = imin
+	result.input_max = imax
+	result.output_min = omin
+	result.output_max = omax
 	result.x = x
 	result.y = y
 	result.z = z
