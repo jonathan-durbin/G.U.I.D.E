@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.2] - 2025-04-14
+### Fixed
+- The _Remap range_ modifier now properly works when the output range is descending and clamp is enabled. Previously this would always return the left end of the output range ([#53](https://github.com/godotneers/G.U.I.D.E/issues/53)). 
+
 ## [0.5.1] - 2025-04-07
 ### Improved
 - `GUIDEInputAny` now has settings to determine minimal mouse and joypad axis motion to be considered as input. This is useful to avoid accidental input when the mouse or joypad only moved slightly ([#26](https://github.com/godotneers/G.U.I.D.E/issues/26), [#52](https://github.com/godotneers/G.U.I.D.E/issues/52)). 
