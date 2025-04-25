@@ -52,6 +52,12 @@ func _needs_reset() -> bool:
 	return true
 
 func _input(event:InputEvent):
+	# if the input was already actuated this frame, remain
+	# actuated, even if more input events come in. Input will
+	# reset at the end of the frame.
+	if not _value.is_zero_approx():
+		return
+	
 	if mouse_buttons and event is InputEventMouseButton:
 		_value = Vector3.RIGHT
 		return

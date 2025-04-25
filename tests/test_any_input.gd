@@ -117,3 +117,19 @@ func test_any_input_works_with_touch():
 	
 	# THEN: the action is triggered
 	await assert_triggered(_action)
+	
+func test_any_input_handles_queuing_input_correctly():
+	var input := input_any()
+	input.joy_buttons = true
+	
+	map(_context, _action, input)
+	GUIDE.enable_mapping_context(_context)
+	
+	# when I actuate a button (and not wait)
+	joy_button_down(JOY_BUTTON_A, false)
+	
+	# and and axis aftwards
+	await joy_axis(JOY_AXIS_LEFT_X, 0.1, true) 
+	
+	# then the action is still triggered
+	await assert_triggered(_action)
