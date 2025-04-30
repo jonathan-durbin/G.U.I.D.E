@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+### Improved
+- The LICENSE file is now part of the packaged add-on. A big thanks goes to [Simply BLG](https://github.com/SimplyBLGDev) for submitting a PR for this!
+
+
 ## [0.5.3] - 2025-04-25
 ### Fixed
 - The _Any_ input now properly actuates, if more than one watched input source actuates during the frame in any order ([#57](https://github.com/godotneers/G.U.I.D.E/issues/57)).
