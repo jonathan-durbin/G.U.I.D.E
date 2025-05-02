@@ -4,10 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
-### Improved
-- The LICENSE file is now part of the packaged add-on. A big thanks goes to [Simply BLG](https://github.com/SimplyBLGDev) for submitting a PR for this!
+## [0.6.0] - 2025-05-02
+### Breaking Changes
+- The input collection system has received a major overhaul. G.U.I.D.E now uses a centralized input state from which all built-in `GUIDEInput` get updates. This makes the whole input collection a lot more efficient. Before each input event would be sent to each currently active `GUIDEInput`. Now the input is sent to a single collector which notifies each `GUIDEInput` about events that they have subscribed to. This significantly reduces the amount of work that needs to be done for each processed input. In addition to that, it allows for efficient querying of the current input state, so inputs like `GUIDEInputKey` can now work with a lot less calls into the engine. Another benefit is that input state is kept in a central place even when `GUIDEInput`s are deactivated. This allows a smooth change of mapping contexts without losing the current input state. Finally, this is some groundwork required for virtual joysticks which will be added in a future version.
+- `GUIDEInput` no longer have an `_input` method as raw input is now handled in `GUIDEInputState`. Instead `GUIDEInput` now subscribes to signals in `GUIDEInputState`. If you have written your own `GUIDEInput`, this will affect you. Check the [documentation](https://godotneers.github.io/G.U.I.D.E/usage/extending-guide#creating-custom-inputs) for more information on how custom inputs now work. 
+- Input is now no longer reset when mapping contexts are swapped out. So if you have two mapping contexts both listening for the key `W` to be pressed down, and you switch from one to the other while the key is pressed down, then the input previously would reset and the player would have to release and press the `W` key again for it to be detected. This is especially annoying in games where you have to hold a key to move or perform an action. Now the input will be kept active and the player can continue to use it without having to press the key again. Since this changes the behaviour of how input is reacting, I declare this a breaking change. If you have mapping contexts which share the same input, carefully check if things still work as intended. You may need to change trigger types (e.g. from _Pressed_ to _Released_) to prevent unwanted input ([#61](https://github.com/godotneers/G.U.I.D.E/issues/61)).
 
+### Improved
+- `GUIDEInputDetector` now automatically disables all mapping contexts when detecting input and restores them afterwards. This avoids accidentally triggering actions while detecting input and until now needed to be done manually. 
+- The LICENSE file is now part of the packaged add-on. A big thanks goes to [Simply BLG](https://github.com/SimplyBLGDev) for submitting a PR for this!
+- The test suite has received a good amount of work. It is still not where it could be, but a nice improvement over the previous version. 
 
 ## [0.5.3] - 2025-04-25
 ### Fixed

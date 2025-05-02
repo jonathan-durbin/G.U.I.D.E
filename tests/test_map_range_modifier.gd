@@ -10,7 +10,7 @@ func _setup():
 	
 	
 func test_modifier_works_if_both_ranges_are_ascending():
-	var input := input_joy_axis1d(JOY_AXIS_LEFT_X)
+	var input := input_joy_axis_1d(JOY_AXIS_LEFT_X)
 	var modifier := modifier_map_range(-1, 1, 0, 100)
 	map(_context, _action, input, [modifier])
 	GUIDE.enable_mapping_context(_context)
@@ -27,7 +27,7 @@ func test_modifier_works_if_both_ranges_are_ascending():
 
 	
 func test_modifier_works_if_output_range_is_descending():
-	var input := input_joy_axis1d(JOY_AXIS_LEFT_X)
+	var input := input_joy_axis_1d(JOY_AXIS_LEFT_X)
 	var modifier := modifier_map_range(-1, 1, 100, 0)
 	map(_context, _action, input, [modifier])
 	GUIDE.enable_mapping_context(_context)
@@ -44,7 +44,7 @@ func test_modifier_works_if_output_range_is_descending():
 	
 
 func test_modifier_works_if_input_range_is_descending():
-	var input := input_joy_axis1d(JOY_AXIS_LEFT_X)
+	var input := input_joy_axis_1d(JOY_AXIS_LEFT_X)
 	var modifier := modifier_map_range(1, -1, 0, 100)
 	map(_context, _action, input, [modifier])
 	GUIDE.enable_mapping_context(_context)
@@ -61,7 +61,7 @@ func test_modifier_works_if_input_range_is_descending():
 	
 
 func test_modifier_works_if_both_ranges_are_descending():
-	var input := input_joy_axis1d(JOY_AXIS_LEFT_X)
+	var input := input_joy_axis_1d(JOY_AXIS_LEFT_X)
 	var modifier := modifier_map_range(1, -1, 100, 0)
 	map(_context, _action, input, [modifier])
 	GUIDE.enable_mapping_context(_context)
@@ -78,7 +78,7 @@ func test_modifier_works_if_both_ranges_are_descending():
 
 	
 func test_modifier_works_with_purely_negative_ranges():
-	var input := input_joy_axis1d(JOY_AXIS_LEFT_X)
+	var input := input_joy_axis_1d(JOY_AXIS_LEFT_X)
 	var modifier := modifier_map_range(-2, -1, -100, -50)
 	map(_context, _action, input, [modifier])
 	GUIDE.enable_mapping_context(_context)

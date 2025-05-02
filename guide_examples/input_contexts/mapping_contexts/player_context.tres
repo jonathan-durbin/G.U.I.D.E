@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://addons/guide/guide_input_mapping.gd" id="5_1myws"]
 [ext_resource type="Script" path="res://addons/guide/guide_action_mapping.gd" id="6_h3mfx"]
 [ext_resource type="Resource" uid="uid://crjkk2edn8g8k" path="res://guide_examples/input_contexts/mapping_contexts/player_actions/use.tres" id="7_dx1om"]
-[ext_resource type="Script" path="res://addons/guide/triggers/guide_trigger_pressed.gd" id="8_ofbdf"]
+[ext_resource type="Script" path="res://addons/guide/triggers/guide_trigger_released.gd" id="8_hlvtj"]
 
 [sub_resource type="Resource" id="Resource_5yf1p"]
 script = ExtResource("2_xomf3")
@@ -31,6 +31,10 @@ z = true
 
 [sub_resource type="Resource" id="Resource_pia7e"]
 script = ExtResource("5_1myws")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_5yf1p")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([SubResource("Resource_vo6fb"), SubResource("Resource_ixhgx")])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
@@ -50,6 +54,10 @@ order = 0
 
 [sub_resource type="Resource" id="Resource_s1oiy"]
 script = ExtResource("5_1myws")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_a11mt")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([SubResource("Resource_6ecpg")])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
@@ -71,6 +79,10 @@ z = true
 
 [sub_resource type="Resource" id="Resource_4dh7v"]
 script = ExtResource("5_1myws")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_m84eo")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([SubResource("Resource_qn63o")])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
@@ -86,6 +98,10 @@ allow_additional_modifiers = false
 
 [sub_resource type="Resource" id="Resource_hvhr4"]
 script = ExtResource("5_1myws")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_njvt5")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
@@ -104,15 +120,19 @@ alt = false
 meta = false
 allow_additional_modifiers = false
 
-[sub_resource type="Resource" id="Resource_au8dg"]
-script = ExtResource("8_ofbdf")
+[sub_resource type="Resource" id="Resource_ocal3"]
+script = ExtResource("8_hlvtj")
 actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_o528y"]
 script = ExtResource("5_1myws")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_t3oa4")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
-triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_au8dg")])
+triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_ocal3")])
 
 [sub_resource type="Resource" id="Resource_0a33p"]
 script = ExtResource("6_h3mfx")

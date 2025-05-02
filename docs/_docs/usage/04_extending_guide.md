@@ -22,13 +22,6 @@ G.U.I.D.E can accept any `Vector3` as input, no matter where it comes from. So y
 class_name MyCustomInput
 extends GUIDEInput
 
-# This function will be called whever Godot detects new input.
-func _input(event:InputEvent):
-    # update the _value property when you would like the
-    # change the input value. Which value you set, depends
-    # on how the input should work
-    _value = Vector3(0, 0, 1)
-
 # This function allows G.U.I.D.E to decide whether this input instance
 # is the same as another input. This is important to implement because
 # it allows G.U.I.D.E to deduplicate inputs that are shared between actions
@@ -61,11 +54,31 @@ G.U.I.D.E should automatically find your new input and will offer it in the inpu
 
 When a mapping context is activated, G.U.I.D.E will extract all used inputs from this mapping context and will instantiate one instance of each unique input. E.g. if we have two actions that check for the `A` key on the keyboard, only one instance of `GUIDEInputKey` checking for `A` will be created. This simplifies overlap detection and also improves performance. This is also why implementing the `_is_same_as` function is required.
 
-After that, the `_begin_usage` function is called on the input. Custom inputs can override this to implement some necessary setup operations or set an initial input value. 
+After that, the `_begin_usage` function is called on the input. Custom inputs can override this to implement some necessary setup operations or set an initial input value. Most built-in inputs use this to subscribe to G.U.I.D.E's globally managed input state, which is available in the `_state` variable. Your custom input can of course get the input events from anywhere else, but it is recommended to use the `_state` variable for any Godot input events, as this is the most efficient way to get input device updates.
 
-Now whenever input events are detected, G.U.I.D.E will feed them to the `_input` method of all currently active inputs. The inputs can now decide if and how this changes their `_value`. After the inputs are updated, G.U.I.D.E will then read the updated `_value`s and updates the action values and triggers. 
+```gdscript
+func _begin_usage() -> void:
+    # subscribe to G.U.I.D.E's input state
+    _state.joy_button_state_changed.connect(_on_joy_button_state_changed)
+    # make sure to set the initial value
+    _on_joy_button_state_changed()
 
-If mapping contexts are changed and an input is no longer needed, G.U.I.D.E will destroy the instance and no longer call it. Before the input is destroyed, G.U.I.D.E calls `_end_usage`. This can be overridden by custom inputs to perform any cleanup operations.
+func _on_joy_button_state_changed() -> void:
+   if _state.is_joy_button_pressed(_joy_index, _joy_button):
+       _value = Vector3(1, 0, 0)  # set the input value to pressed
+   else:
+       _value = Vector3.ZERO  # set the input value to not pressed
+```
+
+Now whenever input events are detected, `GUIDEInputState` will notify the input about relevant events. The inputs can now decide if and how this changes their `_value`. After the inputs are updated, G.U.I.D.E will then read the updated `_value`s and updates the action values and triggers. 
+
+If mapping contexts are changed and an input is no longer needed, G.U.I.D.E will destroy the instance and no longer call it. Before the input is destroyed, G.U.I.D.E calls `_end_usage`. This can be overridden by custom inputs to perform any cleanup operations, such as unsubscribing from signals:
+
+```gdscript
+func _end_usage() -> void:
+    # unsubscribe from G.U.I.D.E's input state
+    _state.joy_button_state_changed.disconnect(_on_joy_button_state_changed)
+```
 
 ### Resetting input
 

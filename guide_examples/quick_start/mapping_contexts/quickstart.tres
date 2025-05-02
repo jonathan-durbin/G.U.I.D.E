@@ -31,6 +31,10 @@ order = 0
 
 [sub_resource type="Resource" id="Resource_cgtrg"]
 script = ExtResource("5_1m2pq")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_f0kb3")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([SubResource("Resource_fvwu2"), SubResource("Resource_xg24o")])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
@@ -50,6 +54,10 @@ order = 0
 
 [sub_resource type="Resource" id="Resource_o72ru"]
 script = ExtResource("5_1m2pq")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_i7s5n")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([SubResource("Resource_6l7af")])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
@@ -71,6 +79,10 @@ z = true
 
 [sub_resource type="Resource" id="Resource_3xdyg"]
 script = ExtResource("5_1m2pq")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_4kbei")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([SubResource("Resource_t12km")])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
@@ -86,6 +98,10 @@ allow_additional_modifiers = true
 
 [sub_resource type="Resource" id="Resource_fhxmh"]
 script = ExtResource("5_1m2pq")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_uld1v")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([])
@@ -110,6 +126,10 @@ actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_dq2sf"]
 script = ExtResource("5_1m2pq")
+override_action_settings = false
+is_remappable = false
+display_name = ""
+display_category = ""
 input = SubResource("Resource_cl30n")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
 triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_31mjc")])

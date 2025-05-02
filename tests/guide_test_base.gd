@@ -11,6 +11,7 @@ func after_test():
 
 func before_test():
 	start_frame = Engine.get_process_frames()
+	GUIDE._input_state._clear()
 	_setup()	
 	print("-----------------------------------")
 	
@@ -23,6 +24,7 @@ func mapping_context() -> GUIDEMappingContext:
 	return GUIDEMappingContext.new()
 
 
+@warning_ignore("shadowed_variable_base_class")
 func action(name:String, value_type:GUIDEAction.GUIDEActionValueType) -> GUIDEAction:
 	var result := GUIDEAction.new()
 	result.name = name
@@ -31,21 +33,26 @@ func action(name:String, value_type:GUIDEAction.GUIDEActionValueType) -> GUIDEAc
 	return result
 
 
+@warning_ignore("shadowed_variable_base_class")
 func action_bool(name:String = "action") -> GUIDEAction:
 	return action(name, GUIDEAction.GUIDEActionValueType.BOOL)
 
 
+@warning_ignore("shadowed_variable_base_class")
 func action_1d(name:String = "action") -> GUIDEAction:
 	return action(name, GUIDEAction.GUIDEActionValueType.AXIS_1D)
 
 
+@warning_ignore("shadowed_variable_base_class")
 func action_2d(name:String = "action") -> GUIDEAction:
 	return action(name, GUIDEAction.GUIDEActionValueType.AXIS_2D)
 
 
+@warning_ignore("shadowed_variable_base_class")
 func action_3d(name:String = "action") -> GUIDEAction:
 	return action(name, GUIDEAction.GUIDEActionValueType.AXIS_3D)
 
+@warning_ignore("shadowed_variable")
 func input_action(action:GUIDEAction) -> GUIDEInputAction:
 	var result := GUIDEInputAction.new()
 	result.action = action
@@ -64,17 +71,57 @@ func input_any() -> GUIDEInputAny:
 	var result := GUIDEInputAny.new()
 	return result
 
-	
-func input_mouse_axis2d() -> GUIDEInputMouseAxis2D:
+func input_mouse_button(button:MouseButton = MOUSE_BUTTON_LEFT) -> GUIDEInputMouseButton:	
+	var result:GUIDEInputMouseButton = GUIDEInputMouseButton.new()
+	result.button = button
+	return result
+
+func input_mouse_axis_1d(axis:GUIDEInputMouseAxis1D.GUIDEInputMouseAxis) -> GUIDEInputMouseAxis1D:	
+	var result := GUIDEInputMouseAxis1D.new()
+	result.axis = axis
+	return result
+
+func input_mouse_axis_2d() -> GUIDEInputMouseAxis2D:
 	return GUIDEInputMouseAxis2D.new()
 
 	
-func input_joy_axis1d(axis:JoyAxis) -> GUIDEInputJoyAxis1D:
+func input_joy_button(button:JoyButton) -> GUIDEInputJoyButton:
+	var result := GUIDEInputJoyButton.new()
+	result.button = button
+	return result
+
+func input_joy_axis_1d(axis:JoyAxis) -> GUIDEInputJoyAxis1D:
 	var result := GUIDEInputJoyAxis1D.new()
 	result.axis = axis
 	return result
 	
+func input_joy_axis_2d(x:JoyAxis, y:JoyAxis) -> GUIDEInputJoyAxis2D:
+	var result := GUIDEInputJoyAxis2D.new()
+	result.x = x
+	result.y = y
+	return result
+	
+func input_touch_axis_1d(axis:GUIDEInputTouchAxis1D.GUIDEInputTouchAxis) -> GUIDEInputTouchAxis1D:
+	var result := GUIDEInputTouchAxis1D.new()
+	result.axis = axis
+	return result
+	
+func input_touch_axis_2d() -> GUIDEInputTouchAxis2D:
+	return GUIDEInputTouchAxis2D.new()
+	
 
+func input_touch_position(index:int = 0, finger_count:int = 1)-> GUIDEInputTouchPosition:
+	var result := GUIDEInputTouchPosition.new()
+	result.finger_count = finger_count
+	result.finger_index = index
+	return result
+	
+func input_touch_distance()-> GUIDEInputTouchDistance:
+	return GUIDEInputTouchDistance.new()
+
+func input_touch_angle()-> GUIDEInputTouchAngle:
+	return GUIDEInputTouchAngle.new()
+	
 func modifier_virtual_cursor(initial_position:Vector2 = Vector2(0.5, 0.5), \
 		speed:Vector3=Vector3.ONE, \
 		screen_scale:GUIDEModifierVirtualCursor.ScreenScale = GUIDEModifierVirtualCursor.ScreenScale.LONGER_AXIS, \
@@ -119,6 +166,7 @@ func trigger_down() -> GUIDETriggerDown:
 	return GUIDETriggerDown.new()
 	
 		
+@warning_ignore("shadowed_variable")
 func map(context:GUIDEMappingContext, action:GUIDEAction, input:GUIDEInput, \
 	modifiers:Array[GUIDEModifier] = [], triggers:Array[GUIDETrigger] = []):
 	var action_mapping:GUIDEActionMapping = null
@@ -213,6 +261,7 @@ func tap_keys(keys:Array[Key]) -> void:
 func mouse_move(delta:Vector2, wait:bool = true) -> void:
 	var event := InputEventMouseMotion.new()
 	event.relative = delta
+	print_f("Mouse move %s" % delta)
 	Input.parse_input_event(event)
 	if wait:
 		await wait_f(2)
@@ -271,14 +320,25 @@ func finger_up(index:int, wait:bool = true) -> void:
 func tap_finger(index:int, position:Vector2) -> void:
 	await finger_down(index, position)
 	await finger_up(index)
+	
+func finger_move(index:int, to:Vector2, wait:bool = true) -> void:
+	var input := InputEventScreenDrag.new()
+	input.index = index
+	input.position = to
+	print_f("Finger move %s" % to)
+	Input.parse_input_event(input)
+	if wait:
+		await wait_f(2)
 
 #------------------ Custom asserts -------------------------------------------
 
+@warning_ignore("shadowed_variable")
 func assert_triggered(action:GUIDEAction):
 	await assert_signal(action) \
 		.append_failure_message("Action should be triggered but is not.") \
 		.is_emitted("triggered")
 	
+@warning_ignore("shadowed_variable")
 func assert_not_triggered(action:GUIDEAction):
 	await assert_signal(action) \
 		.append_failure_message("Action should not be triggered but is.") \
@@ -286,6 +346,7 @@ func assert_not_triggered(action:GUIDEAction):
 
 
 #------------------ Other stuff -------------------------------------------
+@warning_ignore("shadowed_variable")
 func log_signals(action:GUIDEAction):
 	action.triggered.connect(print_f.bind("action triggered: '%s'" % action.name))
 	action.cancelled.connect(print_f.bind("action cancelled: '%s'" % action.name))
