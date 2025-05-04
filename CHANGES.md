@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.1] - 2025-05-04
+### Fixed
+- The plugin version inside Godot is now properly updated.
+- The plugin now ships with UID files for Godot 4.4. These files have no effect on earlier Godot versions ([#60](https://github.com/godotneers/G.U.I.D.E/issues/60)).
+
 ## [0.6.0] - 2025-05-02
 ### Breaking Changes
 - The input collection system has received a major overhaul. G.U.I.D.E now uses a centralized input state from which all built-in `GUIDEInput` get updates. This makes the whole input collection a lot more efficient. Before each input event would be sent to each currently active `GUIDEInput`. Now the input is sent to a single collector which notifies each `GUIDEInput` about events that they have subscribed to. This significantly reduces the amount of work that needs to be done for each processed input. In addition to that, it allows for efficient querying of the current input state, so inputs like `GUIDEInputKey` can now work with a lot less calls into the engine. Another benefit is that input state is kept in a central place even when `GUIDEInput`s are deactivated. This allows a smooth change of mapping contexts without losing the current input state. Finally, this is some groundwork required for virtual joysticks which will be added in a future version.
