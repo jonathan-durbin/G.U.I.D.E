@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.2] - 2025-05-05
+### Improved
+- The `GUIDEInputDetector` now consumes all input events while it is detecting input. This avoids the problem of input accidentally triggering something else while the input is being detected.
+
+### Fixed
+- The input detector no longer shows errors when the detection is started again from outside code while it is already running.
+
+
 ## [0.6.1] - 2025-05-04
 ### Fixed
 - The plugin version inside Godot is now properly updated.

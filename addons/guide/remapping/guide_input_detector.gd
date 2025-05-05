@@ -27,6 +27,8 @@ enum JoyIndex {
 enum DetectionState {
 	# The detector is currently idle.
 	IDLE = 0,
+	# The detector is currently counting down before starting the detection.
+	COUNTDOWN = 3,
 	# The detector is currently detecting input.
 	DETECTING = 1,
 	# The detector has finished detecting but is waiting for input to be released.
@@ -122,8 +124,14 @@ func detect(value_type:GUIDEAction.GUIDEActionValueType,
 		push_error("Device types must not be null. Supply an empty array if you want to detect input from all devices.")
 		return
 	
-	# If we are already detecting, abort this and start a new detection.
-	_status = DetectionState.IDLE		
+
+	# If we are already detecting, abort this.
+	if _status == DetectionState.DETECTING or _status == DetectionState.WAITING_FOR_INPUT_CLEAR:
+		for input in abort_detection_on:
+			input._end_usage()
+	
+	# and start a new detection.
+	_status = DetectionState.COUNTDOWN
 	
 	_value_type = value_type
 	_device_types = device_types
@@ -208,6 +216,9 @@ func _input(event:InputEvent) -> void:
 		
 	# feed the event into the state
 	_input_state._input(event)
+
+	# while detecting, we're the only ones consuming input
+	get_viewport().set_input_as_handled()
 	
 	if _status == DetectionState.DETECTING:
 		# check if any abort input will trigger
