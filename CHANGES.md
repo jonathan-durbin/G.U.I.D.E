@@ -4,9 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+### Fixed
+- When detecting input for re-binding the `GUIDEInputDetector` will ensure that G.U.I.D.E's input state still receives events. This avoids issues where the player re-binds a key and this key will not work correctly afterward, because G.U.I.D.E's input state was not updated and now has diverged from the actual input state.
+
 ## [0.6.2] - 2025-05-05
 ### Improved
-- The `GUIDEInputDetector` now consumes all input events while it is detecting input. This avoids the problem of input accidentally triggering something else while the input is being detected.
+- The `GUIDEInputDetector` now consumes all input events while it is detecting input. This avoids the problem of input accidentally triggering something else (e.g. the Godot UI) while the input is being detected.
 
 ### Fixed
 - The input detector no longer shows errors when the detection is started again from outside code while it is already running.
