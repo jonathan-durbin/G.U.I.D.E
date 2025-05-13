@@ -223,7 +223,8 @@ func _input(event:InputEvent) -> void:
 	# but we still feed it into GUIDE's global state so this state stays 
 	# up to date. This should have no effect because we disabled all mapping
 	# contexts.
-	GUIDE.inject_input(event)	
+	if not Engine.is_editor_hint():
+		GUIDE.inject_input(event)	
 
 	if _status == DetectionState.DETECTING:
 		# check if any abort input will trigger
