@@ -4,12 +4,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [0.6.3] - 2025-05-20
+### Added
+- Added a new example showing how to use controller or keyboard & mouse for a top-down shooter ([#64](https://github.com/godotneers/G.U.I.D.E/issues/64)).
+
 ### Improved
-- Added a new example showing how to use controller or keyboard & mouse for a top-down shooter.
+- The mapping editor now shows the action value type next to the action name. This helps debugging unexpected behaviour when using an unsuitable action value type for an action. A big thanks goes to [Jose Ramon Rodriguez](https://github.com/jramonrod) for submitting a PR for this ([#59](https://github.com/godotneers/G.U.I.D.E/issues/59), [#63](https://github.com/godotneers/G.U.I.D.E/pull/63))!
+
 
 ### Fixed
 - When detecting input for re-binding the `GUIDEInputDetector` will ensure that G.U.I.D.E's input state still receives events. This avoids issues where the player re-binds a key and this key will not work correctly afterward, because G.U.I.D.E's input state was not updated and now has diverged from the actual input state.
+- G.U.I.D.E will now ignore input mappings with a missing action. A missing action will be shown as warning in the mapping context editor and at runtime ([#66](https://github.com/godotneers/G.U.I.D.E/issues/66)).
+- The icons for the mouse side buttons now properly reflect the physical position of these buttons. If you still get the wrong icons, please delete the `_guide_cache` folder in your user data folder. This will recreate the icons. You can open your user data folder by going to _Project_ > _Open User Data Folder_ in the Godot editor ([#65](https://github.com/godotneers/G.U.I.D.E/issues/65)).
 
 ## [0.6.2] - 2025-05-05
 ### Improved
