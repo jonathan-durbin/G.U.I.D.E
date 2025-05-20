@@ -28,8 +28,8 @@ func _refresh():
 	if not is_instance_valid(action):
 		_line_edit.text = "<none>"
 		_line_edit.tooltip_text = ""
-		_type_icon.texture = null
-		_type_icon.tooltip_text = ""
+		_type_icon.texture = preload("missing_action.svg")
+		_type_icon.tooltip_text = "Missing action"
 	else:
 		_line_edit.text = action._editor_name()	
 		_line_edit.tooltip_text = action.resource_path
