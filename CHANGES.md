@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## Unreleased
+### Added
+- Added support for the PS5 touchpad to the icon renderer and text provider, so this will now properly display in input prompts ([#74](https://github.com/godotneers/G.U.I.D.E/issues/7)).
 
 ## [0.6.3] - 2025-05-20
 ### Added
@@ -14,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - When detecting input for re-binding the `GUIDEInputDetector` will ensure that G.U.I.D.E's input state still receives events. This avoids issues where the player re-binds a key and this key will not work correctly afterward, because G.U.I.D.E's input state was not updated and now has diverged from the actual input state.
-- G.U.I.D.E will now ignore input mappings with a missing action. A missing action will be shown as warning in the mapping context editor and at runtime ([#66](https://github.com/godotneers/G.U.I.D.E/issues/66)).
+- G.U.I.D.E will now ignore input mappings with a missing action. A missing action will be shown as a warning in the mapping context editor and at runtime ([#66](https://github.com/godotneers/G.U.I.D.E/issues/66)).
 - The icons for the mouse side buttons now properly reflect the physical position of these buttons. If you still get the wrong icons, please delete the `_guide_cache` folder in your user data folder. This will recreate the icons. You can open your user data folder by going to _Project_ > _Open User Data Folder_ in the Godot editor ([#65](https://github.com/godotneers/G.U.I.D.E/issues/65)).
 
 ## [0.6.2] - 2025-05-05
