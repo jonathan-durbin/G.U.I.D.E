@@ -10,9 +10,13 @@ description: G.U.I.D.E is an extension for the Godot Engine that allows you to e
 
 G.U.I.D.E is an extension for the Godot Engine that allows you to easily use input from multiple sources, such as keyboard, mouse, gamepad and touch in a unified way. Gone are the days, where mouse input was handled differently from joysticks and touch was a totally different beast. No matter where the input comes from - your game code works the same way.
 
-_Note: While the features work pretty well, this plugin hasn't seen a lot of use yet, so be prepared for a few rough edges. Also the documentation still needs expansion. Please report any issues you encounter._
+## Getting started
+
+Check out the [quick start]({{site.baseurl}}/quick-start) page for getting started. If you prefer to learn in video form, there are also some [tutorial videos]({{site.baseurl}}/video-tutorials) available.
 
 ## Features
+
+_Note: While the features work pretty well, this plugin hasn't seen a lot of use yet, so be prepared for a few rough edges. Also the documentation still needs expansion. Please report any issues you encounter._
 
 - Unified input detection and handling from multiple sources (keyboard, mouse, gamepad, touch, etc.). All inputs are used in the same way in your game code.
 - Inputs can be modified before being fed into your game code (e.g. for joystick dead-zones, sensitivity, inversion, conversion to 2D/3D coordinates, etc.). 
