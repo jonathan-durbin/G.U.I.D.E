@@ -185,6 +185,8 @@ func _reset() -> void:
 					_joy_buttons[ANY_JOY_DEVICE_ID].erase(button)
 				joy_button_state_changed.emit()
 				
+		# and clear out the pending buttons for this joy
+		_pending_joy_buttons[joy].clear()		
 
 ## Processes an input event and updates the state. 
 func _input(event: InputEvent) -> void:
