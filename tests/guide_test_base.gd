@@ -344,6 +344,18 @@ func assert_not_triggered(action:GUIDEAction):
 		.append_failure_message("Action should not be triggered but is.") \
 		.is_not_emitted("triggered")
 
+@warning_ignore("shadowed_variable")
+func assert_completed(action:GUIDEAction):
+	await assert_signal(action) \
+		.append_failure_message("Action should be triggered but is not.") \
+		.is_emitted("completed")
+	
+@warning_ignore("shadowed_variable")
+func assert_not_completed(action:GUIDEAction):
+	await assert_signal(action) \
+		.append_failure_message("Action should not be triggered but is.") \
+		.is_not_emitted("completed")
+
 
 #------------------ Other stuff -------------------------------------------
 @warning_ignore("shadowed_variable")
