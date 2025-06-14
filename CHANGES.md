@@ -3,9 +3,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-## Unreleased
+## [0.6.4] - 2025-06-14
 ### Added
 - Added support for the PS5 touchpad to the icon renderer and text provider, so this will now properly display in input prompts ([#74](https://github.com/godotneers/G.U.I.D.E/issues/74)).
+
+### Fixed
+- When pressing keys or buttons so rapidly that both the press and release happen to occur in the same frame, G.U.I.D.E would ignore the press event. This has now been fixed. So if a key or button changes state multiple times in a frame, the result of the first state change is used for evaluation this frame. At the end of the frame, the last state, which was recorded in the frame, is restored. This will technically still drop events (e.g. if a button state changes five times in a frame, only the first and last state change will influence triggers) however for all practical purposes this should be good enough. ([#77](https://github.com/godotneers/G.U.I.D.E/issues/77)).
 
 ## [0.6.3] - 2025-05-20
 ### Added
