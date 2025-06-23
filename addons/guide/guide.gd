@@ -313,7 +313,8 @@ func _update_caches():
 		input._reset()
 		input._end_usage()
 		input._state = null
-	
+		_mark_used(input, false)
+		
 	# and now the consolidated inputs are the new active inputs.
 	_active_inputs = consolidated_inputs
 	
@@ -336,6 +337,7 @@ func _update_caches():
 				# is still in use by any other action mapping.
 				if not new_modifiers.has(modifier):
 					modifier._end_usage()
+					_mark_used(modifier, false)
 	
 	# and now we can assign the new action mappings
 	_active_action_mappings = final_action_mappings
@@ -409,22 +411,26 @@ func _update_caches():
 			_reset_node._inputs_to_reset.append(input)
 
 		# since we reuse some inputs, we need to make sure that we don't
-		# call _begin_usage() multiple times on the same input. We use the
-		# presence of the _state to determine whether the input is already
-		# in use or not.
-		if input._state != null:
+		# call _begin_usage() multiple times on the same input.
+		if _is_used(input):
 			# this input is already in use, so we can skip it
 			continue
 		# Give the state to the input
 		input._state = _input_state		
 		# Notify inputs that GUIDE is about to use them
 		input._begin_usage()
+		_mark_used(input, true)
 	
 	for mapping in _active_action_mappings:
 		for input_mapping in mapping.input_mappings:
 			# notify modifiers they will be used.
+			# unless they are already in use, in which case we skip them
 			for modifier in input_mapping.modifiers:
+				if _is_used(modifier):
+					# this modifier is already in use, so we can skip it
+					continue
 				modifier._begin_usage()
+				_mark_used(modifier, true)
 		
 			# and copy over the hold time threshold from the mapping
 			mapping.action._trigger_hold_threshold = input_mapping._trigger_hold_threshold
@@ -499,3 +505,13 @@ static func _is_same_action_mapping(a:GUIDEActionMapping, b:GUIDEActionMapping) 
 				return false
 		
 	return true
+
+static func _mark_used(object: Object, value:bool) -> void:
+	if value:
+		object.set_meta("__guide_in_use", value)
+	else:
+		object.remove_meta("__guide_in_use")
+
+static func _is_used(object: Object) -> bool:
+	return object.has_meta("__guide_in_use")
+	
