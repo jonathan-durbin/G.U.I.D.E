@@ -19,7 +19,7 @@ var _active_action_mappings:Array[GUIDEActionMapping] = []
 var _active_remapping_config:GUIDERemappingConfig
 
 ## All currently active inputs as collected from the active input mappings
-var _active_inputs:Array[GUIDEInput] = []
+var _active_inputs:GUIDESet = GUIDESet.new()
 
 ## A dictionary of actions sharing input. Key is the action, value
 ## is an array of lower-priority actions that share input with the 
@@ -180,41 +180,21 @@ func _process(delta:float) -> void:
 						action._triggered(consolidated_value, delta)
 						
 func _update_caches():
-	# Notify existing inputs that they aren no longer required
-	for input:GUIDEInput in _active_inputs:
-		input._reset()
-		input._end_usage()
-		
-	# Cancel all actions, so they don't remain in weird states.
-	for mapping:GUIDEActionMapping in _active_action_mappings:
-		match mapping.action._last_state:
-			GUIDEAction.GUIDEActionState.ONGOING:
-				mapping.action._cancelled(Vector3.ZERO)
-			GUIDEAction.GUIDEActionState.TRIGGERED:
-				mapping.action._completed(Vector3.ZERO)
-		# notify all modifiers they are no longer in use
-		for input_mapping in mapping.input_mappings:
-			for modifier in input_mapping.modifiers:
-				modifier._end_usage()
-		
-	_active_inputs.clear()
-	_active_action_mappings.clear()
-	_actions_sharing_input.clear()
-	
-	var sorted_contexts:Array[Dictionary] = []
-	
-	for context:GUIDEMappingContext in _active_contexts.keys():
-		sorted_contexts.append({"context": context, "priority": _active_contexts[context]})
-
-	sorted_contexts.sort_custom( func(a,b): return a.priority < b.priority )
+	var sorted_contexts:Array[GUIDEMappingContext] = []
+	sorted_contexts.assign(_active_contexts.keys())
+	sorted_contexts.sort_custom( func(a,b): return _active_contexts[a] < _active_contexts[b] )
 	
 	# The actions we already have processed. Same action may appear in different
 	# contexts, so if we find the same action twice, only the first instance wins.
 	var processed_actions:GUIDESet = GUIDESet.new()
+	# The consolidated inputs that we will use for the action mappings.
 	var consolidated_inputs:GUIDESet = GUIDESet.new()
+	# The new action mappings that we will use from now on.
+	var new_action_mappings:Array[GUIDEActionMapping] = []
+	# The new modifiers that we will use
+	var new_modifiers:GUIDESet = GUIDESet.new()
 
-	for entry:Dictionary in sorted_contexts:
-		var context:GUIDEMappingContext = entry.context
+	for context:GUIDEMappingContext in sorted_contexts:
 		var position:int = 0
 		for action_mapping:GUIDEActionMapping in context.mappings:
 			position += 1
@@ -263,20 +243,28 @@ func _update_caches():
 				# can be null for combo mappings, so check that
 				if bound_input != null:
 					# check if we already have this kind of input
-					var existing = consolidated_inputs.first_match(func(it:GUIDEInput): return it.is_same_as(bound_input))
+					# first try to find it in the currently active inputs, this way we don't need to recreate
+					# inputs that are already active.
+					var existing:GUIDEInput = _active_inputs.first_match(func(it:GUIDEInput): return it.is_same_as(bound_input))
+					if existing == null:
+						# try to find it in the consolidated inputs
+						existing = consolidated_inputs.first_match(func(it:GUIDEInput): return it.is_same_as(bound_input))
+					
 					if existing != null:
-						# if we have this already, use the instance we have
+						# if we already use this input, we can just use the existing one
 						bound_input = existing
-					else:
-						# otherwise register this input into the consolidated input
-						consolidated_inputs.add(bound_input)
+
+					consolidated_inputs.add(bound_input)
 					
 				new_input_mapping.input = bound_input
 				# modifiers cannot be re-bound so we can just use the one
 				# from the original configuration. this is also needed for shared
 				# modifiers to work.
 				new_input_mapping.modifiers = action_mapping.input_mappings[index].modifiers
-				# triggers also cannot be re-bound but we still make a copy 
+				# track the modifiers, so we can later only disable the ones we don't need anymore.
+				new_modifiers.add_all(new_input_mapping.modifiers)
+
+				# triggers also cannot be re-bound but we still make a copy
 				# to ensure that no shared triggers exist.
 				new_input_mapping.triggers = []
 				
@@ -292,15 +280,68 @@ func _update_caches():
 			# if any binding remains, add the mapping to the list of active
 			# action mappings
 			if not effective_mapping.input_mappings.is_empty():
-				_active_action_mappings.append(effective_mapping)
+				new_action_mappings.append(effective_mapping)
 
-	# INVARIANT: all _active_action_mappings now have actions.
+	# now we consolidate the action mappings and try to keep ones alive that are
+	# the same as the ones we already have. We do this to avoid losing state in the
+	# triggers and modifiers when switching contexts. See https://github.com/godotneers/G.U.I.D.E/issues/67
+	# for details.
+	var final_action_mappings:Array[GUIDEActionMapping] = []
+	
+	for new_mapping:GUIDEActionMapping in new_action_mappings:
+		var found:bool = false
+		for existing_mapping:GUIDEActionMapping in _active_action_mappings:
+			if _is_same_action_mapping(existing_mapping, new_mapping):
+				# we found a mapping that is the same as the new one, so we can just use it
+				final_action_mappings.append(existing_mapping)
+				found = true
+				break
+				
+		if not found:
+			# if we didn't find a mapping that is the same, we need to add the new one
+			final_action_mappings.append(new_mapping)
 
-	# now we have a new set of active inputs		
-	for input:GUIDEInput in consolidated_inputs.values():
-		_active_inputs.append(input)
+	# now we can clean up stuff, that we don't need anymore.
+	for input:GUIDEInput in _active_inputs.values():
+		# because we consolidated inputs, we can do an instance check rather than
+		# a is_same_as check.
+		if consolidated_inputs.has(input):
+			continue
+
+		# this input is no longer used, so we can reset it
+		# and notify it that it is no longer used.
+		input._reset()
+		input._end_usage()
+		input._state = null
+	
+	# and now the consolidated inputs are the new active inputs.
+	_active_inputs = consolidated_inputs
+	
+	# Cancel all actions that are going away, so they don't end up in a weird state.
+	for mapping:GUIDEActionMapping in _active_action_mappings:
+		if final_action_mappings.has(mapping):
+			# this mapping is still active, so we can skip it
+			continue
+			
+		match mapping.action._last_state:
+			GUIDEAction.GUIDEActionState.ONGOING:
+				mapping.action._cancelled(Vector3.ZERO)
+			GUIDEAction.GUIDEActionState.TRIGGERED:
+				mapping.action._completed(Vector3.ZERO)
 		
+		# notify all modifiers they are no longer in use
+		for input_mapping in mapping.input_mappings:
+			for modifier in input_mapping.modifiers:
+				# because modifiers can be shared, we need to check if the modifier
+				# is still in use by any other action mapping.
+				if not new_modifiers.has(modifier):
+					modifier._end_usage()
+	
+	# and now we can assign the new action mappings
+	_active_action_mappings = final_action_mappings
+	
 	# prepare the action input share lookup table
+	_actions_sharing_input.clear()
 	for i:int in _active_action_mappings.size():
 		
 		var mapping = _active_action_mappings[i]
@@ -362,11 +403,18 @@ func _update_caches():
 				_actions_sharing_input[mapping.action] = blocked_actions.values()
 				
 	_reset_node._inputs_to_reset.clear()
-	for input:GUIDEInput in _active_inputs:
+	for input:GUIDEInput in _active_inputs.values():
 		# finally collect which inputs we need to reset per frame
 		if input._needs_reset():
 			_reset_node._inputs_to_reset.append(input)
 
+		# since we reuse some inputs, we need to make sure that we don't
+		# call _begin_usage() multiple times on the same input. We use the
+		# presence of the _state to determine whether the input is already
+		# in use or not.
+		if input._state != null:
+			# this input is already in use, so we can skip it
+			continue
 		# Give the state to the input
 		input._state = _input_state		
 		# Notify inputs that GUIDE is about to use them
@@ -384,4 +432,70 @@ func _update_caches():
 	# and notify interested parties that the input mappings have changed
 	input_mappings_changed.emit()
 
+## Helper function which determines whether two action mappings are the same.
+## They are the same if they have the same action, the same input mappings
+## the same modifiers and the same triggers. Same doesn't necessarily mean
+## they are the same instance, but rather that they are equivalent in terms of
+## their configuration.
+static func _is_same_action_mapping(a:GUIDEActionMapping, b:GUIDEActionMapping) -> bool:
+	# If its the same instance, we can just return true.
+	if a == b:
+		return true
+		
+	# If they don't have the same action, they cannot be the same.
+	if a.action != b.action:
+		return false
+	
+	# If they don't have the same number of input mappings, they cannot be the same.
+	if a.input_mappings.size() != b.input_mappings.size():
+		return false
 
+	# Now check all input mappings.
+	for i:int in range(a.input_mappings.size()):
+		var input_mapping_a:GUIDEInputMapping = a.input_mappings[i]
+		var input_mapping_b:GUIDEInputMapping = b.input_mappings[i]
+		
+		var input_a:GUIDEInput = input_mapping_a.input
+		var input_b:GUIDEInput = input_mapping_b.input
+		
+		if input_a != null and input_b != null:
+			# If the inputs are not the same, they cannot be the same.
+			if not input_mapping_a.input.is_same_as(input_mapping_b.input):
+				return false
+		elif input_a != input_b:
+			# If one input is null and the other is not, they cannot be the same.
+			return false
+		
+		# If the modifiers are not the same, they cannot be the same.
+		if input_mapping_a.modifiers.size() != input_mapping_b.modifiers.size():
+			return false
+		
+		for j:int in range(input_mapping_a.modifiers.size()):
+			var modifier_a:GUIDEModifier = input_mapping_a.modifiers[j]
+			var modifier_b:GUIDEModifier = input_mapping_b.modifiers[j]
+			
+			if modifier_a != null and modifier_b != null:
+				# If the modifiers are not the same, they cannot be the same.
+				if not modifier_a.is_same_as(modifier_b):
+					return false
+			elif modifier_a != modifier_b:
+				# If one modifier is null and the other is not, they cannot be the same.
+				return false
+		
+		# If the triggers are not the same, they cannot be the same.
+		if input_mapping_a.triggers.size() != input_mapping_b.triggers.size():
+			return false
+		
+		for j:int in range(input_mapping_a.triggers.size()):
+			var trigger_a:GUIDETrigger = input_mapping_a.triggers[j]
+			var trigger_b:GUIDETrigger = input_mapping_b.triggers[j]
+			
+			if trigger_a != null and trigger_b != null:
+				# If the triggers are not the same, they cannot be the same.
+				if not trigger_a.is_same_as(trigger_b):
+					return false
+			elif trigger_a != trigger_b:
+				# If one trigger is null and the other is not, they cannot be the same.
+				return false
+		
+	return true

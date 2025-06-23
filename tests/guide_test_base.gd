@@ -165,6 +165,10 @@ func modifier_map_range(imin:float, imax:float, omin:float, omax:float, x:bool =
 func trigger_down() -> GUIDETriggerDown:
 	return GUIDETriggerDown.new()
 	
+	
+func trigger_pressed() -> GUIDETriggerPressed:
+	return GUIDETriggerPressed.new()
+	
 		
 @warning_ignore("shadowed_variable")
 func map(context:GUIDEMappingContext, action:GUIDEAction, input:GUIDEInput, \
