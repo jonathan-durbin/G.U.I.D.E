@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://addons/guide/guide_input_mapping.gd" id="5_1myws"]
 [ext_resource type="Script" path="res://addons/guide/guide_action_mapping.gd" id="6_h3mfx"]
 [ext_resource type="Resource" uid="uid://crjkk2edn8g8k" path="res://guide_examples/input_contexts/mapping_contexts/player_actions/use.tres" id="7_dx1om"]
-[ext_resource type="Script" path="res://addons/guide/triggers/guide_trigger_released.gd" id="8_hlvtj"]
+[ext_resource type="Script" path="res://addons/guide/triggers/guide_trigger_pressed.gd" id="8_lmv6n"]
 
 [sub_resource type="Resource" id="Resource_5yf1p"]
 script = ExtResource("2_xomf3")
@@ -120,8 +120,8 @@ alt = false
 meta = false
 allow_additional_modifiers = false
 
-[sub_resource type="Resource" id="Resource_ocal3"]
-script = ExtResource("8_hlvtj")
+[sub_resource type="Resource" id="Resource_jcwnv"]
+script = ExtResource("8_lmv6n")
 actuation_threshold = 0.5
 
 [sub_resource type="Resource" id="Resource_o528y"]
@@ -132,7 +132,7 @@ display_name = ""
 display_category = ""
 input = SubResource("Resource_t3oa4")
 modifiers = Array[Resource("res://addons/guide/modifiers/guide_modifier.gd")]([])
-triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_ocal3")])
+triggers = Array[Resource("res://addons/guide/triggers/guide_trigger.gd")]([SubResource("Resource_jcwnv")])
 
 [sub_resource type="Resource" id="Resource_0a33p"]
 script = ExtResource("6_h3mfx")
