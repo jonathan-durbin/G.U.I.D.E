@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [0.7.0] - 2025-07-01
+### Breaking Changes
+- G.U.I.D.E will now preserve state of triggers when switching mapping contexts. In addition, triggers that become active as a result of a context being activated, will be initialized with the current input. This will avoid issue with triggers stopping to trigger or triggering too often when switching mapping contexts. This fixes some issues introduced with 0.6.0. Since this changes the behaviour of triggers, I declare this a breaking change. Please check your triggers after updating to ensure they still work as expected ([#81](https://github.com/godotneers/G.U.I.D.E/issues/81)).
+
 ## [0.6.4] - 2025-06-14
 ### Added
 - Added support for the PS5 touchpad to the icon renderer and text provider, so this will now properly display in input prompts ([#74](https://github.com/godotneers/G.U.I.D.E/issues/74)).
