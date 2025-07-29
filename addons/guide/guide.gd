@@ -234,6 +234,7 @@ func _update_caches():
 					# we found an existing mapping, so we can just use it
 					# and we can skip the rest of the processing for this mapping.
 					new_action_mappings.append(existing_mapping)
+					found_existing = true
 					break
 					
 			if found_existing:
