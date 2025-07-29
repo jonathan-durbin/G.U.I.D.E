@@ -40,6 +40,16 @@ Because an action is a resource, we can also get access to it by using Godot's `
 var action:GUIDEAction = load("res://path/to/my_action.tres")
 ```
 
+> Note: If you use `preload` to load an action, make sure you use `var` instead of  `const` for declaring the variable to store the action.
+> ```gdscript
+> # This will not work
+> const action:GUIDEAction = preload("res://path/to/my_action.tres") 
+> # This will work
+> var action:GUIDEAction = preload("res://path/to/my_action.tres") 
+> ```
+> This is a [bug](https://github.com/godotengine/godot/issues/101628) in Godot and there is currently no workaround for this.
+
+
 We can now poll the action's state in `_process` or `_physics_process`:
 
 ```gdscript
