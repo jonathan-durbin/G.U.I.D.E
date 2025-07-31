@@ -6,7 +6,9 @@ var start_frame:int = 0
 
 func after_test():
 	# Clear all mapping contexts after each test
-	for context in GUIDE._active_contexts:
+	# since this will modify the dictionary in GUIDE, we make a copy
+	var contexts:Array = GUIDE._active_contexts.keys()
+	for context in contexts:
 		GUIDE.disable_mapping_context(context)
 
 func before_test():

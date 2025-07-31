@@ -63,3 +63,8 @@ func assign_to(values: Array) -> void:
 ## Returns an array of all values in the set.
 func values() -> Array:
 	return _values.keys()
+
+	
+## Returns the number of items in the set.
+func size() -> int:
+	return _values.size()

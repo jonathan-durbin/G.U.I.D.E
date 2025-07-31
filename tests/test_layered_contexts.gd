@@ -27,3 +27,48 @@ func test_mapping_works():
 	
 	assert_int(GUIDE._active_action_mappings.size()).is_equal(2)
 
+
+## https://github.com/godotneers/G.U.I.D.E/issues/94
+## When layering contexts, the inputs are properly mapped.
+func test_mapping_inputs_works():
+	GUIDE.enable_mapping_context(_context1)
+	
+	# when i press the A key
+	tap_key(KEY_A)
+	
+	# then action1 is triggered
+	await assert_triggered(_action1)
+	
+	# when i add the second context
+	GUIDE.enable_mapping_context(_context2)
+	
+	# i should be able to press both keys now and they should trigger their actions
+	tap_key(KEY_A)
+	await assert_triggered(_action1)
+	tap_key(KEY_B)
+	await assert_triggered(_action2)
+
+
+## When layering contexts, disabling one context should not affect the other.
+func test_disable_one_context():
+	# enable both contexts
+	GUIDE.enable_mapping_context(_context1)
+	GUIDE.enable_mapping_context(_context2)
+	
+	# verify both inputs work
+	tap_key(KEY_A)
+	await assert_triggered(_action1)
+	tap_key(KEY_B)
+	await assert_triggered(_action2)
+	
+	# disable the second context
+	GUIDE.disable_mapping_context(_context2)
+	
+	# the first context should still work
+	tap_key(KEY_A)
+	await assert_triggered(_action1)
+	
+	# but the second context should not
+	tap_key(KEY_B)
+	await assert_not_triggered(_action2)
+	

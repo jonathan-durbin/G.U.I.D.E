@@ -35,7 +35,6 @@ var _reset_node:GUIDEReset
 ## and serves as a basis for the GUIDEInputs.
 var _input_state:GUIDEInputState
 
-
 func _ready():
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	_reset_node = GUIDEReset.new()
@@ -199,6 +198,27 @@ func _update_caches():
 	var new_action_mappings:Array[GUIDEActionMapping] = []
 	# The new modifiers that we will use
 	var new_modifiers:GUIDESet = GUIDESet.new()
+
+	# Step 0: walk over the new contexts and save over all inputs and modifiers that we
+	# are going to keep. This is needed to ensure that we don't reset inputs and that if
+	# new mappings don't create copies of existing inputs if they have a higher priority
+	# than the existing ones (see https://github.com/godotneers/G.U.I.D.E/issues/94).
+	for context:GUIDEMappingContext in sorted_contexts:
+		for action_mapping:GUIDEActionMapping in context.mappings:
+			for existing_mapping:GUIDEActionMapping in _active_action_mappings:
+				if _is_same_action_mapping(existing_mapping, action_mapping):
+					# we will keep using this mapping, so we will make sure its inputs and modifiers
+					# are kept and not duplicated. We don't add the action mapping to the new action mappings
+					# yet, because the order of the action mappings is important and we will
+					# add it later when we process the action mappings.
+					
+					for input_mapping:GUIDEInputMapping in existing_mapping.input_mappings:
+						if input_mapping.input != null:
+							new_inputs.add(input_mapping.input)
+						
+						for modifier:GUIDEModifier in input_mapping.modifiers:
+							new_modifiers.add(modifier)
+
 
 	# Step 1: Collect all action mappings from the currently enabled contexts.
 	for context:GUIDEMappingContext in sorted_contexts:
