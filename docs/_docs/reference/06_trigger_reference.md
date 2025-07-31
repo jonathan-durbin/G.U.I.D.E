@@ -9,7 +9,17 @@ description: "A reference for all built-in triggers."
 G.U.I.D.E ships with a selection of triggers for many use cases. This is a list of all built-in triggers and their configuration settings.
 
 ## Chorded Action
-This trigger is intended to be used in combination with other triggers. It works differently from other triggers as it will only allow the action to be triggered, if the chorded action is currently triggering. This is most often used to bind the same input to multiple different actions. For example the D-pad on a controller can do different things depending on whether the left trigger is held or not. In this case the chorded action would be holding the left trigger down. If multiple chorded action triggers exist, all of them must be triggering for the action to trigger. The chorded action trigger has the following settings:
+This trigger is intended to be used in combination with other triggers. It works differently from other triggers as it will only allow the action to be triggered, if the chorded action is currently triggering. This is most often used to bind the same input to multiple different actions. For example the D-pad on a controller can do different things depending on whether the left trigger is held or not. Pressing down on the D-pad could consume a potion while holding the left trigger down and pressing down on the D-pad will open the inventory. 
+
+In this case, the chorded action will be the pressing of the left trigger. To set this up, you will need to create three action mappings like this.
+
+![Chorded Action Example]({{site.baseurl}}/assets/img/manual/chorded_action_example.png)
+
+1. The chorded action itself. In this example, we have created an action named `dpad_switch` and this is bound to the left trigger switch of the controller. This action has no trigger set by default, so it will use a _Down_ trigger.
+2. The action to drink the potion. This is bound to the D-pad down and it uses a _Pressed_ trigger.
+3. The action to open the inventory. This is bound to the D-pad down as well, but it uses a _Chorded Action_ trigger that references the `dpad_switch` action (`#4`). Note that we still add a _Pressed_ trigger here because we only want to open the inventory when we hold the left trigger switch down and press down on the D-pad. If we didn't add the pressed trigger, the inventory would open if we only hold the left trigger switch down.
+
+If multiple chorded action triggers exist, all of them must be triggering for the action to trigger. The chorded action trigger has the following settings:
 
 | Setting               | Description                                                            |
 |-----------------------|------------------------------------------------------------------------|
