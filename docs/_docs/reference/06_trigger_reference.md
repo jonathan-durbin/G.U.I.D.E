@@ -9,9 +9,7 @@ description: "A reference for all built-in triggers."
 G.U.I.D.E ships with a selection of triggers for many use cases. This is a list of all built-in triggers and their configuration settings.
 
 ## Chorded Action
-This trigger is intended to be used in combination with other triggers. It works differently from other triggers as it will only allow the action to be triggered, if the chorded action is currently triggering. This is most often used to bind the same input to multiple different actions. For example the D-pad on a controller can do different things depending on whether the left trigger is held or not. Pressing down on the D-pad could consume a potion while holding the left trigger down and pressing down on the D-pad will open the inventory. 
-
-In this case, the chorded action will be the pressing of the left trigger. To set this up, you will need to create three action mappings like this.
+This trigger is intended to be used in combination with other triggers. It works differently from other triggers as it will only allow the action to be triggered, if the chorded action is currently triggering. This is most often used to bind the same input to multiple different actions. For example the D-pad on a controller can do different things depending on whether the left trigger is held or not. Pressing down on the D-pad could consume a potion while holding the left trigger down and pressing down on the D-pad will open the inventory. To set this up, we will need to create three action mappings like this.
 
 ![Chorded Action Example]({{site.baseurl}}/assets/img/manual/chorded_trigger_example.png)
 
