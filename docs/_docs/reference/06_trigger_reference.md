@@ -13,7 +13,7 @@ This trigger is intended to be used in combination with other triggers. It works
 
 In this case, the chorded action will be the pressing of the left trigger. To set this up, you will need to create three action mappings like this.
 
-![Chorded Action Example]({{site.baseurl}}/assets/img/manual/chorded_action_example.png)
+![Chorded Action Example]({{site.baseurl}}/assets/img/manual/chorded_trigger_example.png)
 
 1. The chorded action itself. In this example, we have created an action named `dpad_switch` and this is bound to the left trigger switch of the controller. This action has no trigger set by default, so it will use a _Down_ trigger.
 2. The action to drink the potion. This is bound to the D-pad down and it uses a _Pressed_ trigger.
