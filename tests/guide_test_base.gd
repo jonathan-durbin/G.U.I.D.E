@@ -10,6 +10,8 @@ func after_test():
 	var contexts:Array = GUIDE._active_contexts.keys()
 	for context in contexts:
 		GUIDE.disable_mapping_context(context)
+		
+	GUIDEInputFormatter.cleanup()
 
 func before_test():
 	start_frame = Engine.get_process_frames()
@@ -86,6 +88,8 @@ func input_mouse_axis_1d(axis:GUIDEInputMouseAxis1D.GUIDEInputMouseAxis) -> GUID
 func input_mouse_axis_2d() -> GUIDEInputMouseAxis2D:
 	return GUIDEInputMouseAxis2D.new()
 
+func input_mouse_position() -> GUIDEInputMousePosition:
+	return GUIDEInputMousePosition.new()
 	
 func input_joy_button(button:JoyButton) -> GUIDEInputJoyButton:
 	var result := GUIDEInputJoyButton.new()
@@ -103,19 +107,21 @@ func input_joy_axis_2d(x:JoyAxis, y:JoyAxis) -> GUIDEInputJoyAxis2D:
 	result.y = y
 	return result
 	
-func input_touch_axis_1d(axis:GUIDEInputTouchAxis1D.GUIDEInputTouchAxis) -> GUIDEInputTouchAxis1D:
+func input_touch_axis_1d(axis:GUIDEInputTouchAxis1D.GUIDEInputTouchAxis, finger_index:int = 0) -> GUIDEInputTouchAxis1D:
 	var result := GUIDEInputTouchAxis1D.new()
 	result.axis = axis
+	result.finger_index = finger_index
 	return result
 	
-func input_touch_axis_2d() -> GUIDEInputTouchAxis2D:
-	return GUIDEInputTouchAxis2D.new()
-	
+func input_touch_axis_2d(finger_index:int = 0) -> GUIDEInputTouchAxis2D:
+	var result := GUIDEInputTouchAxis2D.new()
+	result.finger_index = finger_index
+	return result
 
-func input_touch_position(index:int = 0, finger_count:int = 1)-> GUIDEInputTouchPosition:
+func input_touch_position(finger_index:int = 0, finger_count:int = 1)-> GUIDEInputTouchPosition:
 	var result := GUIDEInputTouchPosition.new()
 	result.finger_count = finger_count
-	result.finger_index = index
+	result.finger_index = finger_index
 	return result
 	
 func input_touch_distance()-> GUIDEInputTouchDistance:

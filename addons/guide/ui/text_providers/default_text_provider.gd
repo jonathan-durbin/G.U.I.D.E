@@ -17,23 +17,6 @@ func _format(input:String) -> String:
 func get_text(input:GUIDEInput) -> String:
 	if input is GUIDEInputKey:
 		var result:PackedStringArray = []
-		if input.control:
-			var ctrl = GUIDEInputKey.new()
-			ctrl.key = KEY_CTRL
-			result.append(get_text(ctrl))
-		if input.alt:
-			var alt = GUIDEInputKey.new()
-			alt.key = KEY_ALT
-			result.append(get_text(alt))
-		if input.shift:
-			var shift = GUIDEInputKey.new()
-			shift.key = KEY_SHIFT
-			result.append(get_text(shift))
-		if input.meta:
-			var meta = GUIDEInputKey.new()
-			meta.key = KEY_META
-			result.append(get_text(meta))
-		
 		var the_key = input.key
 		
 		# if we are on desktop, translate the physical keycode into the actual label
