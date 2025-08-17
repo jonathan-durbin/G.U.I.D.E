@@ -231,16 +231,25 @@ func _disable_controls():
 
 ```
 
+The `enable_mapping_context` function also has a second boolean parameter `disable_others` which can be used to disable all currently active mapping contexts when enabling another. This can be useful in a variety of situations, for example when we want to switch to a different input scheme or when we want to disable all input while showing a menu. The default value for `disable_others` is `false`.
+
+```gdscript
+# Enable the mapping context and disable all other mapping contexts
+GUIDE.enable_mapping_context(my_mapping_context, true)
+```
+
 
 ### Mapping context action priority
 
 We can enable multiple mapping contexts at the same time. But what happens, if the same action is configured in multiple mapping contexts and these mapping contexts are all active? GUIDE allows us to specify a priority when activating a mapping context. The default priority is `0`, but we can set it to any integer value:
 
 ```gdscript
-GUIDE.enable_mapping_context(my_mapping_context, -10)
+GUIDE.enable_mapping_context(my_mapping_context, false, -10)
 ```
 
 Lower values have higher priority. When a mapping context is activated, GUIDE will order the action mappings by context priority and will then only consider the action mapping with the highest priority. If mapping contexts have the same priority, the order will be determined by when they were enabled. This means that the first mapping context that was enabled will have the highest priority. If multiple mappings for the same action are found inside of the highest priority mapping context, then the first mapping that was defined in the mapping context will be used. This means that it makes no sense to define multiple mappings for the same action in the same mapping context because only the first one will be used.
+
+Note that you usually will want to set the `disable_others` parameter to `false` when trying to layer mapping contexts on top of each other.
 
 ### Action input priority
 
