@@ -3,6 +3,10 @@
 extends GUIDETestBase
 
 var _formatter: GUIDEInputFormatter
+
+# The meta key label is OS specific (e.g. Windows, Cmd, Meta), 
+# so we cannot hardcode it.
+static var meta_key_label:String = OS.get_keycode_string(KEY_META)
 	
 # we make a high priority default provider so it doesn't matter which device
 # is currently connected, we always get the default strings.	
@@ -27,8 +31,8 @@ func test_key_input_renders_special_keys_with_modifiers(
 		[KEY_A, true, false, false, false, "[Ctrl] + [A]"],
 		[KEY_A, false, true, false, false, "[Alt] + [A]"],
 		[KEY_A, false, false, true, false, "[Shift] + [A]"],
-		[KEY_A, false, false, false, true, "[Meta] + [A]"],
-		[KEY_A, true, true, true, true, "[Ctrl] + [Alt] + [Shift] + [Meta] + [A]"],
+		[KEY_A, false, false, false, true, "[" + meta_key_label + "] + [A]"],
+		[KEY_A, true, true, true, true, "[Ctrl] + [Alt] + [Shift] + [" +  meta_key_label + "] + [A]"],
 		[KEY_ENTER, false, false, false, false, "[Enter]"],
 		[KEY_ENTER, true, false, false, false, "[Ctrl] + [Enter]"],
 		[KEY_SHIFT, false, false, false, false, "[Shift]"],
