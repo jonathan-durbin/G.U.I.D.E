@@ -79,6 +79,10 @@ with the _Negate_ modifier. It has the following settings:
 |---------|------------------------------------|
 | _Order_ | The new order of the input vector. |
 
+## Magnitude
+
+This modifier outputs the magnitude (length) of the current input vector. The result is a 1D value provided on the `x`-axis; the `y` and `z` components are set to `0`. It has no settings.
+
 ## Map Range
 
 This modifier maps the input value through an input and output range and optionally clamps the output. Can be used to
